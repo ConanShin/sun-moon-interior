@@ -14,22 +14,22 @@ const routes: Array<RouteConfig> = [
         component: require('../views/client/Wrapper.vue').default,
         children: [
             {
-                path: '/',
+                path: '',
                 name: 'Home',
                 component: require('../views/client/Home.vue').default
             },
             {
-                path: '/about',
+                path: 'about',
                 name: 'About',
                 component: require('../views/client/About.vue').default
             },
             {
-                path: '/review',
+                path: 'review',
                 name: 'Review',
                 component: require('../views/client/Review.vue').default
             },
             {
-                path: '/residence',
+                path: 'residence',
                 name: 'Residence',
                 component: require('../views/client/Residence.vue').default
             }
