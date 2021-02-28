@@ -1,8 +1,8 @@
 <template>
     <div>
         <nav>
-            <div @click="redirect('Main')" class="logo">sun & moon</div>
-            <div @click="redirect('Main')">home</div>
+            <div @click="redirect('Home')" class="logo">sun & moon</div>
+            <div @click="redirect('Home')">home</div>
             <div @click="redirect('About')">about</div>
             <div @click="redirect('Residence')">residence</div>
             <div @click="redirect('Review')">review</div>
