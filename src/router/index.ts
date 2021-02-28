@@ -11,7 +11,6 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/main',
-        name: 'Main',
         component: require('../views/client/Wrapper.vue').default,
         children: [
             {
@@ -35,6 +34,11 @@ const routes: Array<RouteConfig> = [
                 component: require('../views/client/Residence.vue').default
             }
         ]
+    },
+    {
+        path: '*',
+        name: 'catchAll',
+        component: require('../views/Launcher.vue').default
     }
 ]
 

@@ -7,7 +7,7 @@
             width="1000px" height="700px"
         />
         <div class="logo">sun & moon</div>
-        <div class="button" @click="$router.push('main')">ENTER</div>
+        <div class="button" @click="$router.push({name: 'Home'})">ENTER</div>
     </div>
 </template>
 
