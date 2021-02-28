@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.511e5a9b45adfa13e68751bf22e28ed2.js"
+  "precache-manifest.d4ca0c41a0b3c69e9510958a64191952.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "sun-moon"});
