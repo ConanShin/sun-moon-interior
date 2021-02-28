@@ -1,11 +1,11 @@
 <template>
     <div>
         <nav>
-            <div @click="redirect('/main')" class="logo">sun & moon</div>
-            <div @click="redirect('/main')">home</div>
-            <div @click="redirect('/about')">about</div>
-            <div @click="redirect('/residence')">residence</div>
-            <div @click="redirect('/review')">review</div>
+            <div @click="redirect('Main')" class="logo">sun & moon</div>
+            <div @click="redirect('Main')">home</div>
+            <div @click="redirect('About')">about</div>
+            <div @click="redirect('Residence')">residence</div>
+            <div @click="redirect('Review')">review</div>
         </nav>
         <router-view/>
     </div>
@@ -17,7 +17,7 @@ import {Vue, Component} from 'vue-property-decorator'
 @Component
 export default class Home extends Vue {
     redirect (name) {
-        this.$router.push(name).catch(() => {})
+        this.$router.push({name}).catch(() => {})
     }
 }
 </script>
