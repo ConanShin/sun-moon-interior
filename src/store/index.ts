@@ -3,10 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: `https://sunmooninterior1.cafe24api.com/api/v2`, headers: {
-        'X-Cafe24-Client-Id': 'AmctjfglKyvErd8DWqQfBG',
-        'X-Cafe24-Api-Version': '2020-12-01'
-    }
+    baseURL: `http://13.124.121.110:5004/product`
 })
 Vue.use(Vuex)
 

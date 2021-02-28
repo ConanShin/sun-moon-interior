@@ -10,11 +10,11 @@ const routes: Array<RouteConfig> = [
         component: require('../views/Launcher.vue').default
     },
     {
-        path: '/main',
+        path: '',
         component: require('../views/client/Wrapper.vue').default,
         children: [
             {
-                path: '',
+                path: 'home',
                 name: 'Home',
                 component: require('../views/client/Home.vue').default
             },
