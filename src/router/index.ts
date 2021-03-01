@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
     {
         path: '/',
-        name: 'Launcher',
+        name: 'launcher',
         component: require('../views/Launcher.vue').default
     },
     {
@@ -15,22 +15,22 @@ const routes: Array<RouteConfig> = [
         children: [
             {
                 path: 'home',
-                name: 'Home',
+                name: 'home',
                 component: require('../views/client/Home.vue').default
             },
             {
                 path: 'about',
-                name: 'About',
+                name: 'about',
                 component: require('../views/client/About.vue').default
             },
             {
                 path: 'review',
-                name: 'Review',
+                name: 'review',
                 component: require('../views/client/Review.vue').default
             },
             {
                 path: 'residence',
-                name: 'Residence',
+                name: 'residence',
                 component: require('../views/client/Residence.vue').default
             }
         ]

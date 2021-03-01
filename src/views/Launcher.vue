@@ -7,7 +7,7 @@
             width="1000px" height="700px"
         />
         <div class="logo">sun & moon</div>
-        <div class="button" @click="$router.push({name: 'Home'})">ENTER</div>
+        <div class="button" @click="$router.push({name: 'home'})">ENTER</div>
     </div>
 </template>
 
@@ -16,7 +16,19 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Launcher extends Vue {
+    beforeMount () {
+        const path = this.getParam('path')
+        if (path) this.$router.push({name: path})
+    }
 
+    getParam (name) {
+        let params = location.search.substr(location.search.indexOf("?") + 1)
+        params = params.split("&");
+        for (let i = 0; i < params.length; i++) {
+            let keyValue = params[i].split("=");
+            if ([keyValue[0]] === name) return keyValue[1]
+        }
+    }
 }
 </script>
 

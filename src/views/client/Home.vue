@@ -12,6 +12,10 @@ export default class Home extends Vue {
     beforeMount () {
         this.$store.dispatch('findProducts')
     }
+
+    get products () {
+        return this.$store.getters.products
+    }
 }
 </script>
 

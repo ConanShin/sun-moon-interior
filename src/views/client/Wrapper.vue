@@ -1,11 +1,11 @@
 <template>
     <div>
         <nav>
-            <div @click="redirect('Home')" class="logo">sun & moon</div>
-            <div @click="redirect('Home')">home</div>
-            <div @click="redirect('About')">about</div>
-            <div @click="redirect('Residence')">residence</div>
-            <div @click="redirect('Review')">review</div>
+            <div @click="redirect('home')" class="logo">sun & moon</div>
+            <div @click="redirect('home')">home</div>
+            <div @click="redirect('about')">about</div>
+            <div @click="redirect('residence')">residence</div>
+            <div @click="redirect('review')">review</div>
         </nav>
         <router-view/>
     </div>

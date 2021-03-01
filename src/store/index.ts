@@ -8,13 +8,21 @@ const api = axios.create({
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {},
-    mutations: {},
+    state: {
+        products: []
+    },
+    mutations: {
+        products: ((state, payload) => state.products = payload)
+    },
     actions: {
-        findProducts: injectee => {
-            const response = api.get(`/product`)
-            console.log(response)
+        findProducts: async injectee => {
+            const response = await api.get(`/product`)
+            console.log(response.data)
+            injectee.commit('products', response.data)
         }
+    },
+    getters: {
+        products: state => state.products
     },
     modules: {}
 })
