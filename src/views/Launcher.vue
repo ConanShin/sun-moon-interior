@@ -18,6 +18,7 @@ import {Vue, Component} from 'vue-property-decorator'
 export default class Launcher extends Vue {
     beforeMount () {
         const path = this.getParam('path')
+        console.log('path', path)
         if (path) this.$router.push({name: path})
     }
 
@@ -26,7 +27,7 @@ export default class Launcher extends Vue {
         params = params.split("&");
         for (let i = 0; i < params.length; i++) {
             let keyValue = params[i].split("=");
-            if ([keyValue[0]] === name) return keyValue[1]
+            if (keyValue[0] === name) return keyValue[1]
         }
     }
 }
