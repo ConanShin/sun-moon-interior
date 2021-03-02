@@ -11,11 +11,11 @@ import {Vue, Component} from 'vue-property-decorator'
 @Component
 export default class Launcher extends Vue {
     imageIndex = 0
-    async beforeMount () {
+    beforeMount () {
         const path = this.getParam('path')
-        if (path) return this.$router.push({name: path})
+        if (path) this.$router.push({name: path})
 
-        await this.$store.dispatch('findProducts')
+        this.$store.dispatch('findProducts')
     }
 
     mounted () {
