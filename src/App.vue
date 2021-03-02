@@ -18,4 +18,8 @@ body {
     margin: 0;
     color: $theme;
 }
+
+html, body {
+    overflow: hidden;
+}
 </style>
