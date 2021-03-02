@@ -47,7 +47,7 @@ nav {
 
 .view {
     width: 80%;
-    height: 88vh;
+    height: 80vh;
     margin: auto;
 }
 </style>
