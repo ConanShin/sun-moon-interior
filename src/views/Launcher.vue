@@ -53,6 +53,7 @@ $theme: #6b6a6a;
     background-size: 100% 1500px;
     @include mobile {
         background-size: 1000px 100%;
+        overflow: hidden;
     }
 }
 
