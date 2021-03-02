@@ -1,11 +1,5 @@
 <template>
-    <div class="background">
-        {{'<화질 좋은 사진 필요>'}}
-        <image-loader
-            class="image-loader"
-            src="http://sun-mooninterior.com/web/upload/NNEditor/20210224/%EC%A3%BC%EB%B0%A94_shop1_163321.jpg"
-            width="1000px" height="700px"
-        />
+    <div class="background" :style="{backgroundImage: 'url(\'' + productImages[imageIndex % productImages.length] + '\')'}">
         <div class="logo">sun & moon</div>
         <div class="button" @click="$router.push({name: 'home'})">ENTER</div>
     </div>
@@ -16,10 +10,20 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Launcher extends Vue {
-    beforeMount () {
+    imageIndex = 0
+    async beforeMount () {
         const path = this.getParam('path')
-        console.log('path', path)
-        if (path) this.$router.push({name: path})
+        if (path) return this.$router.push({name: path})
+
+        await this.$store.dispatch('findProducts')
+    }
+
+    mounted () {
+        setInterval(() => this.imageIndex++, 3000)
+    }
+
+    get productImages() {
+        return this.$store.getters.products.map(product => product.list_image)
     }
 
     getParam (name) {
@@ -34,33 +38,40 @@ export default class Launcher extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import 'src/assets/style/media-query';
+
+$theme: #6b6a6a;
 .background {
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 0.2s ease-in-out;
+    background-size: 100% 1500px;
+    @include mobile {
+        background-size: 1000px 100%;
+    }
 }
 
 .logo {
     position: relative;
-    top: -11%;
+    top: 0;
 }
 
 .button {
     position: relative;
-    top: -10%;
+    top: 1%;
     padding: 10px;
-    color: darkgray;
-    border: 2px solid darkgray;
+    color: $theme;
+    border: 2px solid $theme;
     cursor: pointer;
     transition: all ease-in 0.3s;
     &:hover {
-        background-color: darkgray;
+        background-color: $theme;
         color: white;
     }
-}
-
-.image-loader {
 }
 </style>
