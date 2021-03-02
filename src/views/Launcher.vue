@@ -13,10 +13,8 @@ export default class Launcher extends Vue {
     imageIndex = 0
     beforeMount () {
         const path = this.getParam('path')
-        console.log('path', path)
         if (path) this.$router.push({name: path})
-
-        this.$store.dispatch('findProducts')
+        else this.$store.dispatch('findProducts')
     }
 
     mounted () {
