@@ -17,7 +17,6 @@ export default new Vuex.Store({
     actions: {
         findProducts: async injectee => {
             const response = await api.get(`/product/scm0226`)
-            console.log(response.data)
             injectee.commit('products', response.data.products)
         }
     },

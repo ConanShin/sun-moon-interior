@@ -33,15 +33,20 @@
         }
 
         indexByScrollPosition (slider) {
-            const height = slider.offsetHeight
-            const yPosition = slider.scrollTop
-            return Math.round(yPosition / height)
+            const index = Array.from(this.$el.querySelectorAll('img')).findIndex(element => {
+                const hiddenArea = element.getBoundingClientRect().y
+                const elementHeight = element.height
+                if (elementHeight * 3 / 4 < hiddenArea) return true
+            })
+
+            return index === -1 ? this.products.length - 1 : index - 1
         }
     }
 </script>
 
 <style scoped lang="scss">
     @import 'src/assets/style/media-query';
+    $theme: #6b6a6a;
 
     img {
         width: 100%;
@@ -69,9 +74,10 @@
             width: 5px;
             height: 5px;
             border-radius: 50%;
-            background-color: lightgray;
+            background-color: darkgray;
 
             &.colored {
+                background-color: $theme;
                 width: 7px;
                 height: 7px;
             }

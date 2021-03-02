@@ -28,6 +28,8 @@ export default class Home extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import 'src/assets/style/media-query';
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -47,7 +49,10 @@ nav {
 
 .view {
     width: 80%;
-    height: 75vh;
+    height: 90vh;
+    @include mobile {
+        height: 75vh;
+    }
     margin: auto;
 }
 </style>
