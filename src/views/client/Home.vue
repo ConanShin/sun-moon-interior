@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="scroll">
         <img v-for="product in products" :src="product.list_image"/>
     </div>
 </template>
@@ -22,5 +22,8 @@ export default class Home extends Vue {
 <style scoped lang="scss">
 img {
     width: 100%;
+}
+.scroll {
+    overflow: auto;
 }
 </style>
