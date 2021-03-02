@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <img v-for="product in products" :src="product.list_image"/>
     </div>
 </template>
 
@@ -9,16 +9,18 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Home extends Vue {
-    beforeMount () {
+    beforeMount() {
         this.$store.dispatch('findProducts')
     }
 
-    get products () {
+    get products() {
         return this.$store.getters.products
     }
 }
 </script>
 
 <style scoped lang="scss">
-
+img {
+    width: 100%;
+}
 </style>

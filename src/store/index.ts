@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: `https://sun-moon-interior-server.azurewebsites.net`
+    baseURL: process.env.VUE_APP_BACKEND
 })
 Vue.use(Vuex)
 
@@ -16,9 +16,9 @@ export default new Vuex.Store({
     },
     actions: {
         findProducts: async injectee => {
-            const response = await api.get(`/product`)
+            const response = await api.get(`/product/scm0226`)
             console.log(response.data)
-            injectee.commit('products', response.data)
+            injectee.commit('products', response.data.products)
         }
     },
     getters: {

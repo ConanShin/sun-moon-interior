@@ -7,7 +7,7 @@
             <div @click="redirect('residence')">residence</div>
             <div @click="redirect('review')">review</div>
         </nav>
-        <router-view/>
+        <router-view class="view"/>
     </div>
 </template>
 
@@ -35,5 +35,9 @@ nav > div {
     cursor: pointer;
     padding: 5px;
     margin: 5px;
+}
+.view {
+    width: 80%;
+    margin: auto;
 }
 </style>
