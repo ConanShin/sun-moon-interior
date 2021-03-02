@@ -20,6 +20,6 @@ body {
 }
 
 html, body {
-    overflow: hidden;
+    //overflow: hidden;
 }
 </style>
