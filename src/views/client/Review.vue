@@ -1,94 +1,147 @@
 <template>
-    <div>
-        <div class="flex">
-            <div class="editor"></div>
+    <div class="reviews">
+        <div class="slide desktop" @wheel="replaceVerticalScrollByHorizontal">
+            <div class="review" v-for="review in reviews">
+                <img :src="review.images[0]"/>
+            </div>
+            <div class="loading" v-if="loading">loading</div>
         </div>
-        <div class="button" @click="cancel">cancel</div>
-        <div class="button" @click="save">save</div>
-<!--        <div @click="edit">edit</div>-->
-<!--        <div @click="viewer">viewer</div>-->
+        <div class="slide mobile" @wheel="loadMoreOnEdgeVertical">
+            <div class="review" v-for="review in reviews">
+                <img :src="review.images[0]"/>
+            </div>
+            <div class="loading" v-if="loading">loading</div>
+        </div>
     </div>
 </template>
 
 <script>
 import {Vue, Component} from 'vue-property-decorator'
-import 'codemirror/lib/codemirror.css'
-import '@toast-ui/editor/dist/toastui-editor.css'
-import '@toast-ui/editor/dist/toastui-editor-viewer.css'
-import Editor from '@toast-ui/editor'
-import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer'
-import axios from 'axios'
 
 @Component
 export default class Review extends Vue {
-    editor = null
-    height = '70vh'
+    loading = true
+    page = 1
 
-    mounted () {
-        this.editor = new Editor({
-            el: this.$el.querySelector('.editor'),
-            height: this.height,
-            initialEditType: 'wysiwyg',
-            hideModeSwitch: true,
-            toolbarItems: ['bold', 'image', 'ol', 'ul']
+    get reviews() {
+        return this.$store.getters.reviews
+    }
+
+    get images() {
+        return this.$store.getters.reviews.map(review => {
+            return {
+                thumb: review.images[0],
+                src: review.images[0],
+                caption: review.title
+            }
         })
     }
 
-    async edit () {
-        const response = await axios.get('http://localhost:3000/review/1')
-
-        const edit = new Editor({
-            el: this.$el.querySelector('.viewer'),
-            height: this.height,
-            initialEditType: 'wysiwyg',
-            hideModeSwitch: false
-        })
-        edit.setMarkdown(Buffer.from(response.data.content).toString())
+    async right() {
+        this.page = this.page + 1
+        await this.$store.dispatch('findReviews', {board: 5, page: this.page})
     }
 
-    async save () {
-        const content = this.editor.getMarkdown()
+    loadMoreOnEdgeHorizontal() {
+        const slide = this.$el.querySelector('.slide.desktop')
+        if (this.throttle) return
+        this.throttle = setTimeout(async () => {
+            this.throttle = null
 
-        const body = {
-            title: 'temp',
-            content,
-            author: '신철민',
-            password: 'temp123'
+            if (slide.scrollLeft + slide.clientWidth >= slide.scrollWidth - 50) {
+                this.loading = true
+                await this.right()
+                this.loading = false
+                slide.scroll(slide.scrollLeft + 100, 0)
+            }
+
+            this.$forceUpdate()
+        }, 200)
+    }
+
+    loadMoreOnEdgeVertical() {
+        const slide = this.$el.querySelector('.slide.mobile')
+        if (this.throttle) return
+        this.throttle = setTimeout(async () => {
+            this.throttle = null
+
+            if (slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 50) {
+                console.log('reach end')
+                this.loading = true
+                await this.right()
+                this.loading = false
+                slide.scroll(0, slide.scrollTop + 100)
+            }
+
+            this.$forceUpdate()
+        }, 200)
+    }
+
+    replaceVerticalScrollByHorizontal(event) {
+        const slide = this.$el.querySelector('.slide')
+        if (event.deltaY !== 0) {
+            slide.scroll(slide.scrollLeft + event.deltaY, 0)
+            this.loadMoreOnEdgeHorizontal()
+            event.preventDefault()
         }
-        await axios.post('http://localhost:3000/review', body)
     }
 
-    cancel () {
-
-    }
-
-    async viewer () {
-        const response = await axios.get('http://localhost:3000/review/1')
-
-        new Viewer({
-            el: this.$el.querySelector('.viewer'),
-            height: this.height,
-            initialValue: Buffer.from(response.data.content).toString()
-        })
+    beforeMount() {
+        this.$store.dispatch('findReviews', {board: 5, page: this.page})
     }
 }
 </script>
 
 <style scoped lang="scss">
+@import 'src/assets/style/media-query';
+
 $theme: #6b6a6a;
 
-.flex {
-    display: flex;
-}
-.editor, .viewer, .edit {
+.reviews {
     width: 100%;
+
+    .desktop {
+        @include mobile {
+            display: none;
+        }
+    }
+    .mobile {
+        @include desktop {
+            display: none;
+        }
+    }
 }
-.button {
-    float: right;
-    margin: 5px 0 0 3px;
-    display: inline-block;
-    padding: 5px;
-    border: 1px solid $theme;
-    cursor: pointer;
+
+.slide {
+    height: 100vw;
+    overflow-x: auto;
+    @include desktop {
+        display: flex;
+    }
+}
+
+.loading {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+}
+
+.review {
+    @include desktop {
+        margin-right: 10px;
+    }
+    @include mobile {
+        text-align: center;
+    }
+    height: fit-content;
+
+    img {
+        @include desktop {
+            height: 40vw;
+        }
+        @include mobile {
+            width: 80%;
+        }
+    }
 }
 </style>
