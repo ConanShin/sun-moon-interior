@@ -20,7 +20,7 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Review extends Vue {
-    loading = true
+    loading = false
     page = 1
 
     get reviews() {
