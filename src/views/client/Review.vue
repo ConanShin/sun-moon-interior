@@ -126,7 +126,7 @@ $theme: #6b6a6a;
 }
 
 .slide {
-    height: 100vw;
+    height: 100%;
     overflow-x: auto;
     @include desktop {
         display: flex;
@@ -151,7 +151,7 @@ $theme: #6b6a6a;
         text-align: center;
         bottom: -50px;
         &.show {
-            bottom: 0;
+            bottom: 10px;
         }
         width: 100%;
         & > div {
