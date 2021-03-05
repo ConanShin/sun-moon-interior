@@ -1,10 +1,10 @@
 <template>
     <div class="reviews">
         <div class="slide desktop" @wheel="replaceVerticalScrollByHorizontal">
-            <img class="review" v-for="review in reviews" :src="review.images[0]"/>
+            <img v-if="review.images[0]" class="review" v-for="review in reviews" :src="review.images[0]"/>
         </div>
-        <div class="slide mobile" @wheel="loadMoreOnEdgeVertical">
-            <img class="review" v-for="review in reviews" :src="review.images[0]"/>
+        <div class="slide mobile" @scroll="loadMoreOnEdgeVertical">
+            <img v-if="review.images[0]" class="review" v-for="review in reviews" :src="review.images[0]"/>
         </div>
         <div class="loading" :class="{show: loading}">
             <div>loading</div>
@@ -51,17 +51,16 @@ export default class Review extends Vue {
         this.throttle = setTimeout(async () => {
             this.throttle = null
 
-            if (slide.scrollLeft + slide.clientWidth >= slide.scrollWidth) {
+            if (slide.scrollLeft + slide.clientWidth >= slide.scrollWidth - 50) {
                 this.loading = true
                 await this.right()
                 setTimeout(() => {
                     this.loading = false
-                    slide.scroll({left: slide.scrollLeft + 200, top: 0, behavior: 'smooth'})
                 }, 1000)
             }
 
             this.$forceUpdate()
-        }, 200)
+        }, 100)
     }
 
     loadMoreOnEdgeVertical() {
@@ -71,13 +70,11 @@ export default class Review extends Vue {
         if (this.throttle) return
         this.throttle = setTimeout(async () => {
             this.throttle = null
-
             if (slide.scrollTop + slide.clientHeight >= slide.scrollHeight) {
                 this.loading = true
                 await this.right()
                 setTimeout(() => {
                     this.loading = false
-                    slide.scroll({left: 0, top: slide.scrollTop + 200, behavior: 'smooth'})
                 }, 1000)
             }
 
@@ -150,7 +147,7 @@ $theme: #6b6a6a;
         text-align: center;
         bottom: -50px;
         &.show {
-            bottom: 10px;
+            bottom: 40px;
         }
         width: 100%;
         & > div {
