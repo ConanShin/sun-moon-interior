@@ -4,13 +4,15 @@
             <div class="review" v-for="review in reviews">
                 <img :src="review.images[0]"/>
             </div>
-            <div class="loading" v-if="loading">loading</div>
+            <div class="loading" :class="{show: loading}">loading</div>
         </div>
         <div class="slide mobile" @wheel="loadMoreOnEdgeVertical">
             <div class="review" v-for="review in reviews">
                 <img :src="review.images[0]"/>
             </div>
-            <div class="loading" v-if="loading">loading</div>
+            <div class="loading" :class="{show: loading}">
+                <div>loading</div>
+            </div>
         </div>
     </div>
 </template>
@@ -25,6 +27,10 @@ export default class Review extends Vue {
 
     get reviews() {
         return this.$store.getters.reviews
+    }
+
+    get loadingFinished() {
+        return this.$store.getters.reviewsFinishedLoading
     }
 
     get images() {
@@ -43,16 +49,20 @@ export default class Review extends Vue {
     }
 
     loadMoreOnEdgeHorizontal() {
+        if (this.loadingFinished) return
+
         const slide = this.$el.querySelector('.slide.desktop')
         if (this.throttle) return
         this.throttle = setTimeout(async () => {
             this.throttle = null
 
-            if (slide.scrollLeft + slide.clientWidth >= slide.scrollWidth - 50) {
+            if (slide.scrollLeft + slide.clientWidth >= slide.scrollWidth) {
                 this.loading = true
                 await this.right()
-                this.loading = false
-                slide.scroll(slide.scrollLeft + 100, 0)
+                setTimeout(() => {
+                    this.loading = false
+                    slide.scroll({left: slide.scrollLeft + 200, top: 0, behavior: 'smooth'})
+                }, 1000)
             }
 
             this.$forceUpdate()
@@ -60,17 +70,20 @@ export default class Review extends Vue {
     }
 
     loadMoreOnEdgeVertical() {
+        if (this.loadingFinished) return
+
         const slide = this.$el.querySelector('.slide.mobile')
         if (this.throttle) return
         this.throttle = setTimeout(async () => {
             this.throttle = null
 
-            if (slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 50) {
-                console.log('reach end')
+            if (slide.scrollTop + slide.clientHeight >= slide.scrollHeight) {
                 this.loading = true
                 await this.right()
-                this.loading = false
-                slide.scroll(0, slide.scrollTop + 100)
+                setTimeout(() => {
+                    this.loading = false
+                    slide.scroll({left: 0, top: slide.scrollTop + 200, behavior: 'smooth'})
+                }, 1000)
             }
 
             this.$forceUpdate()
@@ -122,13 +135,39 @@ $theme: #6b6a6a;
 
 .loading {
     position: absolute;
-    right: 10px;
-    top: 50%;
+    transition: all 0.3s ease-in;
+    @include desktop {
+        right: -50px;
+        bottom: 50%;
+        background: black;
+        padding: 4px;
+        opacity: 0.5;
+        color: white;
+        &.show {
+            right: 10px;
+        }
+    }
+    @include mobile {
+        text-align: center;
+        bottom: -50px;
+        &.show {
+            bottom: 0;
+        }
+        width: 100%;
+        & > div {
+            display: inline-block;
+            background: black;
+            opacity: 0.5;
+            color: white;
+            padding: 7px;
+        }
+    }
 }
 
 .review {
     @include desktop {
         margin-right: 10px;
+        margin-top: 5%;
     }
     @include mobile {
         text-align: center;

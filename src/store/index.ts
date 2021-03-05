@@ -44,7 +44,8 @@ export default new Vuex.Store({
     },
     getters: {
         products: state => state.products,
-        reviews: state => state.reviews.filter((review: Review) => review.parent === null)
+        reviews: state => state.reviews.filter((review: Review) => review.parent === null),
+        reviewsFinishedLoading: state => state.reviewsFinishedLoading
     },
     modules: {}
 })

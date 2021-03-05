@@ -4,7 +4,7 @@
   "homepage": "./",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --mode development",
+    "serve": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build --mode production",
     "prebuild": "rm -rf docs",
     "postbuild": "mv dist docs"

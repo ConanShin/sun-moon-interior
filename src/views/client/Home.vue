@@ -63,7 +63,7 @@ img {
         display: none;
     }
     top: 60px;
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;

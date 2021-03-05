@@ -48,6 +48,7 @@ nav {
 }
 
 .view {
+    position: relative;
     width: 80%;
     height: 90vh;
     @include mobile {
