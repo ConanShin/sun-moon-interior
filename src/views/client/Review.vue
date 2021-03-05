@@ -1,18 +1,13 @@
 <template>
     <div class="reviews">
         <div class="slide desktop" @wheel="replaceVerticalScrollByHorizontal">
-            <div class="review" v-for="review in reviews">
-                <img :src="review.images[0]"/>
-            </div>
-            <div class="loading" :class="{show: loading}">loading</div>
+            <img class="review" v-for="review in reviews" :src="review.images[0]"/>
         </div>
         <div class="slide mobile" @wheel="loadMoreOnEdgeVertical">
-            <div class="review" v-for="review in reviews">
-                <img :src="review.images[0]"/>
-            </div>
-            <div class="loading" :class="{show: loading}">
-                <div>loading</div>
-            </div>
+            <img class="review" v-for="review in reviews" :src="review.images[0]"/>
+        </div>
+        <div class="loading" :class="{show: loading}">
+            <div>loading</div>
         </div>
     </div>
 </template>
@@ -127,7 +122,11 @@ $theme: #6b6a6a;
 
 .slide {
     height: 100%;
-    overflow-x: auto;
+    overflow: auto;
+    @include mobile {
+        width: 80%;
+        margin: auto;
+    }
     @include desktop {
         display: flex;
     }
@@ -168,19 +167,13 @@ $theme: #6b6a6a;
     @include desktop {
         margin-right: 10px;
         margin-top: 5%;
+        height: 40vw;
     }
     @include mobile {
         text-align: center;
+        width: 100%;
+        height: auto;
     }
     height: fit-content;
-
-    img {
-        @include desktop {
-            height: 40vw;
-        }
-        @include mobile {
-            width: 80%;
-        }
-    }
 }
 </style>
