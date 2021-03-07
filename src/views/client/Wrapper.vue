@@ -91,7 +91,7 @@ nav {
     width: 80%;
     height: 90vh;
     @include mobile {
-        height: 75vh;
+        height: 100vh;
         width: 100%;
     }
     margin: auto;
