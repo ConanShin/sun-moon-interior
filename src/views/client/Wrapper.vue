@@ -7,8 +7,8 @@
             <div class="menu">
                 <div @click="redirect('home')">홈</div>
                 <div @click="redirect('portfolio')">포트폴리오</div>
-<!--                <div @click="redirect('residence')">residence</div>-->
                 <div @click="redirect('reviews')">후기</div>
+                <div @click="redirect('location')">위치</div>
             </div>
         </nav>
         <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
@@ -27,8 +27,10 @@ import {Vue, Component} from 'vue-property-decorator'
 @Component
 export default class Home extends Vue {
     async redirect(name) {
-        await this.$store.dispatch('findPortfolioList', 20)
-        if (this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
+        if (name === 'portfolio') {
+            await this.$store.dispatch('findPortfolioList', 20)
+            if (this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
+        }
         await this.$router.push({name}).catch(() => {})
     }
 

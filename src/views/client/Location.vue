@@ -1,6 +1,6 @@
 <template>
     <div>
-        Residence
+        Location
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 import {Vue, Component} from 'vue-property-decorator'
 
 @Component
-export default class Residence extends Vue {
+export default class Location extends Vue {
 
 }
 </script>

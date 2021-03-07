@@ -29,9 +29,9 @@ const routes: Array<RouteConfig> = [
                 component: require('../views/client/Reviews.vue').default
             },
             {
-                path: 'residence',
-                name: 'residence',
-                component: require('../views/client/Residence.vue').default
+                path: 'location',
+                name: 'location',
+                component: require('../views/client/Location.vue').default
             },
             {
                 path: 'review',
