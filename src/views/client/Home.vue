@@ -68,7 +68,7 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 4px;
+    margin-left: -20px;
 
     .dot {
         display: inline-block;

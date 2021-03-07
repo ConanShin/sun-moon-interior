@@ -19,19 +19,25 @@ const routes: Array<RouteConfig> = [
                 component: require('../views/client/Home.vue').default
             },
             {
-                path: 'about',
-                name: 'about',
-                component: require('../views/client/About.vue').default
+                path: 'portfolio',
+                name: 'portfolio',
+                component: require('../views/client/Portfolio.vue').default,
             },
             {
-                path: 'review',
-                name: 'review',
-                component: require('../views/client/Review.vue').default
+                path: 'reviews',
+                name: 'reviews',
+                component: require('../views/client/Reviews.vue').default
             },
             {
                 path: 'residence',
                 name: 'residence',
                 component: require('../views/client/Residence.vue').default
+            },
+            {
+                path: 'review',
+                name: 'review',
+                component: require('../views/client/Review.vue').default,
+                props: (route) => ({ articleNumber: route.query.articleNumber, writer: route.query.writer })
             }
         ]
     },

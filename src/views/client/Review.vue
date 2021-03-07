@@ -1,176 +1,83 @@
 <template>
-    <div class="reviews">
-        <div class="slide desktop" @wheel="replaceVerticalScrollByHorizontal">
-            <img v-if="review.images[0]" class="review" v-for="review in reviews" :src="review.images[0]"/>
+    <div class="review">
+        <h3>{{article.title}}</h3>
+        <div v-html="article.content"></div>
+        <div class="gallery">
+            <img @click="clickedIndex = index" v-for="(url, index) in images" :src="url"/>
         </div>
-        <div class="slide mobile" @scroll="loadMoreOnEdgeVertical">
-            <img v-if="review.images[0]" class="review" v-for="review in reviews" :src="review.images[0]"/>
-        </div>
-        <div class="loading" :class="{show: loading}">
-            <div>loading</div>
+
+        <div v-if="clickedIndex !== ''" class="gray">
+            <div class="control">
+                <div class="left" @click="clickedIndex > 0 && --clickedIndex"><</div>
+                <div class="close" @click="clickedIndex = ''">X</div>
+                <div class="right" @click="clickedIndex < images.length-1 && ++clickedIndex">></div>
+            </div>
+            <img :src="images[clickedIndex]"/>
         </div>
     </div>
 </template>
 
 <script>
-import {Vue, Component} from 'vue-property-decorator'
+import {Vue, Component, Prop} from 'vue-property-decorator'
 
 @Component
 export default class Review extends Vue {
-    loading = false
-    page = 1
+    @Prop() articleNumber
+    @Prop() writer
+    article = {
+        attach_file_urls: []
+    }
+    clickedIndex = ''
 
-    get reviews() {
-        return this.$store.getters.reviews
+    get images () {
+        return this.article.attach_file_urls.map(article => article.url)
     }
 
-    get loadingFinished() {
-        return this.$store.getters.reviewsFinishedLoading
-    }
-
-    get images() {
-        return this.$store.getters.reviews.map(review => {
-            return {
-                thumb: review.images[0],
-                src: review.images[0],
-                caption: review.title
-            }
-        })
-    }
-
-    async right() {
-        this.page = this.page + 1
-        await this.$store.dispatch('findReviews', {board: 5, page: this.page})
-    }
-
-    loadMoreOnEdgeHorizontal() {
-        if (this.loadingFinished) return
-
-        const slide = this.$el.querySelector('.slide.desktop')
-        if (this.throttle) return
-        this.throttle = setTimeout(async () => {
-            this.throttle = null
-
-            if (slide.scrollLeft + slide.clientWidth >= slide.scrollWidth - 50) {
-                this.loading = true
-                await this.right()
-                setTimeout(() => {
-                    this.loading = false
-                }, 1000)
-            }
-
-            this.$forceUpdate()
-        }, 100)
-    }
-
-    loadMoreOnEdgeVertical() {
-        if (this.loadingFinished) return
-
-        const slide = this.$el.querySelector('.slide.mobile')
-        if (this.throttle) return
-        this.throttle = setTimeout(async () => {
-            this.throttle = null
-            if (slide.scrollTop + slide.clientHeight >= slide.scrollHeight) {
-                this.loading = true
-                await this.right()
-                setTimeout(() => {
-                    this.loading = false
-                }, 1000)
-            }
-
-            this.$forceUpdate()
-        }, 200)
-    }
-
-    replaceVerticalScrollByHorizontal(event) {
-        const slide = this.$el.querySelector('.slide')
-        if (event.deltaY !== 0) {
-            slide.scroll(slide.scrollLeft + event.deltaY, 0)
-            this.loadMoreOnEdgeHorizontal()
-            event.preventDefault()
-        }
-    }
-
-    beforeMount() {
-        this.$store.dispatch('findReviews', {board: 5, page: this.page})
+    async mounted () {
+        this.article = (await this.$store.dispatch('findReview', {board: 5, articleNumber: this.articleNumber, writer: this.writer})).data
     }
 }
 </script>
 
 <style scoped lang="scss">
-@import 'src/assets/style/media-query';
-
-$theme: #6b6a6a;
-
-.reviews {
-    width: 100%;
-
-    .desktop {
-        @include mobile {
-            display: none;
-        }
-    }
-    .mobile {
-        @include desktop {
-            display: none;
-        }
-    }
-}
-
-.slide {
-    height: 100%;
-    overflow: auto;
-    @include mobile {
-        width: 80%;
-        margin: auto;
-    }
-    @include desktop {
-        display: flex;
-    }
-}
-
-.loading {
-    position: absolute;
-    transition: all 0.3s ease-in;
-    @include desktop {
-        right: -50px;
-        bottom: 50%;
-        background: black;
-        padding: 4px;
-        opacity: 0.5;
-        color: white;
-        &.show {
-            right: 10px;
-        }
-    }
-    @include mobile {
-        text-align: center;
-        bottom: -50px;
-        &.show {
-            bottom: 40px;
-        }
-        width: 100%;
-        & > div {
-            display: inline-block;
-            background: black;
-            opacity: 0.5;
-            color: white;
-            padding: 7px;
-        }
-    }
-}
-
 .review {
-    @include desktop {
-        margin-right: 10px;
-        margin-top: 5%;
-        height: 40vw;
+    overflow: auto;
+}
+.gallery {
+    img {
+        cursor: pointer;
+        margin-right: 5px;
+        height: 10vh;
+        width: 10vh;
     }
-    @include mobile {
-        text-align: center;
-        width: 100%;
-        height: auto;
+}
+.gray {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: #000000bf;
+    img {
+        height: 80vh;
     }
-    height: fit-content;
+    .control {
+        position: absolute;
+        top: 30px;
+        font-size: 12px;
+        color: white;
+        cursor: pointer;
+
+        display: flex;
+        width: 100px;
+        justify-content: space-between;
+
+        div {
+            padding: 3px;
+        }
+    }
 }
 </style>

@@ -2,15 +2,21 @@
     <div>
         <nav>
             <div>
-                <div @click="redirect('home')" class="logo">sun & moon</div>
+                <div @click="redirect('home')" class="logo">해와달</div>
             </div>
             <div class="menu">
-                <div @click="redirect('home')">home</div>
-                <div @click="redirect('about')">about</div>
-                <div @click="redirect('residence')">residence</div>
-                <div @click="redirect('review')">review</div>
+                <div @click="redirect('home')">홈</div>
+                <div @click="redirect('portfolio')">포트폴리오</div>
+<!--                <div @click="redirect('residence')">residence</div>-->
+                <div @click="redirect('reviews')">후기</div>
             </div>
         </nav>
+        <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
+            <div @click="$store.dispatch('findPortfolioList', 20)" :class="{bold: $store.getters.py === 20}">20평</div>
+            <div @click="$store.dispatch('findPortfolioList', 30)" :class="{bold: $store.getters.py === 30}">30평</div>
+            <div @click="$store.dispatch('findPortfolioList', 40)" :class="{bold: $store.getters.py === 40}">40평</div>
+            <div @click="$store.dispatch('findPortfolioList', 50)" :class="{bold: $store.getters.py === 50}">50평</div>
+        </div>
         <router-view class="view"/>
     </div>
 </template>
@@ -23,6 +29,10 @@ export default class Home extends Vue {
     redirect(name) {
         this.$router.push({name}).catch(() => {
         })
+    }
+
+    get isDesktop () {
+        return window.innerWidth > 400
     }
 }
 </script>
@@ -45,6 +55,28 @@ nav {
     cursor: pointer;
     margin: 5px 10px 5px 0;
     padding: 5px 0;
+}
+
+.submenu {
+    overflow: hidden;
+    height: 0;
+    width: 80%;
+    margin: auto;
+    transition: height 0.3s ease-in;
+    display: flex;
+    div {
+        margin-right: 10px;
+        cursor: pointer;
+        &.bold {
+            font-weight: bold;
+        }
+    }
+    @include mobile {
+        justify-content: flex-end;
+    }
+    &.show {
+        height: 17px;
+    }
 }
 
 .view {
