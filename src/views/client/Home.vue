@@ -1,6 +1,6 @@
 <template>
     <div class="scroll" @scroll="colorDot">
-        <img v-for="product in products" :src="product.list_image"/>
+        <img v-for="product in products" :src="product.list_image" @click="redirect(product)"/>
         <div class="slider-navigation">
             <span v-for="(item, index) in products" class="dot" :class="{colored: index === viewingIndex}"
                   :key="index"></span>
@@ -22,6 +22,14 @@ export default class Home extends Vue {
 
     get products() {
         return this.$store.getters.products
+    }
+
+    async redirect (product) {
+        const tokens = product.product_name.split(' ')
+        const py = tokens[tokens.length - 1].substr(0, 2)
+        await this.$store.dispatch('findPortfolioList', py)
+        await this.$store.dispatch('findPortfolio', product.product_no)
+        this.$router.push({name: 'portfolio'}).catch(() => {})
     }
 
     colorDot() {
@@ -52,6 +60,7 @@ $theme: #6b6a6a;
 
 img {
     width: 100%;
+    cursor: pointer;
 }
 
 .scroll {

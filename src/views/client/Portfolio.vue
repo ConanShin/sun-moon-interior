@@ -1,9 +1,9 @@
 <template>
     <div class="portfolio">
-        <div v-if="isDesktop || !portfolio.description" class="list">
-            <img v-for="product in products" @click="findProduct(product.productId)" :class="{bold: product.productId === portfolio.product_no}" :src="product.image"/>
+        <div v-if="isDesktop || !portfolio" class="list">
+            <img v-for="product in products" @click="findProduct(product.productId)" :class="{bold: product.productId === (portfolio && portfolio.product_no)}" :src="product.image"/>
         </div>
-        <div class="content" v-html="portfolio.description"></div>
+        <div v-if="portfolio" class="content" v-html="portfolio.description"></div>
     </div>
 </template>
 
@@ -14,6 +14,10 @@ import {Vue, Component} from 'vue-property-decorator'
 export default class Portfolio extends Vue {
     get products () {
         return this.$store.getters.products
+    }
+
+    get py () {
+        return this.$store.getters.py
     }
 
     get portfolio () {
@@ -29,8 +33,8 @@ export default class Portfolio extends Vue {
     }
 
     async beforeMount () {
-        await this.$store.dispatch('findPortfolioList', 20)
-        if (this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
+        if (this.products.length === 0) await this.$store.dispatch('findPortfolioList', this.py)
+        if (!this.portfolio && this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
     }
 }
 </script>
@@ -68,6 +72,10 @@ export default class Portfolio extends Vue {
     overflow-x: hidden;
     width: -webkit-fill-available;
     height: inherit;
+    ::v-deep p {
+        display: none;
+    }
+
     ::v-deep img {
         width: 100%;
         max-width: 1999px;

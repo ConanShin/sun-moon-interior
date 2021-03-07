@@ -132,7 +132,6 @@ $theme: #6b6a6a;
     height: 100%;
     overflow: auto;
     @include mobile {
-        width: 80%;
         margin: auto;
     }
     @include desktop {

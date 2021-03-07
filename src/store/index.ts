@@ -21,7 +21,7 @@ export default new Vuex.Store({
         products: [],
         reviews: [],
         reviewsFinishedLoading: false,
-        portfolio: 20,
+        portfolio: null,
         py: 20
     },
     mutations: {
@@ -30,12 +30,8 @@ export default new Vuex.Store({
             state.reviews = state.reviews.concat(payload.filter((article: Review) => !state.reviews.map((review: Review) => review.articleNumber).includes(article.articleNumber)))
         }),
         reviewsFinishedLoading: ((state, payload) => state.reviewsFinishedLoading = payload),
-        portfolio: (state, payload) => {
-            state.portfolio = payload
-        },
-        py: (state, payload) => {
-            state.py = payload
-        }
+        portfolio: (state, payload) => state.portfolio = payload,
+        py: (state, payload) => state.py = payload
     },
     actions: {
         findProducts: async injectee => {
@@ -54,7 +50,7 @@ export default new Vuex.Store({
         },
         findPortfolioList: async (injectee, payload) => {
             const response = await api(`/product/py?py=${payload}`)
-            if (window.innerWidth <= 400) injectee.commit('portfolio', {})
+            if (window.innerWidth <= 400) injectee.commit('portfolio', null)
             injectee.commit('py', payload)
             injectee.commit('products', response.data)
         },

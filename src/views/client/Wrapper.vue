@@ -26,9 +26,14 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Home extends Vue {
-    redirect(name) {
-        this.$router.push({name}).catch(() => {
-        })
+    async redirect(name) {
+        await this.$store.dispatch('findPortfolioList', 20)
+        if (this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
+        await this.$router.push({name}).catch(() => {})
+    }
+
+    get products () {
+        return this.$store.getters.products
     }
 
     get isDesktop () {
@@ -85,6 +90,7 @@ nav {
     height: 90vh;
     @include mobile {
         height: 75vh;
+        width: 100%;
     }
     margin: auto;
 }
