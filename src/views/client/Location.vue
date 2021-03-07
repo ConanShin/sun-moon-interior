@@ -1,6 +1,6 @@
 <template>
     <div>
-        Location
+        <img src="@/assets/map.png"/>
     </div>
 </template>
 
@@ -14,5 +14,7 @@ export default class Location extends Vue {
 </script>
 
 <style scoped lang="scss">
-
+img {
+    width: 100%;
+}
 </style>
