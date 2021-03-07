@@ -17,7 +17,6 @@ export default class Portfolio extends Vue {
     }
 
     get portfolio () {
-        // if (!this.isDesktop)
         return this.$store.getters.portfolio
     }
 
@@ -56,6 +55,7 @@ export default class Portfolio extends Vue {
         margin-right: 20px;
     }
     img {
+        width: 100%;
         padding: 6px 0;
         cursor: pointer;
     }
