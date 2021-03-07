@@ -218,7 +218,7 @@ $theme: #6b6a6a;
 
     @include mobile {
         left: 15%;
-        bottom: 20%;
+        bottom: 10%;
     }
 }
 </style>
