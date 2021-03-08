@@ -5,10 +5,10 @@
                 <div @click="redirect('home')" class="logo">해와달</div>
             </div>
             <div class="menu">
-                <div @click="redirect('home')">홈</div>
-                <div @click="redirect('portfolio')">포트폴리오</div>
-                <div @click="redirect('reviews')">후기</div>
-                <div @click="redirect('location')">위치</div>
+                <div @click="redirect('home')" :class="{bold: $route.path.includes('home')}">홈</div>
+                <div @click="redirect('portfolio')" :class="{bold: $route.path.includes('portfolio')}">포트폴리오</div>
+                <div @click="redirect('reviews')" :class="{bold: $route.path.includes('review')}">후기</div>
+                <div @click="redirect('location')" :class="{bold: $route.path.includes('location')}">위치</div>
             </div>
         </nav>
         <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
@@ -58,6 +58,9 @@ nav {
 
 .menu {
     display: flex;
+    .bold {
+        font-weight: bold;
+    }
 }
 
 .menu > div, .logo {
