@@ -1,9 +1,7 @@
 <template>
     <div>
         <nav>
-            <div>
-                <div @click="redirect('home')" class="logo">해와달</div>
-            </div>
+            <div @click="redirect('home')" class="logo">해와달</div>
             <div class="menu">
                 <div @click="redirect('home')" :class="{bold: $route.path.includes('home')}">홈</div>
                 <div @click="redirect('portfolio')" :class="{bold: $route.path.includes('portfolio')}">포트폴리오</div>
@@ -53,10 +51,8 @@ export default class Home extends Vue {
 @import 'src/assets/style/media-query';
 
 nav {
-    display: flex;
-    justify-content: space-between;
     width: 80%;
-    padding: 10px 10%;
+    padding: 10px 10% 0 10%;
     position: sticky;
     background-color: #e2d7b959;
 }
@@ -64,20 +60,22 @@ nav {
 .menu {
     display: flex;
     align-items: center;
+    justify-content: center;
     .bold {
         font-weight: bold;
         color: black;
     }
 }
 
-.menu > div, .logo {
+.menu > div {
     cursor: pointer;
     margin: 5px 10px 5px 0;
-    padding: 10px 0;
 }
 
 .logo {
     font-size: 18px;
+    text-align: center;
+    padding: 10px 0;
 }
 
 .submenu {
@@ -97,7 +95,7 @@ nav {
         }
     }
     @include mobile {
-        justify-content: flex-end;
+        justify-content: center;
     }
     &.show {
         height: 17px;
@@ -110,7 +108,7 @@ nav {
     width: 80%;
     height: 90vh;
     @include mobile {
-        height: calc(100vh - 72px);
+        height: calc(100vh - 77px);
         width: 100%;
     }
     margin: 0 auto;

@@ -65,7 +65,7 @@ export default class Portfolio extends Vue {
     }
     img {
         width: 100%;
-        padding: 6px 0;
+        padding-bottom: 3px;
         cursor: pointer;
     }
     .bold {
