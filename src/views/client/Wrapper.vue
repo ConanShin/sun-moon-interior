@@ -12,10 +12,10 @@
             </div>
         </nav>
         <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
-            <div @click="redirectSubmenu(20)" :class="{bold: $store.getters.py === 20}">20py</div>
-            <div @click="redirectSubmenu(30)" :class="{bold: $store.getters.py === 30}">30py</div>
-            <div @click="redirectSubmenu(40)" :class="{bold: $store.getters.py === 40}">40py</div>
-            <div @click="redirectSubmenu(50)" :class="{bold: $store.getters.py === 50}">50py</div>
+            <div @click="redirectSubmenu(20)" :class="{bold: Math.floor($store.getters.py/10) === 2}">20py</div>
+            <div @click="redirectSubmenu(30)" :class="{bold: Math.floor($store.getters.py/10) === 3}">30py</div>
+            <div @click="redirectSubmenu(40)" :class="{bold: Math.floor($store.getters.py/10) === 4}">40py</div>
+            <div @click="redirectSubmenu(50)" :class="{bold: Math.floor($store.getters.py/10) === 5}">50py</div>
         </div>
         <router-view class="view"/>
     </div>
@@ -63,15 +63,21 @@ nav {
 
 .menu {
     display: flex;
+    align-items: center;
     .bold {
         font-weight: bold;
+        color: black;
     }
 }
 
 .menu > div, .logo {
     cursor: pointer;
     margin: 5px 10px 5px 0;
-    padding: 5px 0;
+    padding: 10px 0;
+}
+
+.logo {
+    font-size: 18px;
 }
 
 .submenu {
@@ -86,6 +92,7 @@ nav {
         cursor: pointer;
         &.bold {
             font-weight: bold;
+            color: black;
         }
     }
     @include mobile {
@@ -93,6 +100,7 @@ nav {
     }
     &.show {
         height: 17px;
+        padding-bottom: 3px;
     }
 }
 
@@ -101,7 +109,7 @@ nav {
     width: 80%;
     height: 90vh;
     @include mobile {
-        height: calc(100vh - 55px);
+        height: calc(100vh - 72px);
         width: 100%;
     }
     margin: 0 auto;

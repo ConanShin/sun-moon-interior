@@ -50,12 +50,16 @@ export default new Vuex.Store({
         },
         findPortfolioList: async (injectee, payload) => {
             const response = await api(`/product/py?py=${payload}`)
-            if (window.innerWidth <= 400) injectee.commit('portfolio', null)
             injectee.commit('py', payload)
             injectee.commit('products', response.data)
         },
         findPortfolio: async (injectee, payload) => {
             const response = await api(`/product/${payload}`)
+
+            const tokens = response.data.product.product_name.split(' ')
+            const py = tokens[tokens.length - 1].substr(0, 2)
+            console.log(py/10)
+            injectee.commit('py', py)
             injectee.commit('portfolio', response.data.product)
         }
     },
