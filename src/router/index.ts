@@ -22,6 +22,7 @@ const routes: Array<RouteConfig> = [
                 path: 'portfolio',
                 name: 'portfolio',
                 component: require('../views/client/Portfolio.vue').default,
+                props: (route) => ({ productId: route.query.productId })
             },
             {
                 path: 'reviews',

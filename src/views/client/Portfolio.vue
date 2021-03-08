@@ -1,6 +1,6 @@
 <template>
     <div class="portfolio">
-        <div v-if="isDesktop || !portfolio" class="list">
+        <div v-if="isDesktop || !productId" class="list">
             <img v-for="product in products" @click="findProduct(product.productId)" :class="{bold: product.productId === (portfolio && portfolio.product_no)}" :src="product.image"/>
         </div>
         <div v-if="portfolio" class="content" v-html="portfolio.description"></div>
@@ -8,10 +8,12 @@
 </template>
 
 <script>
-import {Vue, Component} from 'vue-property-decorator'
+import {Vue, Component, Prop} from 'vue-property-decorator'
 
 @Component
 export default class Portfolio extends Vue {
+    @Prop() productId
+
     get products () {
         return this.$store.getters.products
     }
@@ -30,11 +32,14 @@ export default class Portfolio extends Vue {
 
     async findProduct (productId) {
         await this.$store.dispatch('findPortfolio', productId)
+        await this.$router.push({name: 'portfolio', query: {productId: productId}})
     }
 
     async beforeMount () {
         if (this.products.length === 0) await this.$store.dispatch('findPortfolioList', this.py)
-        if (!this.portfolio && this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
+
+        if (this.productId) await this.$store.dispatch('findPortfolio', this.productId)
+        else if (!this.productId && this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
     }
 }
 </script>

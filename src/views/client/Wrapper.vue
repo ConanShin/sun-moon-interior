@@ -12,10 +12,10 @@
             </div>
         </nav>
         <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
-            <div @click="$store.dispatch('findPortfolioList', 20)" :class="{bold: $store.getters.py === 20}">20py</div>
-            <div @click="$store.dispatch('findPortfolioList', 30)" :class="{bold: $store.getters.py === 30}">30py</div>
-            <div @click="$store.dispatch('findPortfolioList', 40)" :class="{bold: $store.getters.py === 40}">40py</div>
-            <div @click="$store.dispatch('findPortfolioList', 50)" :class="{bold: $store.getters.py === 50}">50py</div>
+            <div @click="redirectSubmenu(20)" :class="{bold: $store.getters.py === 20}">20py</div>
+            <div @click="redirectSubmenu(30)" :class="{bold: $store.getters.py === 30}">30py</div>
+            <div @click="redirectSubmenu(40)" :class="{bold: $store.getters.py === 40}">40py</div>
+            <div @click="redirectSubmenu(50)" :class="{bold: $store.getters.py === 50}">50py</div>
         </div>
         <router-view class="view"/>
     </div>
@@ -32,6 +32,11 @@ export default class Home extends Vue {
             if (this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
         }
         await this.$router.push({name}).catch(() => {})
+    }
+
+    async redirectSubmenu(py) {
+        await this.$store.dispatch('findPortfolioList', py)
+        if (!this.$route.fullPath.endsWith('portfolio')) await this.$router.push({name: 'portfolio'})
     }
 
     get products () {
