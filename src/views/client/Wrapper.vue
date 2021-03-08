@@ -57,8 +57,8 @@ nav {
     justify-content: space-between;
     width: 80%;
     padding: 10px 10%;
-    background: white;
     position: sticky;
+    background-color: #e2d7b959;
 }
 
 .menu {
@@ -84,9 +84,10 @@ nav {
     overflow: hidden;
     height: 0;
     width: 80%;
-    margin: auto;
+    padding: 0 10%;
     transition: height 0.3s ease-in;
     display: flex;
+    background-color: #e2d7b959;
     div {
         margin-right: 10px;
         cursor: pointer;
@@ -113,5 +114,6 @@ nav {
         width: 100%;
     }
     margin: 0 auto;
+    background-color: #e2d7b959;
 }
 </style>

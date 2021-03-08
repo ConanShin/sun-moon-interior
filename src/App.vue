@@ -11,7 +11,7 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-$theme: #6b6a6a;
+$theme: #655e5e;
 
 @font-face {
     font-family: 'MapoFlowerIsland';

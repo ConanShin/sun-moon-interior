@@ -111,7 +111,7 @@ export default class Reviews extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 
-$theme: #6b6a6a;
+$theme: #655e5e;
 
 .reviews {
     width: 100%;

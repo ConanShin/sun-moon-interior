@@ -1,7 +1,6 @@
 <template>
-    <div class="background" :style="{backgroundImage: 'url(\'' + productImages[imageIndex % productImages.length] + '\')'}">
-        <div class="logo">sun & moon</div>
-        <div class="button" @click="$router.push({name: 'home'})">ENTER</div>
+    <div class="background">
+        <div class="logo" @click="$router.push({name: 'home'})">해와달인테리어</div>
     </div>
 </template>
 
@@ -14,16 +13,16 @@ export default class Launcher extends Vue {
     beforeMount () {
         const path = this.getParam('path')
         if (path) this.$router.push({name: path})
-        else this.$store.dispatch('findProducts')
+        // else this.$store.dispatch('findProducts')
     }
 
     mounted () {
-        setInterval(() => this.imageIndex++, 3000)
+        // setInterval(() => this.imageIndex++, 3000)
     }
 
-    get productImages() {
-        return this.$store.getters.products.map(product => product.list_image)
-    }
+    // get productImages() {
+    //     return this.$store.getters.products.map(product => product.list_image)
+    // }
 
     getParam (name) {
         let params = location.search.substr(location.search.indexOf("?") + 1)
@@ -39,7 +38,7 @@ export default class Launcher extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 
-$theme: #6b6a6a;
+$theme: #655e5e;
 .background {
     height: 100vh;
     display: flex;
@@ -54,24 +53,20 @@ $theme: #6b6a6a;
         background-size: 1000px 100%;
         overflow: hidden;
     }
+    background-image: url("~@/assets/front-door.jpg");
 }
 
 .logo {
     position: relative;
-    top: 0;
-}
-
-.button {
-    position: relative;
-    top: 1%;
-    padding: 10px;
-    color: $theme;
-    border: 2px solid $theme;
+    top: -10%;
+    left: 10px;
+    font-size: 30px;
+    letter-spacing: -3px;
     cursor: pointer;
-    transition: all ease-in 0.3s;
-    &:hover {
-        background-color: $theme;
-        color: white;
+    text-shadow: 2px 2px 3px #0000002e;
+    @include mobile {
+        font-size: 20px;
     }
+
 }
 </style>
