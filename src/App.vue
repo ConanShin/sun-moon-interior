@@ -13,7 +13,8 @@ export default class App extends Vue {
 <style lang="scss">
 $theme: #6b6a6a;
 body {
-    font-family: system-ui,monospace;
+    font-family: 맑은고딕, Malgun Gothic, dotum, gulim, sans-serif;
+
     font-size: 12px;
     margin: 0;
     color: $theme;

@@ -1,7 +1,7 @@
 <template>
     <div class="review">
         <h3>{{article.title}}</h3>
-        <div v-html="article.content"></div>
+        <div class="content" v-html="article.content"></div>
         <div class="gallery">
             <img @click="clickedIndex = index" v-for="(url, index) in images" :src="url"/>
         </div>
@@ -42,6 +42,14 @@ export default class Review extends Vue {
 <style scoped lang="scss">
 .review {
     overflow: auto;
+    width: calc(100vw - 20px);
+    padding: 0 10px;
+}
+.content {
+    ::v-deep p span span {
+        font-size: 12px;
+        font-family: monospace !important;
+    }
 }
 .gallery {
     img {

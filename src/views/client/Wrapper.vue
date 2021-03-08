@@ -12,10 +12,10 @@
             </div>
         </nav>
         <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
-            <div @click="$store.dispatch('findPortfolioList', 20)" :class="{bold: $store.getters.py === 20}">20평</div>
-            <div @click="$store.dispatch('findPortfolioList', 30)" :class="{bold: $store.getters.py === 30}">30평</div>
-            <div @click="$store.dispatch('findPortfolioList', 40)" :class="{bold: $store.getters.py === 40}">40평</div>
-            <div @click="$store.dispatch('findPortfolioList', 50)" :class="{bold: $store.getters.py === 50}">50평</div>
+            <div @click="$store.dispatch('findPortfolioList', 20)" :class="{bold: $store.getters.py === 20}">20py</div>
+            <div @click="$store.dispatch('findPortfolioList', 30)" :class="{bold: $store.getters.py === 30}">30py</div>
+            <div @click="$store.dispatch('findPortfolioList', 40)" :class="{bold: $store.getters.py === 40}">40py</div>
+            <div @click="$store.dispatch('findPortfolioList', 50)" :class="{bold: $store.getters.py === 50}">50py</div>
         </div>
         <router-view class="view"/>
     </div>
@@ -51,7 +51,9 @@ nav {
     display: flex;
     justify-content: space-between;
     width: 80%;
-    margin: 10px auto;
+    padding: 10px 10%;
+    background: white;
+    position: sticky;
 }
 
 .menu {
@@ -91,9 +93,9 @@ nav {
     width: 80%;
     height: 90vh;
     @include mobile {
-        height: 100vh;
+        height: calc(100vh - 55px);
         width: 100%;
     }
-    margin: auto;
+    margin: 0 auto;
 }
 </style>
