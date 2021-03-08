@@ -47,13 +47,23 @@ $theme: #655e5e;
     justify-content: center;
     background-repeat: no-repeat;
     background-position: center;
-    transition: background-image 0.2s ease-in-out;
     background-size: 100% 1500px;
+    background-image: url("~@/assets/front-door.jpg");
     @include mobile {
         background-size: 1000px 100%;
         overflow: hidden;
     }
-    background-image: url("~@/assets/front-door.jpg");
+    z-index: 1;
+}
+.background::before {
+    content: '';
+    opacity: 0.4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    height: 100%;
 }
 
 .logo {
