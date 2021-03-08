@@ -29,7 +29,7 @@ export default class Home extends Vue {
         const py = tokens[tokens.length - 1].substr(0, 2)
         await this.$store.dispatch('findPortfolioList', py)
         await this.$store.dispatch('findPortfolio', product.product_no)
-        this.$router.push({name: 'portfolio'}).catch(() => {})
+        this.$router.push({name: 'portfolio', query: {productId: product.product_no}}).catch(() => {})
     }
 
     colorDot() {

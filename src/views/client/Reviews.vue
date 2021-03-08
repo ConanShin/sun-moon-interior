@@ -157,7 +157,7 @@ $theme: #655e5e;
         text-align: center;
         bottom: -50px;
         &.show {
-            bottom: 10%;
+            bottom: 20%;
         }
         width: 100%;
         & > div {
