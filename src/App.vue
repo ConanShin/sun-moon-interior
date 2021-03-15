@@ -25,6 +25,7 @@ body {
     font-size: 12px;
     margin: 0;
     color: $theme;
+    background-color: rgba(226,215,185,.34901960784313724);
 }
 
 html, body {
