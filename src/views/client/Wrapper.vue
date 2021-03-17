@@ -144,6 +144,10 @@ export default class Home extends Vue {
 .logo {
     font-size: 18px;
     padding: 6px 0;
+    @include mobile {
+        width: fit-content;
+        margin: auto;
+    }
     @include desktop {
         font-size: 30px;
         padding: 18px 0;
