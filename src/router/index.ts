@@ -19,6 +19,11 @@ const routes: Array<RouteConfig> = [
                 component: require('../views/client/Home.vue').default
             },
             {
+                path: 'introduction',
+                name: 'introduction',
+                component: require('../views/client/Introduction.vue').default
+            },
+            {
                 path: 'portfolio',
                 name: 'portfolio',
                 component: require('../views/client/Portfolio.vue').default,

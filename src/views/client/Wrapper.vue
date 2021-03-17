@@ -1,12 +1,13 @@
 <template>
     <div>
         <nav>
-            <div @click="redirect('home')" class="logo">해와달</div>
+            <div @click="redirect('home')" class="logo">해와달인테리어</div>
             <div class="menu">
-                <div @click="redirect('home')" :class="{bold: $route.path.includes('home')}">홈</div>
+                <div @click="redirect('introduction')" :class="{bold: $route.path.includes('introduction')}">소개</div>
                 <div @click="redirect('portfolio')" :class="{bold: $route.path.includes('portfolio')}">포트폴리오</div>
                 <div @click="redirect('reviews')" :class="{bold: $route.path.includes('review')}">후기</div>
                 <div @click="redirect('location')" :class="{bold: $route.path.includes('location')}">위치</div>
+                <a :href="'mailto:conan.cheolmin.shin@gmail.com?subject=견적문의&body=' + emailBody">견적문의</a>
             </div>
         </nav>
         <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
@@ -24,6 +25,17 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Home extends Vue {
+    emailBody = `
+성함:%0d%0a%0d%0a
+휴대폰번호:%0d%0a%0d%0a
+공사할곳 주소:%0d%0a%0d%0a
+평수:%0d%0a%0d%0a
+부분공사or전체공사(한가지선택):%0d%0a%0d%0a
+예산금액:%0d%0a%0d%0a
+공사희망일:%0d%0a%0d%0a
+이메일:%0d%0a%0d%0a
+기타문의사항:
+    `
     async redirect(name) {
         if (name === 'portfolio') {
             await this.$store.dispatch('findPortfolioList', 20)
@@ -66,9 +78,11 @@ nav {
     }
 }
 
-.menu > div {
+.menu > div, .menu > a {
     cursor: pointer;
     margin: 5px 10px 5px 0;
+    text-decoration: none;
+    color: inherit;
 }
 
 .logo {
