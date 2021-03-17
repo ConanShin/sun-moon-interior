@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import {titleToPy} from '@/components/common'
 
 interface Review {
     articleNumber: number
@@ -56,9 +57,7 @@ export default new Vuex.Store({
         findPortfolio: async (injectee, payload) => {
             const response = await api(`/product/${payload}`)
 
-            const tokens = response.data.product.product_name.split(' ')
-            const py = tokens[tokens.length - 1].substr(0, 2)
-            console.log(py/10)
+            const py = titleToPy(response.data.product.product_name)
             injectee.commit('py', py)
             injectee.commit('portfolio', response.data.product)
         }

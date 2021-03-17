@@ -54,7 +54,6 @@ nav {
     width: 80%;
     padding: 10px 10% 0 10%;
     position: sticky;
-    background-color: #e2d7b959;
 }
 
 .menu {
@@ -85,7 +84,6 @@ nav {
     padding: 0 10%;
     transition: height 0.3s ease-in;
     display: flex;
-    background-color: #e2d7b959;
     div {
         margin-right: 10px;
         cursor: pointer;
@@ -112,6 +110,5 @@ nav {
         width: 100%;
     }
     margin: 0 auto;
-    background-color: #e2d7b959;
 }
 </style>

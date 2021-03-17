@@ -10,6 +10,7 @@
 
 <script>
 import {Vue, Component} from 'vue-property-decorator'
+import {titleToPy} from "@/components/common";
 
 @Component
 export default class Home extends Vue {
@@ -25,8 +26,7 @@ export default class Home extends Vue {
     }
 
     async redirect (product) {
-        const tokens = product.product_name.split(' ')
-        const py = tokens[tokens.length - 1].substr(0, 2)
+        const py = titleToPy(product.product_name)
         await this.$store.dispatch('findPortfolioList', py)
         await this.$store.dispatch('findPortfolio', product.product_no)
         this.$router.push({name: 'portfolio', query: {productId: product.product_no}}).catch(() => {})

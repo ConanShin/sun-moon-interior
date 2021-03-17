@@ -9,6 +9,7 @@
 
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
+import {titleToPy} from "@/components/common";
 
 @Component
 export default class Portfolio extends Vue {
@@ -36,10 +37,13 @@ export default class Portfolio extends Vue {
     }
 
     async beforeMount () {
-        if (this.products.length === 0) await this.$store.dispatch('findPortfolioList', this.py)
-
-        if (this.productId) await this.$store.dispatch('findPortfolio', this.productId)
-        else if (!this.productId && this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
+        if (this.productId) {
+            await this.$store.dispatch('findPortfolio', this.productId)
+            await this.$store.dispatch('findPortfolioList', titleToPy(this.portfolio.product_name))
+        } else {
+          await this.$store.dispatch('findPortfolioList', this.py)
+          if (this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].productId)
+        }
     }
 }
 </script>
@@ -78,7 +82,6 @@ export default class Portfolio extends Vue {
     width: -webkit-fill-available;
     height: inherit;
     ::v-deep p {
-        display: none;
     }
 
     ::v-deep img {
