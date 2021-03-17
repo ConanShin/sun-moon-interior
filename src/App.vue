@@ -25,7 +25,7 @@ body {
     font-size: 12px;
     margin: 0;
     color: $theme;
-    background-color: #e2d7b959;
+    background-color: #efede1;
 }
 
 html, body {

@@ -71,7 +71,7 @@ img {
     @include mobile {
         display: none;
     }
-    top: 60px;
+    top: 80px;
     position: fixed;
     display: flex;
     flex-direction: column;
