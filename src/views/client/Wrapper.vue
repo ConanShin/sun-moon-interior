@@ -117,7 +117,7 @@ export default class Home extends Vue {
         height: 0;
         transition: height 0.3s ease-in;
         &.show {
-            height: 105px;
+            height: 108px;
         }
     }
 
@@ -184,7 +184,7 @@ export default class Home extends Vue {
     width: 80%;
     height: 90vh;
     @include mobile {
-        height: calc(100vh - 40px);
+        height: calc(100vh - 50px);
         width: 100%;
     }
     margin: auto;
