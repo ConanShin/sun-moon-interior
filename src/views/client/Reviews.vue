@@ -6,7 +6,7 @@
                 <div class="writer">{{review.writer}}님 후기</div>
             </div>
         </div>
-        <div class="slide mobile" @scroll="loadMoreOnEdgeVertical">
+        <div class="slide mobile">
             <div v-if="review.images[0]" class="review" v-for="review in reviews">
                 <img @click="$router.push({name: 'review', query: {articleNumber: review.articleNumber, writer: review.writer}})" :src="review.images[0]"/>
                 <div class="writer">{{review.writer}}님 후기</div>
@@ -45,6 +45,10 @@ export default class Reviews extends Vue {
         })
     }
 
+    get isDesktop() {
+        return window.innerWidth > 400
+    }
+
     async right() {
         this.page = this.page + 1
         await this.$store.dispatch('findReviews', {board: 5, page: this.page})
@@ -54,14 +58,17 @@ export default class Reviews extends Vue {
         window.open('http://sun-mooninterior.com/board/free/list.html?board_no=5')
     }
 
+    mounted () {
+        if (!this.isDesktop) document.addEventListener('scroll', this.loadMoreOnEdgeVertical)
+    }
+
     loadMoreOnEdgeHorizontal() {
         if (this.loadingFinished) return
 
-        const slide = this.$el.querySelector('.slide.desktop')
+        const slide = document.querySelector('html')
         if (this.throttle) return
         this.throttle = setTimeout(async () => {
             this.throttle = null
-
             if (slide.scrollLeft + slide.clientWidth >= slide.scrollWidth - 50) {
                 this.loading = true
                 await this.right()
@@ -77,11 +84,11 @@ export default class Reviews extends Vue {
     loadMoreOnEdgeVertical() {
         if (this.loadingFinished) return
 
-        const slide = this.$el.querySelector('.slide.mobile')
+        const slide = document.querySelector('html')
         if (this.throttle) return
         this.throttle = setTimeout(async () => {
             this.throttle = null
-            if (slide.scrollTop + slide.clientHeight >= slide.scrollHeight) {
+            if (slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 150) {
                 this.loading = true
                 await this.right()
                 setTimeout(() => {
@@ -94,7 +101,7 @@ export default class Reviews extends Vue {
     }
 
     replaceVerticalScrollByHorizontal(event) {
-        const slide = this.$el.querySelector('.slide')
+        const slide = document.querySelector('html')
         if (event.deltaY !== 0) {
             slide.scroll(slide.scrollLeft + event.deltaY, 0)
             this.loadMoreOnEdgeHorizontal()
@@ -129,8 +136,6 @@ $theme: #655e5e;
 }
 
 .slide {
-    height: 100%;
-    overflow: auto;
     @include mobile {
         margin: auto;
     }
@@ -140,7 +145,7 @@ $theme: #655e5e;
 }
 
 .loading {
-    position: absolute;
+    position: fixed;
     transition: all 0.3s ease-in;
     @include desktop {
         right: -50px;
@@ -157,7 +162,7 @@ $theme: #655e5e;
         text-align: center;
         bottom: -50px;
         &.show {
-            bottom: 20%;
+            bottom: 10%;
         }
         width: 100%;
         & > div {
@@ -202,7 +207,7 @@ $theme: #655e5e;
 .new-review {
     position: fixed;
     right: 10%;
-    bottom: 10%;
+    bottom: 15%;
     color: wheat;
     font-size: 20px;
     text-shadow: 0 0 10px black;
