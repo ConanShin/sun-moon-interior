@@ -3,7 +3,7 @@
         <div v-if="isDesktop || !$route.fullPath.includes('productId')" class="list">
             <img v-for="product in products" @click="findProduct(product.productId)" :class="{bold: product.productId === (portfolio && portfolio.product_no)}" :src="product.image"/>
         </div>
-        <div class="content" v-html="portfolio && portfolio.description"></div>
+        <div v-if="$route.fullPath.includes('productId')" class="content" v-html="portfolio && portfolio.description"></div>
     </div>
 </template>
 

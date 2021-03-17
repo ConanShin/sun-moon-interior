@@ -29,6 +29,5 @@ body {
 }
 
 html, body {
-    overflow: hidden;
 }
 </style>

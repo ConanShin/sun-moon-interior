@@ -19,7 +19,7 @@
                     <span></span>
                     <span></span>
                 </div>
-                <div class="menu" :class="{show: showMenu}">
+                <div class="menu" :class="{show: showMenu}" v-click-outside="clickOutside">
                     <div @click="redirect('introduction')" :class="{bold: $route.path.includes('introduction')}">소개
                     </div>
                     <div @click="redirect('portfolio')" :class="{bold: $route.path.includes('portfolio')}">포트폴리오</div>
@@ -56,6 +56,10 @@ export default class Home extends Vue {
 기타문의사항:
     `
     showMenu = false
+
+    clickOutside () {
+        this.showMenu = false
+    }
 
     async redirect(name) {
         this.showMenu = false
@@ -182,9 +186,10 @@ export default class Home extends Vue {
 .view {
     position: relative;
     width: 80%;
-    height: 90vh;
+    @include desktop {
+        height: 90vh;
+    }
     @include mobile {
-        height: calc(100vh - 50px);
         width: 100%;
     }
     margin: auto;
