@@ -70,11 +70,11 @@ export default class Review extends Vue {
     height: 100vh;
     background: #000000bf;
     img {
-        height: 80vh;
+        max-height: 65vh;
     }
     .control {
         position: absolute;
-        bottom: 35px;
+        bottom: 90px;
         font-size: 12px;
         color: white;
         cursor: pointer;
