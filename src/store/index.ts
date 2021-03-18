@@ -45,9 +45,9 @@ export default new Vuex.Store({
 
             const response = await api(`/article/board/${payload.board}/page/${payload.page}`)
             // if (response.data.articles.length === 0) injectee.commit('reviewsFinishedLoading', true)
-            const length = response.data.articles.length
-            if (length > 0) injectee.commit('reviews', response.data.articles)
-            return response.data.articles.length
+            const length = response.data.length
+            if (length > 0) injectee.commit('reviews', response.data)
+            return response.data.length
         },
         findReview: (injectee, payload) => {
             const NOT_ACCEPTABLE_QUERY_CHARACTERS = [',']
