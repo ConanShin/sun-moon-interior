@@ -11,17 +11,15 @@ import {Vue, Component} from 'vue-property-decorator'
 export default class Launcher extends Vue {
     imageIndex = 0
     beforeMount () {
-        const path = this.getParam('path')
-        if (path) this.$router.push({name: path})
+        const param = this.getParam()
+        if (param.path) {
+            this.$router.push({name: param.path, query: param})
+        }
     }
 
-    getParam (name) {
-        let params = location.search.substr(location.search.indexOf("?") + 1)
-        params = params.split("&");
-        for (let i = 0; i < params.length; i++) {
-            let keyValue = params[i].split("=");
-            if (keyValue[0] === name) return keyValue[1]
-        }
+    getParam () {
+        const search = location.search.substring(1);
+        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
     }
 }
 </script>

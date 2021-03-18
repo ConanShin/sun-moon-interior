@@ -4,10 +4,21 @@
     <meta charset="utf-8">
     <title>Single Page Apps for GitHub Pages</title>
     <script type="text/javascript">
-        const path = window.location.href.split('/')
-        const page = window.location.href.split('page=')[1] || ''
+        function getQueryVariable(variable) {
+            const query = window.location.search.substring(1);
+            const vars = query.split('&');
+            for (let i = 0; i < vars.length; i++) {
+                let pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) === variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+        }
 
-        window.location = window.location.origin + '?path=' + path[path.length-1] + '&page=page'
+        const path = window.location.href.split('?')[0].split('/')
+        const queryString = window.location.search.substr(1)
+
+        window.location = window.location.origin + '?path=' + path[path.length-1] + '&' + queryString
     </script>
 </head>
 <body>

@@ -85,18 +85,15 @@ export default class Wrapper extends Vue {
     }
 
     beforeMount () {
-        const path = this.getParam('path')
-        const page = this.getParam('page')
-        if (path) this.$router.push({name: path, query: {page}})
+        const param = this.getParam()
+        if (param.path) {
+            this.$router.push({name: param.path, query: param})
+        }
     }
 
-    getParam (name) {
-        let params = location.search.substr(location.search.indexOf("?") + 1)
-        params = params.split("&");
-        for (let i = 0; i < params.length; i++) {
-            let keyValue = params[i].split("=");
-            if (keyValue[0] === name) return keyValue[1]
-        }
+    getParam () {
+        const search = location.search.substring(1);
+        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
     }
 }
 </script>
