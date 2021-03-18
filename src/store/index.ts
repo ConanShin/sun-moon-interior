@@ -50,7 +50,12 @@ export default new Vuex.Store({
             return response.data.articles.length
         },
         findReview: (injectee, payload) => {
-            return api(`/article/board/${payload.board}/article/${payload.articleNumber}?subject=${payload.subject}`)
+            const NOT_ACCEPTABLE_QUERY_CHARACTERS = [',']
+            let queryString = payload.subject
+            NOT_ACCEPTABLE_QUERY_CHARACTERS.forEach(character => {
+                if (payload.subject.includes(character)) return queryString = queryString.split(character)[0]
+            })
+            return api(`/article/board/${payload.board}/article/${payload.articleNumber}?subject=${queryString}`)
         },
         findPortfolioList: async (injectee, payload) => {
             const response = await api(`/product/py?py=${payload}`)
