@@ -93,6 +93,7 @@ export default class Wrapper extends Vue {
 
     getParam () {
         const search = location.search.substring(1);
+        if (search.length === 0) return {}
         return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
     }
 }
