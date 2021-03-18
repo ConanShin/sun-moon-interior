@@ -13,13 +13,13 @@
                 </div>
             </template>
             <template v-else>
-                <div class="hamburger" :class="{'open': showMenu}" @click="showMenu = !showMenu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
                 <div class="menu" :class="{show: showMenu}" v-click-outside="clickOutside">
+                    <div class="hamburger" :class="{'open': showMenu}" @click.stop.prevent="() => showMenu = !showMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                     <div @click="redirect('introduction')" :class="{bold: $route.path.includes('introduction')}">소개
                     </div>
                     <div @click="redirect('portfolio')" :class="{bold: $route.path.includes('portfolio')}">포트폴리오</div>
@@ -94,7 +94,7 @@ export default class Home extends Vue {
 .hamburger {
     position: absolute;
     top: 17px;
-    left: 15px
+    left: 4px
 }
 
 .nav {
