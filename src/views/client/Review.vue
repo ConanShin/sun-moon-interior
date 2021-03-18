@@ -7,12 +7,12 @@
         </div>
 
         <div v-if="clickedIndex !== ''" class="gray">
+            <img :src="images[clickedIndex]"/>
             <div class="control">
                 <div class="left" @click="clickedIndex > 0 && --clickedIndex"><</div>
                 <div class="close" @click="clickedIndex = ''">X</div>
                 <div class="right" @click="clickedIndex < images.length-1 && ++clickedIndex">></div>
             </div>
-            <img :src="images[clickedIndex]"/>
         </div>
     </div>
 </template>
@@ -64,17 +64,19 @@ export default class Review extends Vue {
     top: 0;
     left: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100vw;
     height: 100vh;
     background: #000000bf;
     img {
+        margin-top: 80px;
+        max-width: 95vw;
         max-height: 65vh;
     }
     .control {
         position: absolute;
-        bottom: 90px;
+        top: 80vh;
         font-size: 12px;
         color: white;
         cursor: pointer;
