@@ -13,16 +13,7 @@ export default class Launcher extends Vue {
     beforeMount () {
         const path = this.getParam('path')
         if (path) this.$router.push({name: path})
-        // else this.$store.dispatch('findProducts')
     }
-
-    mounted () {
-        // setInterval(() => this.imageIndex++, 3000)
-    }
-
-    // get productImages() {
-    //     return this.$store.getters.products.map(product => product.list_image)
-    // }
 
     getParam (name) {
         let params = location.search.substr(location.search.indexOf("?") + 1)

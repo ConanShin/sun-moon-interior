@@ -43,7 +43,7 @@
 import {Vue, Component} from 'vue-property-decorator'
 
 @Component
-export default class Home extends Vue {
+export default class Wrapper extends Vue {
     emailBody = `
 성함:%0d%0a%0d%0a
 휴대폰번호:%0d%0a%0d%0a
@@ -82,6 +82,21 @@ export default class Home extends Vue {
 
     get isDesktop() {
         return window.innerWidth > 400
+    }
+
+    beforeMount () {
+        const path = this.getParam('path')
+        const page = this.getParam('page')
+        if (path) this.$router.push({name: path, query: {page}})
+    }
+
+    getParam (name) {
+        let params = location.search.substr(location.search.indexOf("?") + 1)
+        params = params.split("&");
+        for (let i = 0; i < params.length; i++) {
+            let keyValue = params[i].split("=");
+            if (keyValue[0] === name) return keyValue[1]
+        }
     }
 }
 </script>

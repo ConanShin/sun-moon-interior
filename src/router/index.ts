@@ -4,17 +4,17 @@ import VueRouter, {RouteConfig} from 'vue-router'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
+    // {
+    //     path: '/',
+    //     name: 'launcher',
+    //     component: require('../views/Launcher.vue').default
+    // },
     {
         path: '/',
-        name: 'launcher',
-        component: require('../views/Launcher.vue').default
-    },
-    {
-        path: '',
         component: require('../views/client/Wrapper.vue').default,
         children: [
             {
-                path: 'home',
+                path: '',
                 name: 'home',
                 component: require('../views/client/Home.vue').default
             },
