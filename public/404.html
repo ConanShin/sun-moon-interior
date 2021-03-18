@@ -5,8 +5,9 @@
     <title>Single Page Apps for GitHub Pages</title>
     <script type="text/javascript">
         const path = window.location.href.split('/')
+        const page = window.location.href.split('page=')[1] || ''
 
-        window.location = window.location.origin + '?path=' + path[path.length-1]
+        window.location = window.location.origin + '?path=' + path[path.length-1] + '&page=page'
     </script>
 </head>
 <body>
