@@ -32,7 +32,8 @@ const routes: Array<RouteConfig> = [
             {
                 path: 'reviews',
                 name: 'reviews',
-                component: require('../views/client/Reviews.vue').default
+                component: require('../views/client/Reviews_Table.vue').default,
+                props: (route) => ({ page: route.query.page || 1 })
             },
             {
                 path: 'location',
@@ -43,7 +44,7 @@ const routes: Array<RouteConfig> = [
                 path: 'review',
                 name: 'review',
                 component: require('../views/client/Review.vue').default,
-                props: (route) => ({ articleNumber: route.query.articleNumber, writer: route.query.writer })
+                props: (route) => ({ articleNumber: route.query.articleNumber, subject: route.query.subject })
             }
         ]
     },

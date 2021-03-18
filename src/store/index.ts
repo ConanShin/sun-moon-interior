@@ -4,7 +4,7 @@ import axios from 'axios'
 import {titleToPy} from '@/components/common'
 
 interface Review {
-    articleNumber: number
+    article_no: number
     content: string
     images: string[]
     parent: number
@@ -21,16 +21,17 @@ export default new Vuex.Store({
     state: {
         products: [],
         reviews: [],
-        reviewsFinishedLoading: false,
+        // reviewsFinishedLoading: false,
         portfolio: null,
         py: 20
     },
     mutations: {
         products: ((state, payload) => state.products = payload),
         reviews: ((state, payload) => {
-            state.reviews = state.reviews.concat(payload.filter((article: Review) => !state.reviews.map((review: Review) => review.articleNumber).includes(article.articleNumber)))
+            // state.reviews = state.reviews.concat(payload.filter((article: Review) => !state.reviews.map((review: Review) => review.article_no).includes(article.article_no)))
+            state.reviews = payload
         }),
-        reviewsFinishedLoading: ((state, payload) => state.reviewsFinishedLoading = payload),
+        // reviewsFinishedLoading: ((state, payload) => state.reviewsFinishedLoading = payload),
         portfolio: (state, payload) => state.portfolio = payload,
         py: (state, payload) => state.py = payload
     },
@@ -40,14 +41,16 @@ export default new Vuex.Store({
             injectee.commit('products', response.data.products)
         },
         findReviews: async (injectee, payload) => {
-            if (injectee.state.reviewsFinishedLoading) return
+            // if (injectee.state.reviewsFinishedLoading) return
 
             const response = await api(`/article/board/${payload.board}/page/${payload.page}`)
-            if (response.data.length === 0) injectee.commit('reviewsFinishedLoading', true)
-            else injectee.commit('reviews', response.data)
+            // if (response.data.articles.length === 0) injectee.commit('reviewsFinishedLoading', true)
+            const length = response.data.articles.length
+            if (length > 0) injectee.commit('reviews', response.data.articles)
+            return response.data.articles.length
         },
         findReview: (injectee, payload) => {
-            return api(`/article/board/${payload.board}/article/${payload.articleNumber}?writer=${payload.writer}`)
+            return api(`/article/board/${payload.board}/article/${payload.articleNumber}?subject=${payload.subject}`)
         },
         findPortfolioList: async (injectee, payload) => {
             const response = await api(`/product/py?py=${payload}`)
@@ -65,7 +68,7 @@ export default new Vuex.Store({
     getters: {
         products: state => state.products,
         reviews: state => state.reviews,
-        reviewsFinishedLoading: state => state.reviewsFinishedLoading,
+        // reviewsFinishedLoading: state => state.reviewsFinishedLoading,
         portfolio: state => state.portfolio,
         py: state => state.py
     },

@@ -23,7 +23,7 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 @Component
 export default class Review extends Vue {
     @Prop() articleNumber
-    @Prop() writer
+    @Prop() subject
     article = {
         attach_file_urls: []
     }
@@ -34,7 +34,7 @@ export default class Review extends Vue {
     }
 
     async mounted () {
-        this.article = (await this.$store.dispatch('findReview', {board: 5, articleNumber: this.articleNumber, writer: this.writer})).data
+        this.article = (await this.$store.dispatch('findReview', {board: 5, articleNumber: this.articleNumber, subject: this.subject})).data
     }
 }
 </script>
@@ -74,7 +74,7 @@ export default class Review extends Vue {
     }
     .control {
         position: absolute;
-        top: 30px;
+        bottom: 35px;
         font-size: 12px;
         color: white;
         cursor: pointer;

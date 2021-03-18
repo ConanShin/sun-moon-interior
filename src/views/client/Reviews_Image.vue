@@ -1,14 +1,14 @@
 <template>
     <div class="reviews">
         <div class="slide desktop" @wheel="replaceVerticalScrollByHorizontal">
-            <div v-if="review.images[0]" class="review" v-for="review in reviews">
-                <img @click="$router.push({name: 'review', query: {articleNumber: review.articleNumber, writer: review.writer}})" :src="review.images[0]"/>
+            <div v-if="review.attach_file_urls.length > 0" class="review" v-for="review in reviews">
+                <img @click="$router.push({name: 'review', query: {articleNumber: review.article_no, subject: review.title}})" :src="review.attach_file_urls[0].url"/>
                 <div class="writer">{{review.writer}}님 후기</div>
             </div>
         </div>
         <div class="slide mobile">
-            <div v-if="review.images[0]" class="review" v-for="review in reviews">
-                <img @click="$router.push({name: 'review', query: {articleNumber: review.articleNumber, writer: review.writer}})" :src="review.images[0]"/>
+            <div v-if="review.attach_file_urls.length > 0" class="review" v-for="review in reviews">
+                <img @click="$router.push({name: 'review', query: {articleNumber: review.article_no, subject: review.title}})" :src="review.attach_file_urls[0].url"/>
                 <div class="writer">{{review.writer}}님 후기</div>
             </div>
         </div>
@@ -51,7 +51,7 @@ export default class Reviews extends Vue {
 
     async right() {
         this.page = this.page + 1
-        await this.$store.dispatch('findReviews', {board: 5, page: this.page})
+        return this.$store.dispatch('findReviews', {board: 5, page: this.page})
     }
 
     newTab() {
