@@ -14,18 +14,20 @@
             </template>
             <template v-else>
                 <div class="menu" :class="{show: showMenu}" v-click-outside="clickOutside">
-                    <div class="hamburger" :class="{'open': showMenu}" @click.stop.prevent="() => showMenu = !showMenu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <div class="hamburger-wrapper" @click.stop.prevent="() => showMenu = !showMenu">
+                        <div class="hamburger" :class="{'open': showMenu}">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
-                    <div @click="redirect('introduction')" :class="{bold: $route.path.includes('introduction')}">소개
+                    <div class="item" @click="redirect('introduction')" :class="{bold: $route.path.includes('introduction')}">소개
                     </div>
-                    <div @click="redirect('portfolio')" :class="{bold: $route.path.includes('portfolio')}">포트폴리오</div>
-                    <div @click="redirect('reviews')" :class="{bold: $route.path.includes('review')}">후기</div>
-                    <div @click="redirect('location')" :class="{bold: $route.path.includes('location')}">위치</div>
-                    <a :href="'mailto:conan.cheolmin.shin@gmail.com?subject=견적문의&body=' + emailBody">견적문의</a>
+                    <div class="item" @click="redirect('portfolio')" :class="{bold: $route.path.includes('portfolio')}">포트폴리오</div>
+                    <div class="item" @click="redirect('reviews')" :class="{bold: $route.path.includes('review')}">후기</div>
+                    <div class="item" @click="redirect('location')" :class="{bold: $route.path.includes('location')}">위치</div>
+                    <a class="item" :href="'mailto:conan.cheolmin.shin@gmail.com?subject=견적문의&body=' + emailBody">견적문의</a>
                 </div>
             </template>
         </div>
@@ -106,11 +108,13 @@ export default class Wrapper extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 
-.hamburger {
+.hamburger-wrapper {
     position: absolute;
-    height: 16px;
-    top: 17px;
-    left: 4px
+    height: 15px;
+    width: 15px;
+    top: 0;
+    left: 0;
+    padding: 18px;
 }
 
 .nav {
@@ -147,7 +151,7 @@ export default class Wrapper extends Vue {
     }
 }
 
-.menu > div, .menu > a {
+.menu > .item {
     cursor: pointer;
     margin: 5px 10px 5px 15px;
     @include mobile {
