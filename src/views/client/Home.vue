@@ -1,5 +1,5 @@
 <template>
-    <div class="scroll" @scroll="colorDot">
+    <div class="scroll" @scroll="colorDot" :class="{show: listShow}">
         <img v-for="product in products" :src="product.list_image" @click="redirect(product)"/>
         <div class="slider-navigation">
             <span v-for="(item, index) in products" class="dot" :class="{colored: index === viewingIndex}"
@@ -14,11 +14,13 @@ import {titleToPy} from "@/components/common";
 
 @Component
 export default class Home extends Vue {
+    listShow = false
     throttle = null
     viewingIndex = 0
 
-    beforeMount() {
-        this.$store.dispatch('findProducts')
+    async beforeMount() {
+        await this.$store.dispatch('findProducts')
+        this.listShow = true
     }
 
     get products() {
@@ -65,6 +67,11 @@ img {
 
 .scroll {
     overflow: auto;
+    opacity: 0;
+    &.show {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
 }
 
 .slider-navigation {

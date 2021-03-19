@@ -29,12 +29,6 @@
                 </div>
             </template>
         </div>
-        <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
-            <div @click="redirectSubmenu(20)" :class="{bold: Math.floor($store.getters.py/10) === 2}">20py</div>
-            <div @click="redirectSubmenu(30)" :class="{bold: Math.floor($store.getters.py/10) === 3}">30py</div>
-            <div @click="redirectSubmenu(40)" :class="{bold: Math.floor($store.getters.py/10) === 4}">40py</div>
-            <div @click="redirectSubmenu(50)" :class="{bold: Math.floor($store.getters.py/10) === 5}">50py</div>
-        </div>
         <transition name="fade" mode="out-in">
             <router-view class="view"/>
         </transition>
@@ -71,11 +65,6 @@ export default class Wrapper extends Vue {
         }
         await this.$router.push({name}).catch(() => {
         })
-    }
-
-    async redirectSubmenu(py) {
-        await this.$store.dispatch('findPortfolioList', py)
-        if (!this.$route.fullPath.endsWith('portfolio')) await this.$router.push({name: 'portfolio'})
     }
 
     get products() {
@@ -182,42 +171,13 @@ export default class Wrapper extends Vue {
     cursor: pointer;
 }
 
-.submenu {
-    overflow: hidden;
-    height: 0;
-    width: 80%;
-    padding: 50px 10% 0 10%;
-    @include desktop {
-        padding-top: 85px;
-    }
-    transition: height 0.3s ease-in;
-    display: flex;
-
-    div {
-        margin-right: 10px;
-        cursor: pointer;
-
-        &.bold {
-            font-weight: bold;
-            color: black;
-        }
-    }
-
-    @include mobile {
-        justify-content: center;
-    }
-
-    &.show {
-        height: 17px;
-        padding-bottom: 3px;
-    }
-}
-
 .view {
+    padding-top: 50px;
     position: relative;
     width: 80%;
     @include desktop {
         height: 90vh;
+        padding-top: 85px;
     }
     @include mobile {
         width: 100%;

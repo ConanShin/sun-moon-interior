@@ -1,5 +1,5 @@
 <template>
-    <div class="reviews">
+    <div class="reviews" :class="{show: listShow}">
         <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: review.link}})">
             <span class="title reply" v-if="review.is_reply">re: {{review.title}}</span>
             <span class="title" v-else>{{review.title}}</span>
@@ -20,6 +20,7 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 @Component
 export default class Reviews extends Vue {
     @Prop() page
+    listShow = false
 
     get reviews() {
         return this.$store.getters.reviews
@@ -30,8 +31,10 @@ export default class Reviews extends Vue {
     }
 
     async searchPage(pageNumber) {
+        this.listShow = false
         await this.$store.dispatch('findReviews', {board: 5, page: pageNumber})
         await this.$router.push({name: 'reviews', query: {page: pageNumber}})
+        this.listShow = true
     }
 
     async search(offset) {
@@ -45,8 +48,9 @@ export default class Reviews extends Vue {
         this.$router.push({name: 'writeReview'})
     }
 
-    beforeMount() {
-        this.$store.dispatch('findReviews', {board: 5, page: this.page})
+    async beforeMount() {
+        await this.$store.dispatch('findReviews', {board: 5, page: this.page})
+        this.listShow = true
     }
 }
 </script>
@@ -54,6 +58,14 @@ export default class Reviews extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 $theme: #655e5e;
+
+.reviews {
+    opacity: 0;
+    &.show {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
+}
 
 .review {
     width: 90%;

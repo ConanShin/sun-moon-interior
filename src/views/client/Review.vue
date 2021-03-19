@@ -1,5 +1,5 @@
 <template>
-    <div class="review">
+    <div class="review" :class="{show: listShow}">
         <h3>{{article.title}}</h3>
         <div class="content" v-html="article.content"></div>
         <div class="gallery">
@@ -23,6 +23,8 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 @Component
 export default class Review extends Vue {
     @Prop() link
+    listShow = false
+
     article = {
         attach_file_urls: []
     }
@@ -34,6 +36,7 @@ export default class Review extends Vue {
 
     async mounted () {
         this.article = (await this.$store.dispatch('findReview', {link: this.link})).data
+        this.listShow = true
     }
 }
 </script>
@@ -42,8 +45,13 @@ export default class Review extends Vue {
 .review {
     overflow: auto;
     width: calc(100vw - 20px);
-    padding: 0 10px;
+    opacity: 0;
+    &.show {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
 }
+
 .content {
     ::v-deep p span span {
         font-size: 12px;
