@@ -108,6 +108,7 @@ export default class Wrapper extends Vue {
 
 .hamburger {
     position: absolute;
+    height: 16px;
     top: 17px;
     left: 4px
 }
