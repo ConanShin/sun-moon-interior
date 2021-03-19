@@ -1,13 +1,15 @@
 <template>
     <div class="reviews">
-        <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {articleNumber: review.article_no, subject: review.title}})">
-            <span class="title reply" v-if="review.parent_article_no">re: {{review.title}}</span>
+        <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: review.link}})">
+            <span class="title reply" v-if="review.is_reply">re: {{review.title}}</span>
             <span class="title" v-else>{{review.title}}</span>
             <span class="writer">{{review.writer}}</span>
         </div>
         <div class="paging">
-            <span @click="search(-1)">prev</span>
-            <span @click="search(+1)">next</span>
+            <span @click="search(-1)"><</span>
+            <span v-for="index in pageLength" :class="{bold: index == page}" @click="searchPage(index)">{{index}}</span>
+            <span @click="search(+1)">></span>
+            <span @click="write">write</span>
         </div>
     </div>
 </template>
@@ -23,13 +25,24 @@ export default class Reviews extends Vue {
         return this.$store.getters.reviews
     }
 
+    get pageLength() {
+        return this.$store.getters.pageLength
+    }
+
+    async searchPage(pageNumber) {
+        await this.$store.dispatch('findReviews', {board: 5, page: pageNumber})
+        await this.$router.push({name: 'reviews', query: {page: pageNumber}})
+    }
+
     async search(offset) {
         if (Number(this.page) === 1 && offset === -1) return
+        if (Number(this.page) === this.pageLength && offset === 1) return
         const redirectPage = Number(this.page) + offset
-        const length = await this.$store.dispatch('findReviews', {board: 5, page: redirectPage})
-        if (length === 0) this.page = redirectPage - offset
-        else await this.$router.push({name: 'reviews', query: {page: redirectPage}})
+        await this.searchPage(redirectPage)
+    }
 
+    write() {
+        this.$router.push({name: 'writeReview'})
     }
 
     beforeMount() {
@@ -68,6 +81,11 @@ $theme: #655e5e;
     margin-top: 20px;
     span {
         cursor: pointer;
+        font-weight: lighter;
+        &.bold {
+            font-weight: bolder;
+            text-shadow: 1px 2px 3px #000000c4;
+        }
     }
 }
 

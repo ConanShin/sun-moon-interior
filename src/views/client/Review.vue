@@ -22,19 +22,18 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 
 @Component
 export default class Review extends Vue {
-    @Prop() articleNumber
-    @Prop() subject
+    @Prop() link
     article = {
         attach_file_urls: []
     }
     clickedIndex = ''
 
     get images () {
-        return this.article.attach_file_urls.map(article => article.url)
+        return this.article.attach_file_urls
     }
 
     async mounted () {
-        this.article = (await this.$store.dispatch('findReview', {board: 5, articleNumber: this.articleNumber, subject: this.subject})).data
+        this.article = (await this.$store.dispatch('findReview', {link: this.link})).data
     }
 }
 </script>
