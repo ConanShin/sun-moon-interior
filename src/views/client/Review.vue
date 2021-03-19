@@ -35,7 +35,7 @@ export default class Review extends Vue {
     }
 
     async mounted () {
-        this.article = (await this.$store.dispatch('findReview', {link: this.link})).data
+        this.article = (await this.$store.dispatch('findReview', {link: decodeURIComponent(this.link)})).data
         this.listShow = true
     }
 }

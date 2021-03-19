@@ -1,6 +1,6 @@
 <template>
     <div class="reviews" :class="{show: listShow}">
-        <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: review.link}})">
+        <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: encodeURIComponent(review.link)}})">
             <span class="title reply" v-if="review.is_reply">re: {{review.title}}</span>
             <span class="title" v-else>{{review.title}}</span>
             <span class="writer">{{review.writer}}</span>
