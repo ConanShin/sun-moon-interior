@@ -115,6 +115,7 @@ export default class Wrapper extends Vue {
     top: 0;
     left: 0;
     padding: 18px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0)
 }
 
 .nav {
