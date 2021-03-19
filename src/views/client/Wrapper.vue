@@ -35,7 +35,9 @@
             <div @click="redirectSubmenu(40)" :class="{bold: Math.floor($store.getters.py/10) === 4}">40py</div>
             <div @click="redirectSubmenu(50)" :class="{bold: Math.floor($store.getters.py/10) === 5}">50py</div>
         </div>
-        <router-view class="view"/>
+        <transition name="fade" mode="out-in">
+            <router-view class="view"/>
+        </transition>
     </div>
 </template>
 
@@ -100,6 +102,17 @@ export default class Wrapper extends Vue {
 </script>
 <style lang="scss">
 @import "src/assets/style/hamburgers.scss";
+.fade-enter-active,
+.fade-leave-active {
+    transition-duration: 0.3s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0
+}
 </style>
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
