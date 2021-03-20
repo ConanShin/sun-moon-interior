@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import {titleToPy} from '@/components/common'
+import {productCategory, productPy} from '@/components/common'
 
 interface Review {
     article_no: number
@@ -17,12 +17,14 @@ const api = axios.create({
 })
 Vue.use(Vuex)
 
+const account = 'scm0226'
+const domain = 'http://sun-mooninterior.com'
 export default new Vuex.Store({
     state: {
         products: [],
         reviews: [],
         portfolio: null,
-        py: 20,
+        py: '20',
         pageLength: 0
     },
     mutations: {
@@ -33,36 +35,30 @@ export default new Vuex.Store({
         pageLength: (state, payload) => state.pageLength = payload
     },
     actions: {
-        findProducts: async injectee => {
-            const response = await api.get(`/product`)
-            injectee.commit('products', response.data.products)
+        findCategories: async injectee => {
+            return api.get(`cafe-twentyfour/categoy?account=${account}`)
         },
-        findReviews: async (injectee, payload) => {
-            const response = await api.get(`/article/board/${payload.board}/page/${payload.page}`)
+        findReviews: async (injectee, {board, page}) => {
+            const response = await api.get(`cafe-twentyfour/article?domain=${domain}&boardNo=${board}&pageNo=${page}`)
             injectee.commit('reviews', response.data.articles)
             injectee.commit('pageLength', response.data.pageLength)
         },
         findReview: (injectee, payload) => {
-            // const NOT_ACCEPTABLE_QUERY_CHARACTERS = [',']
-            // let queryString = payload.subject
-            // NOT_ACCEPTABLE_QUERY_CHARACTERS.forEach(character => {
-            //     if (payload.subject.includes(character)) return queryString = queryString.split(character)[0]
-            // })
-            // return api.get(`/article/board/${payload.board}/article/${payload.articleNumber}?subject=${queryString}`)
-            return api.post(`/article/link`, {url: payload.link})
+            return api.post(`cafe-twentyfour/article/link`, {url: payload.link})
         },
         saveReview: async (injectee, payload) => {
-            await api.post(`/article/board/5`, payload)
+            // await api.post(`http://localhost:5004/article/board/5`, payload.article)
+            const sunmooninterior = 'sunmooninterior1'
+            await api.post(`cafe-twentyfour/article?account=${sunmooninterior}&boardNo=${payload.boardNo}`, payload.article)
         },
-        findPortfolioList: async (injectee, payload) => {
-            const response = await api(`/product/py?py=${payload}`)
-            injectee.commit('py', payload)
-            injectee.commit('products', response.data)
+        findPortfolioList: async (injectee, category: string) => {
+            const response = await api.get(`/cafe-twentyfour/product/list?account=${account}&category=${category}`)
+            injectee.commit('products', response.data.products)
         },
-        findPortfolio: async (injectee, payload) => {
-            const response = await api(`/product/${payload}`)
+        findPortfolio: async (injectee, product_no) => {
+            const response = await api.get(`/cafe-twentyfour/product?account=${account}&productNo=${product_no}`)
 
-            const py = titleToPy(response.data.product.product_name)
+            const py = productPy(response.data.product)
             injectee.commit('py', py)
             injectee.commit('portfolio', response.data.product)
         }

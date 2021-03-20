@@ -1,27 +1,28 @@
 <template>
     <div class="portfolio">
         <div>
+            <div class="menu-name">portfolio</div>
             <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
-                <div @click="redirectSubmenu(20)" :class="{bold: Math.floor($store.getters.py/10) === 2}">20py</div>
-                <div @click="redirectSubmenu(30)" :class="{bold: Math.floor($store.getters.py/10) === 3}">30py</div>
-                <div @click="redirectSubmenu(40)" :class="{bold: Math.floor($store.getters.py/10) === 4}">40py</div>
-                <div @click="redirectSubmenu(50)" :class="{bold: Math.floor($store.getters.py/10) === 5}">50py</div>
+                <div @click="redirectSubmenu('20')" :class="{bold: Math.floor(Number($store.getters.py)/10) === 2}">20py</div>
+                <div @click="redirectSubmenu('30')" :class="{bold: Math.floor(Number($store.getters.py)/10) === 3}">30py</div>
+                <div @click="redirectSubmenu('40')" :class="{bold: Math.floor(Number($store.getters.py)/10) === 4}">40py</div>
+                <div @click="redirectSubmenu('50')" :class="{bold: Math.floor(Number($store.getters.py)/10) === 5}">50py</div>
             </div>
-            <div v-if="isDesktop || !$route.fullPath.includes('productId')" class="list" :class="{show: listShow}">
-                <img v-for="product in products" @click="findProduct(product.productId)" :class="{bold: product.productId === (portfolio && portfolio.product_no)}" :src="product.image"/>
+            <div v-if="isDesktop || !$route.fullPath.includes('product_no')" class="list" :class="{show: listShow}">
+                <img v-for="product in products" @click="findProduct(product.product_no)" :class="{bold: product.product_no === (portfolio && portfolio.product_no)}" :src="product.list_image"/>
             </div>
         </div>
-        <div v-if="$route.fullPath.includes('productId')" class="content" v-html="portfolio && portfolio.description"></div>
+        <div v-if="$route.fullPath.includes('product_no')" class="content" v-html="portfolio && portfolio.description"></div>
     </div>
 </template>
 
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
-import {titleToPy} from "@/components/common";
+import {productCategory, pyToCategory} from "@/components/common";
 
 @Component
 export default class Portfolio extends Vue {
-    @Prop() productId
+    @Prop() product_no
     listShow = false
 
     get products () {
@@ -40,26 +41,27 @@ export default class Portfolio extends Vue {
         return window.innerWidth > 400
     }
 
-    async findProduct (productId) {
-        await this.$store.dispatch('findPortfolio', productId)
-        await this.$router.push({name: 'portfolio', query: {productId: productId}}).then().catch(() => {})
+    async findProduct (product_no) {
+        await this.$store.dispatch('findPortfolio', product_no)
+        await this.$router.push({name: encodeURIComponent('포트폴리오'), query: {product_no}}).then().catch(() => {})
     }
 
     async redirectSubmenu(py) {
         this.listShow = false
-        if (!this.isDesktop) await this.$router.push({name: 'portfolio', query: {}}).then().catch(() => {})
-        await this.$store.dispatch('findPortfolioList', py)
+        if (!this.isDesktop) await this.$router.push({name: encodeURIComponent('포트폴리오'), query: {}}).then().catch(() => {})
+        this.$store.commit('py', py)
+        await this.$store.dispatch('findPortfolioList', pyToCategory(py))
         this.listShow = true
 
     }
 
     async beforeMount () {
-        if (this.productId) {
-            await this.$store.dispatch('findPortfolio', this.productId)
-            await this.$store.dispatch('findPortfolioList', titleToPy(this.portfolio.product_name))
+        if (this.product_no) {
+            await this.$store.dispatch('findPortfolio', this.product_no)
+            await this.$store.dispatch('findPortfolioList', productCategory(this.portfolio))
         } else {
-            await this.$store.dispatch('findPortfolioList', this.py)
-            if (this.isDesktop) await this.findProduct(this.products[0].productId)
+            await this.$store.dispatch('findPortfolioList', pyToCategory(this.py))
+            if (this.isDesktop && this.products[0]) await this.findProduct(this.products[0].product_no)
         }
         this.listShow = true
     }
@@ -130,6 +132,7 @@ export default class Portfolio extends Vue {
 
     @include mobile {
         justify-content: center;
+        padding-top: 25px;
     }
 }
 </style>

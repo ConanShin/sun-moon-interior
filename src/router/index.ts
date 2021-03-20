@@ -24,10 +24,10 @@ const routes: Array<RouteConfig> = [
                 component: require('../views/client/Introduction.vue').default
             },
             {
-                path: 'portfolio',
-                name: 'portfolio',
+                path: encodeURIComponent('포트폴리오'),
+                name: encodeURIComponent('포트폴리오'),
                 component: require('../views/client/Portfolio.vue').default,
-                props: (route) => ({ productId: route.query.productId })
+                props: (route) => ({ product_no: route.query.product_no })
             },
             {
                 path: 'reviews',
@@ -56,7 +56,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '*',
         name: 'catchAll',
-        component: require('../views/Launcher.vue').default
+        redirect: '/'
     }
 ]
 

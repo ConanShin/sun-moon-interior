@@ -1,15 +1,20 @@
 <template>
     <div class="reviews" :class="{show: listShow}">
-        <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: encodeURIComponent(review.link)}})">
-            <span class="title reply" v-if="review.is_reply">re: {{review.title}}</span>
-            <span class="title" v-else>{{review.title}}</span>
-            <span class="writer">{{review.writer}}</span>
+        <div class="header">
+            <div class="menu-name">review</div>
+            <div class="write button" @click="write">write</div>
+        </div>
+        <div class="list">
+            <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: encodeURIComponent(review.link)}})">
+                <span class="title reply" v-if="review.is_reply">re: {{review.title}}</span>
+                <span class="title" v-else>{{review.title}}</span>
+                <span class="writer">{{review.writer}}</span>
+            </div>
         </div>
         <div class="paging">
             <span @click="search(-1)"><</span>
             <span v-for="index in pageLength" :class="{bold: index == page}" @click="searchPage(index)">{{index}}</span>
             <span @click="search(+1)">></span>
-            <span @click="write">write</span>
         </div>
     </div>
 </template>
@@ -21,6 +26,10 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 export default class Reviews extends Vue {
     @Prop() page
     listShow = false
+
+    get isDesktop () {
+        return window.innerWidth > 400
+    }
 
     get reviews() {
         return this.$store.getters.reviews
@@ -59,7 +68,34 @@ export default class Reviews extends Vue {
 @import 'src/assets/style/media-query';
 $theme: #655e5e;
 
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+}
+
+.write.button {
+    position: relative;
+    cursor: pointer;
+    @include desktop {
+        margin-left: auto;
+        text-align: right;
+        font-size: 18px;
+        padding: 18px 27px;
+    }
+    @include mobile {
+        margin-right: 15px;
+        font-size: 10px;
+        padding: 7px;
+        color: white;
+        border: 1px solid #655e5e;
+        background-color: #655e5e;
+    }
+}
+
 .reviews {
+    font-family: "Nanum Gothic";
     opacity: 0;
     &.show {
         opacity: 1;
@@ -68,10 +104,15 @@ $theme: #655e5e;
 }
 
 .review {
-    width: 90%;
-    border: 1px solid $theme;
-    margin: 2px auto;
-    padding: 2px;
+    &:first-of-type {
+        border-top: 1px solid #655e5e36;
+    }
+    border-bottom: 1px solid #655e5e36;
+    padding: 18px 27px;
+    @include mobile {
+        padding: 18px 15px;
+    }
+    font-size: 13px;
     display: flex;
     justify-content: space-between;
 }
@@ -87,11 +128,16 @@ $theme: #655e5e;
         padding-left: 10px;
     }
 }
+.writer {
+    font-size: 8px;
+}
 .paging {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 20px;
     span {
+        padding: 5px;
+        margin: 5px;
         cursor: pointer;
         font-weight: lighter;
         &.bold {

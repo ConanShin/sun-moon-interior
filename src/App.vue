@@ -11,7 +11,9 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
+@import 'src/assets/style/media-query';
 $theme: #655e5e;
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
 @font-face {
     font-family: 'MapoFlowerIsland';
@@ -46,5 +48,20 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active
 {
     -webkit-box-shadow: 0 0 0 30px #efede1 inset !important;
+}
+
+@include mobile {
+    .menu-name {
+        display: block;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@include desktop {
+    .menu-name {
+        display: none;
+    }
 }
 </style>

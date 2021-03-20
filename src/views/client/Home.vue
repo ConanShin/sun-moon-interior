@@ -10,7 +10,7 @@
 
 <script>
 import {Vue, Component} from 'vue-property-decorator'
-import {titleToPy} from "@/components/common";
+import {productCategory} from "@/components/common";
 
 @Component
 export default class Home extends Vue {
@@ -19,7 +19,8 @@ export default class Home extends Vue {
     viewingIndex = 0
 
     async beforeMount() {
-        await this.$store.dispatch('findProducts')
+        const HOME_CATEGORY_ID = 23
+        await this.$store.dispatch('findPortfolioList', HOME_CATEGORY_ID)
         this.listShow = true
     }
 
@@ -28,10 +29,7 @@ export default class Home extends Vue {
     }
 
     async redirect (product) {
-        const py = titleToPy(product.product_name)
-        await this.$store.dispatch('findPortfolioList', py)
-        await this.$store.dispatch('findPortfolio', product.product_no)
-        this.$router.push({name: 'portfolio', query: {productId: product.product_no}}).catch(() => {})
+        this.$router.push({name: encodeURIComponent('포트폴리오'), query: {product_no: product.product_no}}).then().catch(() => {})
     }
 
     colorDot() {
