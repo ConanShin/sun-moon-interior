@@ -21,7 +21,7 @@ export default class Wrapper extends Vue {
     async beforeMount () {
         const param = this.getParam()
         if (param.path) {
-            await this.$router.push({name: param.path, query: param})
+            await this.$router.push({name: encodeURIComponent(param.path), query: param})
         }
     }
 
