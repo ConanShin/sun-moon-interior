@@ -53,6 +53,7 @@ $theme: #655e5e;
     overflow: auto;
     width: calc(100vw - 20px);
     opacity: 0;
+    font-family: "Nanum Gothic";
     &.show {
         opacity: 1;
         transition: opacity 0.5s ease-in;

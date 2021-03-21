@@ -61,6 +61,10 @@ export default class WriterReview extends Vue {
     }
     checked = false
 
+    get isDesktop () {
+        return window.innerWidth > 400
+    }
+
     beforeMount() {
         if (this.editContent) {
             this.articleNo = this.editContent.article_no
@@ -71,8 +75,11 @@ export default class WriterReview extends Vue {
     }
 
     async save() {
-        if (!this.title || !this.writer || !this.checked || !this.password) {
-            return alert('제목 / 작성자 / 동의서 / 비밀번호를 입력해 주세요.')
+        if (!this.title || !this.writer || !this.password) {
+            return alert('제목 / 작성자 / 비밀번호를 입력해 주세요.')
+        }
+        if (this.isDesktop && !this.checked) {
+            return alert('동의서를 체크해 주세요.')
         }
 
         if (this.articleNo) {
