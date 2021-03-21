@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import {productCategory, productPy} from '@/components/common'
+import {productToPy} from '@/components/common'
 
 interface Review {
     article_no: number
@@ -17,8 +17,8 @@ const api = axios.create({
 })
 Vue.use(Vuex)
 
-const account = 'scm0226'
-const domain = 'http://sun-mooninterior.com'
+const account = process.env.VUE_APP_ACCOUNT
+const domain = process.env.VUE_APP_DOMAIN
 export default new Vuex.Store({
     state: {
         products: [],
@@ -47,9 +47,10 @@ export default new Vuex.Store({
             return api.post(`cafe-twentyfour/article/link`, {url: payload.link})
         },
         saveReview: async (injectee, payload) => {
-            // await api.post(`http://localhost:5004/article/board/5`, payload.article)
-            const sunmooninterior = 'sunmooninterior1'
-            await api.post(`cafe-twentyfour/article?account=${sunmooninterior}&boardNo=${payload.boardNo}`, payload.article)
+            return api.post(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
+        },
+        editReview: async (injectee, payload) => {
+            return api.put(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
         },
         findPortfolioList: async (injectee, category: string) => {
             const response = await api.get(`/cafe-twentyfour/product/list?account=${account}&category=${category}`)
@@ -58,7 +59,7 @@ export default new Vuex.Store({
         findPortfolio: async (injectee, product_no) => {
             const response = await api.get(`/cafe-twentyfour/product?account=${account}&productNo=${product_no}`)
 
-            const py = productPy(response.data.product)
+            const py = productToPy(response.data.product)
             injectee.commit('py', py)
             injectee.commit('portfolio', response.data.product)
         }
@@ -66,7 +67,6 @@ export default new Vuex.Store({
     getters: {
         products: state => state.products,
         reviews: state => state.reviews,
-        // reviewsFinishedLoading: state => state.reviewsFinishedLoading,
         portfolio: state => state.portfolio,
         py: state => state.py,
         pageLength: state => state.pageLength

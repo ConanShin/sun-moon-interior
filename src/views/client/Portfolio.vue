@@ -18,7 +18,7 @@
 
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
-import {productCategory, pyToCategory} from "@/components/common";
+import {productToCategory, pyToCategory} from "@/components/common";
 
 @Component
 export default class Portfolio extends Vue {
@@ -58,7 +58,7 @@ export default class Portfolio extends Vue {
     async beforeMount () {
         if (this.product_no) {
             await this.$store.dispatch('findPortfolio', this.product_no)
-            await this.$store.dispatch('findPortfolioList', productCategory(this.portfolio))
+            await this.$store.dispatch('findPortfolioList', productToCategory(this.portfolio))
         } else {
             await this.$store.dispatch('findPortfolioList', pyToCategory(this.py))
             if (this.isDesktop && this.products[0]) await this.findProduct(this.products[0].product_no)

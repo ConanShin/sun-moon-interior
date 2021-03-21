@@ -1,9 +1,14 @@
 <template>
     <div class="review" :class="{show: listShow}">
-        <h3>{{article.title}}</h3>
+        <h3>작성자: {{article.writer}}</h3>
+        <h3>제목: {{article.title}}</h3>
         <div class="content" v-html="article.content"></div>
         <div class="gallery">
             <img @click="clickedIndex = index" v-for="(url, index) in images" :src="url"/>
+        </div>
+        <div class="control margin-bottom">
+            <div @click="$router.push({name: 'reviews'})" class="box">목록</div>
+            <div @click="$router.push({name: 'writeReview', params: {editContent: article}})" class="box">수정</div>
         </div>
 
         <div v-if="clickedIndex !== ''" class="gray">
@@ -42,6 +47,8 @@ export default class Review extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import 'src/assets/style/media-query';
+$theme: #655e5e;
 .review {
     overflow: auto;
     width: calc(100vw - 20px);
@@ -57,6 +64,11 @@ export default class Review extends Vue {
         font-size: 12px;
         font-family: monospace !important;
     }
+    @include mobile {
+        ::v-deep img {
+            width: 100%;
+        }
+    }
 }
 .gallery {
     img {
@@ -64,6 +76,21 @@ export default class Review extends Vue {
         margin-right: 5px;
         height: 10vh;
         width: 10vh;
+    }
+}
+.box {
+    border: 1px solid $theme;
+    width: 35px;
+    text-align: center;
+}
+.control {
+    display: flex;
+    width: 100px;
+    justify-content: space-between;
+
+    div {
+        padding: 3px;
+        cursor: pointer;
     }
 }
 .gray {
@@ -77,7 +104,7 @@ export default class Review extends Vue {
     height: 100vh;
     background: #000000bf;
     img {
-        margin-top: 80px;
+        margin-top: 100px;
         max-width: 95vw;
         max-height: 65vh;
     }
@@ -86,15 +113,9 @@ export default class Review extends Vue {
         top: 80vh;
         font-size: 12px;
         color: white;
-        cursor: pointer;
-
-        display: flex;
-        width: 100px;
-        justify-content: space-between;
-
-        div {
-            padding: 3px;
-        }
     }
+}
+.margin-bottom {
+    padding-bottom: 30px;
 }
 </style>

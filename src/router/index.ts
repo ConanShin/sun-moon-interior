@@ -49,7 +49,8 @@ const routes: Array<RouteConfig> = [
             {
                 path: 'write-review',
                 name: 'writeReview',
-                component: require('../views/client/WriterReview.vue').default
+                component: require('../views/client/WriterReview.vue').default,
+                props: true
             }
         ]
     },

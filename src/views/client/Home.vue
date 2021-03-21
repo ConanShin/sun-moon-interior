@@ -10,7 +10,7 @@
 
 <script>
 import {Vue, Component} from 'vue-property-decorator'
-import {productCategory} from "@/components/common";
+import {productToCategory} from "@/components/common";
 
 @Component
 export default class Home extends Vue {

@@ -5,7 +5,7 @@
             <div class="write button" @click="write">write</div>
         </div>
         <div class="list">
-            <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: encodeURIComponent(review.link)}})">
+            <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: encodeURIComponent(review.link)}}).catch(() => {})">
                 <span class="title reply" v-if="review.is_reply">re: {{review.title}}</span>
                 <span class="title" v-else>{{review.title}}</span>
                 <span class="writer">{{review.writer}}</span>
@@ -42,7 +42,7 @@ export default class Reviews extends Vue {
     async searchPage(pageNumber) {
         this.listShow = false
         await this.$store.dispatch('findReviews', {board: 5, page: pageNumber})
-        await this.$router.push({name: 'reviews', query: {page: pageNumber}})
+        await this.$router.push({name: 'reviews', query: {page: pageNumber}}).catch(() => {})
         this.listShow = true
     }
 

@@ -36,6 +36,7 @@ html, body {
 input {
     background: none;
     border: none;
+    padding: 0 5px;
 }
 input:focus {
     background: transparent;
