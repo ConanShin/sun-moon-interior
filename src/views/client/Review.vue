@@ -105,15 +105,20 @@ $theme: #655e5e;
     background: #000000bf;
     img {
         margin-top: 100px;
-        max-width: 95vw;
+        width: 95vw;
         max-height: 80vh;
+        @include mobile {
+            max-height: 60vh;
+        }
     }
     .control {
         position: absolute;
         top: 80vh;
         font-size: 12px;
         color: black;
-        text-shadow: 0 0 3px white;
+        @include mobile {
+            color: white;
+        }
     }
 }
 .margin-bottom {
