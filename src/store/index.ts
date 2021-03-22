@@ -21,23 +21,22 @@ const account = process.env.VUE_APP_ACCOUNT
 const domain = process.env.VUE_APP_DOMAIN
 export default new Vuex.Store({
     state: {
+        coverHidden: false,
         products: [],
         reviews: [],
         portfolio: null,
-        py: '20',
+        py: '20py',
         pageLength: 0
     },
     mutations: {
-        products: ((state, payload) => state.products = payload),
-        reviews: ((state, payload) => state.reviews = payload),
+        coverHidden: (state, payload) => state.coverHidden = payload,
+        products: (state, payload) => state.products = payload,
+        reviews: (state, payload) => state.reviews = payload,
         portfolio: (state, payload) => state.portfolio = payload,
         py: (state, payload) => state.py = payload,
         pageLength: (state, payload) => state.pageLength = payload
     },
     actions: {
-        findCategories: async injectee => {
-            return api.get(`cafe-twentyfour/categoy?account=${account}`)
-        },
         findReviews: async (injectee, {board, page}) => {
             const response = await api.get(`cafe-twentyfour/article?domain=${domain}&boardNo=${board}&pageNo=${page}`)
             injectee.commit('reviews', response.data.articles)
@@ -65,6 +64,7 @@ export default new Vuex.Store({
         }
     },
     getters: {
+        coverHidden: state => state.coverHidden,
         products: state => state.products,
         reviews: state => state.reviews,
         portfolio: state => state.portfolio,

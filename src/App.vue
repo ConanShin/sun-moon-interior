@@ -12,7 +12,7 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import 'src/assets/style/media-query';
-$theme: #655e5e;
+@import 'src/assets/style/common';
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
 @font-face {
@@ -26,8 +26,8 @@ body {
     font-family: 'MapoFlowerIsland';
     font-size: 12px;
     margin: 0;
-    color: $theme;
-    background-color: #efede1;
+    color: $dark-theme;
+    background-color: $bright-theme;
 }
 
 html, body {
@@ -48,15 +48,27 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active
 {
-    -webkit-box-shadow: 0 0 0 30px #efede1 inset !important;
+    -webkit-box-shadow: 0 0 0 30px $bright-theme inset !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
 @include mobile {
     .menu-name {
         display: block;
-        position: absolute;
         width: 100%;
         text-align: center;
+        font-size: 15px;
     }
 }
 

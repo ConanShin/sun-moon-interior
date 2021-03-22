@@ -1,6 +1,6 @@
 <template>
-    <div class="background">
-        <div class="logo" @click="$router.push({name: 'home'})">해와달인테리어</div>
+    <div class="background" :class="{show: listShow}">
+        <div class="logo" @click="$store.commit('coverHidden', true)">해와달인테리어</div>
     </div>
 </template>
 
@@ -9,26 +9,21 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Launcher extends Vue {
-    imageIndex = 0
-    beforeMount () {
-        const param = this.getParam()
-        if (param.path) {
-            this.$router.push({name: param.path, query: param})
-        }
-    }
-
-    getParam () {
-        const search = location.search.substring(1);
-        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    listShow = false
+    mounted() {
+        setTimeout(() => this.listShow = true, 100)
     }
 }
 </script>
 
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
-
-$theme: #655e5e;
+@import 'src/assets/style/common';
 .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -42,7 +37,13 @@ $theme: #655e5e;
         background-size: 1000px 100%;
         overflow: hidden;
     }
-    z-index: 1;
+    z-index: 2;
+
+    opacity: 0;
+    &.show {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
 }
 //.background::before {
 //    content: '';

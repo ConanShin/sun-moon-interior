@@ -1,11 +1,10 @@
-const pyToCategoryId: any = {
-    '20': 26,
-    '30': 28,
-    '40': 44,
-    '50': 45
-}
+// @ts-ignore
+import {categories} from '@/cafe24info'
+
+const pyToCategoryId: any = categories.portfolio
 
 export const pyToCategory = (py: string) => {
+    console.log(pyToCategoryId[py])
     return pyToCategoryId[py]
 }
 

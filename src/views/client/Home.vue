@@ -29,7 +29,7 @@ export default class Home extends Vue {
     }
 
     async redirect (product) {
-        this.$router.push({name: encodeURIComponent('포트폴리오'), query: {product_no: product.product_no}}).then().catch(() => {})
+        this.$router.push({name: 'portfolio', query: {product_no: product.product_no}}).then().catch(() => {})
     }
 
     colorDot() {
@@ -55,12 +55,15 @@ export default class Home extends Vue {
 
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
-
-$theme: #655e5e;
+@import 'src/assets/style/common';
 
 img {
-    width: 100%;
-    cursor: pointer;
+    @include mobile {
+        width: 100%;
+    }
+    width: 80%;
+    margin: auto;
+    display: block;
 }
 
 .scroll {
@@ -76,13 +79,13 @@ img {
     @include mobile {
         display: none;
     }
-    top: 80px;
+    top: 87px;
+    left: 10%;
     position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: -20px;
 
     .dot {
         display: inline-block;
@@ -90,10 +93,10 @@ img {
         width: 5px;
         height: 5px;
         border-radius: 50%;
-        background-color: darkgray;
+        background-color: $transparent-dark-theme;
 
         &.colored {
-            background-color: $theme;
+            background-color: $dark-theme;
             width: 7px;
             height: 7px;
         }

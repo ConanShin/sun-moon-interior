@@ -48,7 +48,8 @@ export default class Review extends Vue {
 
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
-$theme: #655e5e;
+@import 'src/assets/style/common';
+
 .review {
     overflow: auto;
     width: calc(100vw - 20px);
@@ -79,7 +80,7 @@ $theme: #655e5e;
     }
 }
 .box {
-    border: 1px solid $theme;
+    border: 1px solid $dark-theme;
     width: 35px;
     text-align: center;
 }
@@ -105,7 +106,7 @@ $theme: #655e5e;
     background: #000000bf;
     img {
         margin-top: 100px;
-        width: 95vw;
+        max-width: 95vw;
         max-height: 80vh;
         @include mobile {
             max-height: 60vh;
@@ -115,7 +116,7 @@ $theme: #655e5e;
         position: absolute;
         top: 80vh;
         font-size: 12px;
-        color: white;
+        color: $bright-theme;
         @include desktop {
             top: 90vh;
         }

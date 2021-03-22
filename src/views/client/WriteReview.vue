@@ -35,13 +35,14 @@ import 'quill/dist/quill.snow.css'
 import '@/assets/javascripts/imageCompressor.js'
 import {quillEditor} from 'vue-quill-editor'
 import {Quill} from 'vue-quill-editor'
+import {freeBoards} from '@/cafe24info'
 
 Quill.register('modules/imageCompress', imageCompressor)
 
 @Component({
     components: {quillEditor}
 })
-export default class WriterReview extends Vue {
+export default class WriteReview extends Vue {
     @Prop() editContent
     articleNo = null
     title = ''
@@ -83,7 +84,7 @@ export default class WriterReview extends Vue {
 
         if (this.articleNo) {
             const response = await this.$store.dispatch('editReview', {
-                boardNo: 5,
+                boardNo: freeBoards['reviews'],
                 article: {
                     id: this.articleNo,
                     title: this.title,
@@ -95,7 +96,7 @@ export default class WriterReview extends Vue {
             if (response.data === 'Not Authorized') return alert('비밀번호가 틀렸습니다.')
         } else {
             await this.$store.dispatch('saveReview', {
-                boardNo: 5,
+                boardNo: freeBoards['reviews'],
                 article: {
                     title: this.title,
                     writer: this.writer,
@@ -115,7 +116,8 @@ export default class WriterReview extends Vue {
 </style>
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
-$border: 1px solid #ccc;
+@import 'src/assets/style/common';
+$border: 1px solid $bright-theme;
 .only-desktop {
     @include mobile {
         display: none !important;

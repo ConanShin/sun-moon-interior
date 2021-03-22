@@ -21,6 +21,7 @@
 
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
+import {freeBoards} from '@/cafe24info'
 
 @Component
 export default class Reviews extends Vue {
@@ -58,7 +59,7 @@ export default class Reviews extends Vue {
     }
 
     async beforeMount() {
-        await this.$store.dispatch('findReviews', {board: 5, page: this.page})
+        await this.$store.dispatch('findReviews', {board: freeBoards['review'], page: this.page})
         this.listShow = true
     }
 }
@@ -66,7 +67,7 @@ export default class Reviews extends Vue {
 
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
-$theme: #655e5e;
+@import 'src/assets/style/common';
 
 .header {
     display: flex;
@@ -88,9 +89,9 @@ $theme: #655e5e;
         margin-right: 15px;
         font-size: 10px;
         padding: 7px;
-        color: white;
-        border: 1px solid #655e5e;
-        background-color: #655e5e;
+        color: $bright-theme;
+        border: 1px solid $dark-theme;
+        background-color:$dark-theme;
     }
 }
 
@@ -105,9 +106,9 @@ $theme: #655e5e;
 
 .review {
     &:first-of-type {
-        border-top: 1px solid #655e5e36;
+        border-top: 1px solid $transparent-dark-theme;
     }
-    border-bottom: 1px solid #655e5e36;
+    border-bottom: 1px solid $transparent-dark-theme;
     padding: 18px 27px;
     @include mobile {
         padding: 18px 15px;

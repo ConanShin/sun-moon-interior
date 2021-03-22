@@ -3,11 +3,7 @@
         <div @click="redirect('home')" class="logo">해와달인테리어</div>
         <template v-if="isDesktop">
             <div class="menu">
-                <div class="item" v-for="(menu, index) in menus" v-if="index !== 0" @click="redirect(menu.uri)" :class="{bold: $route.path.includes(menu.uri)}">{{menu.category_name}}</div>
-                <div class="item" @click="redirect('introduction')" :class="{bold: $route.path.includes('introduction')}">소개</div>
-                <div class="item" @click="redirect('reviews')" :class="{bold: $route.path.includes('review')}">후기</div>
-                <div class="item" @click="redirect('location')" :class="{bold: $route.path.includes('location')}">위치</div>
-                <a class="item" :href="'mailto:conan.cheolmin.shin@gmail.com?subject=견적문의&body=' + emailBody">견적문의</a>
+                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{menu.name}}</div>
             </div>
         </template>
         <template v-else>
@@ -20,11 +16,7 @@
                         <span></span>
                     </div>
                 </div>
-                <div class="item" v-for="(menu, index) in menus" v-if="index !== 0" @click="redirect(menu.uri)" :class="{bold: $route.path.includes(menu.uri)}">{{menu.category_name}}</div>
-                <div class="item" @click="redirect('introduction')" :class="{bold: $route.path.includes('introduction')}">소개</div>
-                <div class="item" @click="redirect('reviews')" :class="{bold: $route.path.includes('review')}">후기</div>
-                <div class="item" @click="redirect('location')" :class="{bold: $route.path.includes('location')}">위치</div>
-                <a class="item" :href="'mailto:conan.cheolmin.shin@gmail.com?subject=견적문의&body=' + emailBody">견적문의</a>
+                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{menu.name}}</div>
             </div>
         </template>
     </div>
@@ -47,15 +39,16 @@ export default class Menu extends Vue {
 기타문의사항:
     `
     showMenu = false
-    menus = []
+    menus = [
+        {name: '소개',     path: 'about'},
+        {name: '포트폴리오', path: 'portfolio'},
+        {name: '견적의뢰',  path: 'contact' },
+        {name: '시공후기',  path: 'reviews'},
+        {name: '문의하기',  path: 'qna'},
+    ]
     async redirect(name) {
         this.showMenu = false
-        if (name === 'portfolio') {
-            await this.$store.dispatch('findPortfolioList', 20)
-            if (this.isDesktop) await this.$store.dispatch('findPortfolio', this.products[0].product_no)
-        }
-        await this.$router.push({name}).catch(() => {
-        })
+        await this.$router.push({name}).catch(() => {})
     }
 
     get isDesktop() {
@@ -65,23 +58,20 @@ export default class Menu extends Vue {
     clickOutside () {
         this.showMenu = false
     }
-
-    async beforeMount () {
-        this.menus = (await this.$store.dispatch('findCategories')).data
-    }
 }
 </script>
 
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
+@import 'src/assets/style/common';
 .nav {
     width: 80%;
     padding: 10px 10% 0 10%;
     position: fixed;
     z-index: 1;
-    background-color: #efede1;
-    opacity: 0.7;
+    background-color: $bright-theme;
     @include desktop {
+        opacity: 0.7;
         display: flex;
         justify-content: space-between;
     }
@@ -137,11 +127,12 @@ export default class Menu extends Vue {
 .menu > .item {
     cursor: pointer;
     margin: 5px 10px 5px 15px;
+    text-align: center;
     @include mobile {
         margin-right: 0;
         position: relative;
         z-index: 1;
-        background: #efede1;
+        background: $bright-theme;
     }
     text-decoration: none;
     color: inherit;

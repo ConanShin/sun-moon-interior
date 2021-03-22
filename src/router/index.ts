@@ -4,11 +4,6 @@ import VueRouter, {RouteConfig} from 'vue-router'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
-    // {
-    //     path: '/',
-    //     name: 'launcher',
-    //     component: require('../views/Launcher.vue').default
-    // },
     {
         path: '/',
         component: require('../views/client/Wrapper.vue').default,
@@ -19,26 +14,36 @@ const routes: Array<RouteConfig> = [
                 component: require('../views/client/Home.vue').default
             },
             {
-                path: 'introduction',
-                name: 'introduction',
-                component: require('../views/client/Introduction.vue').default
+                path: 'about',
+                name: 'about',
+                component: require('../views/client/About.vue').default
             },
             {
-                path: encodeURIComponent('포트폴리오'),
-                name: encodeURIComponent('포트폴리오'),
+                path: 'portfolio',
+                name: 'portfolio',
                 component: require('../views/client/Portfolio.vue').default,
                 props: (route) => ({ product_no: route.query.product_no })
+            },
+            {
+                path: 'contact',
+                name: 'contact',
+                component: require('../views/client/Contact.vue').default
+            },
+            {
+                path: 'qna',
+                name: 'qna',
+                component: require('../views/client/QNA.vue').default
+            },
+            {
+                path: 'writeQna',
+                name: 'writeQna',
+                component: require('../views/client/WriteQNA.vue').default
             },
             {
                 path: 'reviews',
                 name: 'reviews',
                 component: require('../views/client/Reviews_Table.vue').default,
                 props: (route) => ({ page: route.query.page || 1 })
-            },
-            {
-                path: 'location',
-                name: 'location',
-                component: require('../views/client/Location.vue').default
             },
             {
                 path: 'review',
@@ -49,7 +54,7 @@ const routes: Array<RouteConfig> = [
             {
                 path: 'writeReview',
                 name: 'writeReview',
-                component: require('../views/client/WriterReview.vue').default,
+                component: require('../views/client/WriteReview.vue').default,
                 props: true
             }
         ]
