@@ -84,7 +84,7 @@ export default class WriteReview extends Vue {
 
         if (this.articleNo) {
             const response = await this.$store.dispatch('editReview', {
-                boardNo: freeBoards['reviews'],
+                boardNo: freeBoards['review'],
                 article: {
                     id: this.articleNo,
                     title: this.title,
@@ -96,7 +96,7 @@ export default class WriteReview extends Vue {
             if (response.data === 'Not Authorized') return alert('비밀번호가 틀렸습니다.')
         } else {
             await this.$store.dispatch('saveReview', {
-                boardNo: freeBoards['reviews'],
+                boardNo: freeBoards['review'],
                 article: {
                     title: this.title,
                     writer: this.writer,
