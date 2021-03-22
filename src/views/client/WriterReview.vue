@@ -32,11 +32,11 @@
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import 'quill/dist/quill.snow.css'
-import ImageCompress from 'quill-image-compress'
+import '@/assets/javascripts/imageCompressor.js'
 import {quillEditor} from 'vue-quill-editor'
 import {Quill} from 'vue-quill-editor'
 
-Quill.register('modules/imageCompress', ImageCompress)
+Quill.register('modules/imageCompress', imageCompressor)
 
 @Component({
     components: {quillEditor}
@@ -52,10 +52,9 @@ export default class WriterReview extends Vue {
         modules: {
             toolbar: [['image']],
             imageCompress: {
-                quality: 0.5,
-                maxWidth: 1000, // default
-                maxHeight: 1000, // default
-                imageType: 'image/jpeg'
+                quality: 0.2,
+                maxWidth: 1000,
+                maxHeight: 1000
             }
         }
     }

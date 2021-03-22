@@ -47,7 +47,7 @@ const routes: Array<RouteConfig> = [
                 props: (route) => ({ link: route.query.link })
             },
             {
-                path: 'write-review',
+                path: 'writeReview',
                 name: 'writeReview',
                 component: require('../views/client/WriterReview.vue').default,
                 props: true

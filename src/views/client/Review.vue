@@ -65,10 +65,9 @@ $theme: #655e5e;
         font-size: 12px;
         font-family: monospace !important;
     }
-    @include mobile {
-        ::v-deep img {
-            width: 100%;
-        }
+    ::v-deep img {
+        display: block;
+        max-width: 100%;
     }
 }
 .gallery {
@@ -107,13 +106,14 @@ $theme: #655e5e;
     img {
         margin-top: 100px;
         max-width: 95vw;
-        max-height: 65vh;
+        max-height: 80vh;
     }
     .control {
         position: absolute;
         top: 80vh;
         font-size: 12px;
-        color: white;
+        color: black;
+        text-shadow: 0 0 3px white;
     }
 }
 .margin-bottom {
