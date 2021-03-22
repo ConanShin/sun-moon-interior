@@ -115,9 +115,9 @@ $theme: #655e5e;
         position: absolute;
         top: 80vh;
         font-size: 12px;
-        color: black;
-        @include mobile {
-            color: white;
+        color: white;
+        @include desktop {
+            top: 90vh;
         }
     }
 }

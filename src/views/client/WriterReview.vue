@@ -52,9 +52,9 @@ export default class WriterReview extends Vue {
         modules: {
             toolbar: [['image']],
             imageCompress: {
-                quality: 0.2,
                 maxWidth: 1000,
-                maxHeight: 1000
+                maxHeight: 1000,
+                tagName: '.editor'
             }
         }
     }
