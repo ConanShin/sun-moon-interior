@@ -9,33 +9,33 @@
         </div>
         <div class="padding line-height">
             <div class="bold">Process</div>
-            <div class="margin-left">- 상담은 공사 예정일 2-3개월전 부터 진행</div>
-            <div class="margin-left">- 공사는 범위에 따라 15일~30일 정도 소요</div>
-            <div class="box margin-left">
+            <div class="center">- 상담은 공사 예정일 2-3개월전 부터 진행</div>
+            <div class="center">- 공사는 범위에 따라 15일~30일 정도 소요</div>
+            <div class="box center">
                 <span>STEP1</span>
                 <span>상담 의뢰</span>
             </div>
-            <div class="box margin-left">
+            <div class="box center">
                 <span>STEP2</span>
                 <span>오프라인 미팅</span>
             </div>
-            <div class="box margin-left">
+            <div class="box center">
                 <span>STEP3</span>
                 <span>실측 진행</span>
             </div>
-            <div class="box margin-left">
+            <div class="box center">
                 <span>STEP4</span>
                 <span>계약 진행</span>
             </div>
-            <div class="box margin-left">
+            <div class="box center">
                 <span>STEP5</span>
                 <span>디자인 작업</span>
             </div>
-            <div class="box margin-left">
+            <div class="box center">
                 <span>STEP6</span>
                 <span>공사 진행</span>
             </div>
-            <div class="box margin-left">
+            <div class="box center">
                 <span>STEP7</span>
                 <span>사후 A/S</span>
             </div>
@@ -57,7 +57,7 @@ export default class Contact extends Vue {
 
 .center {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 .bold {
     font-weight: bolder;
@@ -88,8 +88,5 @@ export default class Contact extends Vue {
         width: 160px;
         text-align: center;
     }
-}
-.margin-left {
-    margin-left: 20px;
 }
 </style>
