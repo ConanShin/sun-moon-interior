@@ -1,0 +1,190 @@
+<template>
+    <div>
+        <div class="menu-name">{{fromTitle}}</div>
+        <div class="row">
+            <label>제목</label>
+            <input v-model="title"/>
+        </div>
+        <div class="row">
+            <label>작성자</label>
+            <input v-model="writer"/>
+        </div>
+        <div class="row">
+            <label>이메일</label>
+            <input v-model="email"/>
+        </div>
+        <quill-editor v-model="content" :options="options" class="row editor"/>
+        <div class="row">
+            <label>비밀번호</label>
+            <input v-model="password"/>
+        </div>
+        <div class="check flex row">
+            <input type="checkbox" v-model="checked"/>
+            <span>개인정보처리방침 동의</span>
+            <span class="underline" @click="showAgreement = !showAgreement">내용보기</span>
+        </div>
+        <agreement :class="{show: showAgreement}"/>
+        <div class="row flex">
+            <div class="button" @click="save">등록</div>
+            <div class="button" @click="$router.back()">취소</div>
+        </div>
+    </div>
+</template>
+
+<script>
+import {Vue, Component, Prop} from 'vue-property-decorator'
+import 'quill/dist/quill.snow.css'
+import '@/assets/javascripts/imageCompressor.js'
+import {quillEditor} from 'vue-quill-editor'
+import {Quill} from 'vue-quill-editor'
+import Agreement from "@/views/client/components/Agreement";
+import {freeBoards} from "@/cafe24info"
+
+Quill.register('modules/imageCompress', imageCompressor)
+
+@Component({
+    components: {Agreement, quillEditor}
+})
+export default class WriteArticle extends Vue {
+    @Prop() from
+    @Prop() editContent
+
+    articleNo = null
+    title = ''
+    writer = ''
+    email = ''
+    content = ''
+    password = ''
+    checked = false
+    showAgreement = false
+    options = {
+        modules: {
+            toolbar: [['image']],
+            imageCompress: {
+                maxWidth: 1000,
+                maxHeight: 1000,
+                tagName: '.editor'
+            }
+        }
+    }
+
+
+    beforeMount() {
+        if (this.editContent) {
+            this.articleNo = this.editContent.article_no
+            this.title = this.editContent.title
+            this.writer = this.editContent.writer
+            this.content = this.editContent.content
+        }
+    }
+
+    get fromTitle () {
+        if (this.from === 'review') return '시공후기'
+        return '문의하기'
+    }
+
+    async save () {
+        if (!this.title || !this.writer || !this.password) return alert('제목 / 작성자 / 비밀번호는 필수입력란 입니다.')
+        if (!this.checked) return alert('개인정보방침에 동의해 주세요.')
+
+        if (this.articleNo) {
+            try {
+                const response = await this.$store.dispatch('editArticle', {
+                    boardNo: freeBoards[this.from],
+                    article: {
+                        id: this.articleNo,
+                        title: this.title,
+                        writer: this.writer,
+                        email: this.email,
+                        password: this.password,
+                        content: this.content
+                    }
+                })
+                if (response.data === 'Not Authorized') return alert('비밀번호가 틀렸습니다.')
+                this.$router.back()
+            } catch (error) {
+                console.log(error)
+                alert('문서를 저장 중 오류가 발생했습니다.')
+            }
+        } else {
+            try {
+                await this.$store.dispatch('saveArticle', {
+                    boardNo: freeBoards[this.from],
+                    article: {
+                        title: this.title,
+                        writer: this.writer,
+                        email: this.email,
+                        password: this.password,
+                        content: this.content
+                    }
+                })
+                this.$router.back()
+            } catch (error) {
+                console.log(error)
+                alert('문서를 저장 중 오류가 발생했습니다.')
+            }
+        }
+    }
+}
+</script>
+<style scoped lang="scss">
+@import 'src/assets/style/common';
+
+.row {
+    width: 90%;
+    margin: auto;
+    padding: 5px;
+    font-size: 14px;
+    color: $dark-theme;
+
+    label {
+        width: 55px;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    input {
+        border: 1px solid $transparent-dark-theme;
+        height: 22px;
+        width: calc(100% - 77px);
+    }
+}
+
+.check {
+    input {
+        width: 14px;
+        height: 14px;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+}
+
+.editor {
+    height: 40vh;
+    margin-bottom: 42px;
+}
+
+.agreement {
+    position: fixed;
+    right: -400px;
+    top: 30%;
+    transition: right 0.3s ease-in;
+    &.show {
+        right: 0;
+    }
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.button {
+    padding: 5px 20px;
+    background-color: $dark-theme;
+    color: $bright-theme;
+}
+</style>

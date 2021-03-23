@@ -37,18 +37,16 @@ export default new Vuex.Store({
         pageLength: (state, payload) => state.pageLength = payload
     },
     actions: {
-        findReviews: async (injectee, {board, page}) => {
-            const response = await api.get(`cafe-twentyfour/article?domain=${domain}&boardNo=${board}&pageNo=${page}`)
-            injectee.commit('reviews', response.data.articles)
-            injectee.commit('pageLength', response.data.pageLength)
+        findArticles: async (injectee, {board, page}) => {
+            return api.get(`cafe-twentyfour/article?domain=${domain}&boardNo=${board}&pageNo=${page}`)
         },
-        findReview: (injectee, payload) => {
+        findArticle: (injectee, payload) => {
             return api.post(`cafe-twentyfour/article/link`, {url: payload.link})
         },
-        saveReview: async (injectee, payload) => {
+        saveArticle: async (injectee, payload) => {
             return api.post(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
         },
-        editReview: async (injectee, payload) => {
+        editArticle: async (injectee, payload) => {
             return api.put(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
         },
         findPortfolioList: async (injectee, category: string) => {

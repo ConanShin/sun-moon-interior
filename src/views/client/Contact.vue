@@ -5,7 +5,7 @@
             <div>모든 상담은 사전예약을 통해 이루어지고 있습니다.</div>
             <div>견적의뢰 게시판에 글을 남겨주시면</div>
             <div>상담 예약 전화를 드립니다.</div>
-            <div class="button" @click="$router.push({name: 'writeQna'})">견적 의뢰 하기</div>
+            <div class="button" @click="$router.push({name: 'writeArticle', query: { from: 'qna'}})">견적 의뢰 하기</div>
         </div>
         <div class="padding line-height">
             <div class="bold">Process</div>

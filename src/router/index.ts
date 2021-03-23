@@ -30,32 +30,28 @@ const routes: Array<RouteConfig> = [
                 component: require('../views/client/Contact.vue').default
             },
             {
-                path: 'qna',
-                name: 'qna',
-                component: require('../views/client/QNA.vue').default
-            },
-            {
-                path: 'writeQna',
-                name: 'writeQna',
-                component: require('../views/client/WriteQNA.vue').default
-            },
-            {
-                path: 'reviews',
-                name: 'reviews',
+                path: 'review',
+                name: 'review',
                 component: require('../views/client/Reviews_Table.vue').default,
                 props: (route) => ({ page: route.query.page || 1 })
             },
             {
-                path: 'review',
-                name: 'review',
-                component: require('../views/client/Review.vue').default,
-                props: (route) => ({ link: route.query.link })
+                path: 'qna',
+                name: 'qna',
+                component: require('../views/client/QNA.vue').default,
+                props: (route) => ({ page: route.query.page || 1 })
             },
             {
-                path: 'writeReview',
-                name: 'writeReview',
-                component: require('../views/client/WriteReview.vue').default,
-                props: true
+                path: 'article',
+                name: 'article',
+                component: require('../views/client/Article.vue').default,
+                props: (route) => ({ link: route.query.link, from: route.query.from })
+            },
+            {
+                path: 'writeArticle',
+                name: 'writeArticle',
+                component: require('../views/client/WriteArticle.vue').default,
+                props: (route) => ({ from: route.query.from, editContent: route.params.editContent })
             }
         ]
     },

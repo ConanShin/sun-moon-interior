@@ -43,7 +43,7 @@ export default class Menu extends Vue {
         {name: '소개',     path: 'about'},
         {name: '포트폴리오', path: 'portfolio'},
         {name: '견적의뢰',  path: 'contact' },
-        {name: '시공후기',  path: 'reviews'},
+        {name: '시공후기',  path: 'review'},
         {name: '문의하기',  path: 'qna'},
     ]
     async redirect(name) {

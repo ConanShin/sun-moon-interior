@@ -31,6 +31,7 @@ body {
 }
 
 html, body {
+    overflow-x: hidden;
 }
 
 input {
@@ -74,7 +75,7 @@ input:-webkit-autofill:active
 
 @include desktop {
     .menu-name {
-        display: none;
+        display: none !important;
     }
 }
 </style>

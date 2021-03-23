@@ -7,8 +7,8 @@
             <img @click="clickedIndex = index" v-for="(url, index) in images" :src="url"/>
         </div>
         <div class="control margin-bottom">
-            <div @click="$router.push({name: 'reviews'})" class="box">목록</div>
-            <div @click="$router.push({name: 'writeReview', params: {editContent: article}})" class="box">수정</div>
+            <div @click="back" class="box">목록</div>
+            <div @click="edit" class="box">수정</div>
         </div>
 
         <div v-if="clickedIndex !== ''" class="gray">
@@ -26,8 +26,9 @@
 import {Vue, Component, Prop} from 'vue-property-decorator'
 
 @Component
-export default class Review extends Vue {
+export default class Article extends Vue {
     @Prop() link
+    @Prop() from
     listShow = false
 
     article = {
@@ -39,8 +40,16 @@ export default class Review extends Vue {
         return this.article.attach_file_urls
     }
 
+    back () {
+        this.$router.push({name: this.from})
+    }
+
+    edit () {
+        this.$router.push({name: 'writeArticle', query: {from: this.from}, params: {editContent: this.article}})
+    }
+
     async mounted () {
-        this.article = (await this.$store.dispatch('findReview', {link: decodeURIComponent(this.link)})).data
+        this.article = (await this.$store.dispatch('findArticle', {link: decodeURIComponent(this.link)})).data
         this.listShow = true
     }
 }

@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <div v-if="isDesktop">
+        <div>Philosophy</div>
+    </div>
+    <div v-else>
         <div class="menu-name">소개</div>
         <div class="padding">
             <div class="bold">Philosophy</div>
@@ -28,7 +31,9 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class About extends Vue {
-
+    get isDesktop() {
+        return window.innerWidth > 400
+    }
 }
 </script>
 
@@ -36,19 +41,24 @@ export default class About extends Vue {
 .padding {
     padding: 20px;
 }
+
 .bold {
     font-weight: bolder;
     margin-bottom: 10px;
 }
+
 .center {
     text-align: center;
+
     div {
         margin: 2px 0;
     }
 }
+
 img {
     width: 100%;
 }
+
 .small {
     font-size: 10px;
 }

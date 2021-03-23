@@ -1,66 +1,45 @@
 <template>
-    <div class="reviews" :class="{show: listShow}">
+    <div class="reviews" :class="{show: reviews}">
         <div class="header">
-            <div class="menu-name">review</div>
-            <div class="write button" @click="write">write</div>
+            <div class="even"></div>
+            <div class="even menu-name">시공후기</div>
+            <div class="even write button" @click="write">write</div>
         </div>
-        <div class="list">
-            <div class="review" v-for="review in reviews" @click="$router.push({name: 'review', query: {link: encodeURIComponent(review.link)}}).catch(() => {})">
-                <span class="title reply" v-if="review.is_reply">re: {{review.title}}</span>
-                <span class="title" v-else>{{review.title}}</span>
-                <span class="writer">{{review.writer}}</span>
-            </div>
-        </div>
-        <div class="paging">
-            <span @click="search(-1)"><</span>
-            <span v-for="index in pageLength" :class="{bold: index == page}" @click="searchPage(index)">{{index}}</span>
-            <span @click="search(+1)">></span>
-        </div>
+        <board :list="reviews" :page="page" :page-length="pageLength" @search="searchPage"></board>
     </div>
 </template>
 
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import {freeBoards} from '@/cafe24info'
-
-@Component
+import Board from "@/views/client/components/Board";
+@Component({
+    components: {Board}
+})
 export default class Reviews extends Vue {
     @Prop() page
-    listShow = false
+    reviews = null
+    pageLength = 0
 
     get isDesktop () {
         return window.innerWidth > 400
     }
 
-    get reviews() {
-        return this.$store.getters.reviews
-    }
-
-    get pageLength() {
-        return this.$store.getters.pageLength
-    }
-
     async searchPage(pageNumber) {
-        this.listShow = false
-        await this.$store.dispatch('findReviews', {board: 5, page: pageNumber})
-        await this.$router.push({name: 'reviews', query: {page: pageNumber}}).catch(() => {})
-        this.listShow = true
-    }
-
-    async search(offset) {
-        if (Number(this.page) === 1 && offset === -1) return
-        if (Number(this.page) === this.pageLength && offset === 1) return
-        const redirectPage = Number(this.page) + offset
-        await this.searchPage(redirectPage)
+        const {data: {articles, pageLength}} = await this.$store.dispatch('findArticles', {board: freeBoards['review'], page: pageNumber})
+        this.reviews = articles
+        this.pageLength = pageLength
+        await this.$router.push({name: 'review', query: {page: pageNumber}}).catch(() => {})
     }
 
     write() {
-        this.$router.push({name: 'writeReview'})
+        this.$router.push({name: 'writeArticle', query: {from: 'review'}})
     }
 
     async beforeMount() {
-        await this.$store.dispatch('findReviews', {board: freeBoards['review'], page: this.page})
-        this.listShow = true
+        const {data: {articles, pageLength}} = await this.$store.dispatch('findArticles', {board: freeBoards['review'], page: this.page})
+        this.reviews = articles
+        this.pageLength = pageLength
     }
 }
 </script>
@@ -68,12 +47,23 @@ export default class Reviews extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 @import 'src/assets/style/common';
-
 .header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     align-items: center;
     height: 50px;
+
+    .menu-name {
+        width: 100px !important;
+    }
+
+    .even {
+        display: inline-flex;
+        width: 35px;
+        height: 25px;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .write.button {
@@ -86,9 +76,7 @@ export default class Reviews extends Vue {
         padding: 18px 27px;
     }
     @include mobile {
-        margin-right: 15px;
         font-size: 10px;
-        padding: 7px;
         color: $bright-theme;
         border: 1px solid $dark-theme;
         background-color:$dark-theme;
@@ -96,56 +84,10 @@ export default class Reviews extends Vue {
 }
 
 .reviews {
-    font-family: "Nanum Gothic";
     opacity: 0;
     &.show {
         opacity: 1;
         transition: opacity 0.5s ease-in;
     }
 }
-
-.review {
-    &:first-of-type {
-        border-top: 1px solid $transparent-dark-theme;
-    }
-    border-bottom: 1px solid $transparent-dark-theme;
-    padding: 18px 27px;
-    @include mobile {
-        padding: 18px 15px;
-    }
-    font-size: 13px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.title {
-    cursor: pointer;
-    width: 500px;
-
-    @include mobile {
-        width: 200px;
-    }
-    &.reply {
-        padding-left: 10px;
-    }
-}
-.writer {
-    font-size: 8px;
-}
-.paging {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    span {
-        padding: 5px;
-        margin: 5px;
-        cursor: pointer;
-        font-weight: lighter;
-        &.bold {
-            font-weight: bolder;
-            text-shadow: 1px 2px 3px #000000c4;
-        }
-    }
-}
-
 </style>

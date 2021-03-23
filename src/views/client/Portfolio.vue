@@ -1,7 +1,7 @@
 <template>
     <div class="portfolio">
         <div>
-            <div class="menu-name">portfolio</div>
+            <div class="menu-name">포트폴리오</div>
             <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
                 <div v-for="(categoryId, categoryName) in portfolioSubmenus" @click="redirectSubmenu(categoryName, categoryId)" :class="{bold: $store.getters.py === categoryName}">{{categoryName}}</div>
             </div>
