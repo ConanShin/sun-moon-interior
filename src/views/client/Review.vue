@@ -16,7 +16,7 @@ import Board from "@/views/client/components/Board";
 @Component({
     components: {Board}
 })
-export default class Reviews extends Vue {
+export default class Review extends Vue {
     @Prop() page
     reviews = null
     pageLength = 0

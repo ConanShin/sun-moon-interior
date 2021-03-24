@@ -53,16 +53,16 @@ input:-webkit-autofill:active
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-::-webkit-scrollbar {
-    display: none;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-::-webkit-scrollbar {
-    width: 0;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
-}
+//::-webkit-scrollbar {
+//    display: none;
+//    -ms-overflow-style: none;  /* IE and Edge */
+//    scrollbar-width: none;  /* Firefox */
+//}
+//
+//::-webkit-scrollbar {
+//    width: 0;  /* Remove scrollbar space */
+//    background: transparent;  /* Optional: just make scrollbar invisible */
+//}
 
 @include mobile {
     .menu-name {

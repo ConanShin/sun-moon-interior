@@ -4,7 +4,6 @@ import {categories} from '@/cafe24info'
 const pyToCategoryId: any = categories.portfolio
 
 export const pyToCategory = (py: string) => {
-    console.log(pyToCategoryId[py])
     return pyToCategoryId[py]
 }
 

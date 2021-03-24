@@ -4,6 +4,7 @@ const freeBoards = {
 }
 
 const categories = {
+    'about': 46,
     'home': 23,
     'portfolio': {
         '20py': 26,

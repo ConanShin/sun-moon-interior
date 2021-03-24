@@ -1,5 +1,5 @@
 <template>
-    <div class="scroll" @scroll="colorDot" :class="{show: listShow}">
+    <div :class="{show: listShow}">
         <img v-for="product in products" :src="product.list_image" @click="redirect(product)"/>
         <div class="slider-navigation">
             <span v-for="(item, index) in products" class="dot" :class="{colored: index === viewingIndex}"
@@ -24,6 +24,19 @@ export default class Home extends Vue {
         this.listShow = true
     }
 
+    mounted () {
+        if (this.isDesktop) return document.body.addEventListener('scroll', this.colorDot)
+        window.addEventListener('scroll', this.colorDot)
+    }
+    destroy() {
+        if (this.isDesktop) return document.body.removeEventListener('scroll', this.colorDot)
+        window.removeEventListener('scroll', this.colorDot)
+    }
+
+    get isDesktop() {
+        return window.innerWidth > 400
+    }
+
     get products() {
         return this.$store.getters.products
     }
@@ -42,13 +55,10 @@ export default class Home extends Vue {
     }
 
     indexByScrollPosition() {
-        const index = Array.from(this.$el.querySelectorAll('img')).findIndex(element => {
-            const hiddenArea = element.getBoundingClientRect().y
-            const elementHeight = element.height
-            if (elementHeight * 3 / 4 < hiddenArea) return true
-        })
-
-        return index === -1 ? this.products.length - 1 : index - 1
+        const pivotHeight = this.isDesktop ? document.body.scrollHeight : window.innerHeight
+        const scrollHeight = this.isDesktop ? document.body.scrollTop : window.scrollY + 30
+        const avgHeight = pivotHeight / this.$el.querySelectorAll('img').length
+        return Math.ceil(scrollHeight / avgHeight)
     }
 }
 </script>
@@ -58,10 +68,7 @@ export default class Home extends Vue {
 @import 'src/assets/style/common';
 
 img {
-    @include mobile {
-        width: 100%;
-    }
-    width: 80%;
+    width: 100%;
     margin: auto;
     display: block;
 }
@@ -76,11 +83,13 @@ img {
 }
 
 .slider-navigation {
-    @include mobile {
-        display: none;
-    }
-    top: 87px;
+    top: 95px;
     left: 10%;
+    @include mobile {
+        top: 57px;
+        left: 0;
+    }
+
     position: fixed;
     display: flex;
     flex-direction: column;

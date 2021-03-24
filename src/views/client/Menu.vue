@@ -66,7 +66,7 @@ export default class Menu extends Vue {
 @import 'src/assets/style/common';
 .nav {
     width: 80%;
-    padding: 10px 10% 0 10%;
+    padding: 10px 10% 10px 10%;
     position: fixed;
     z-index: 1;
     background-color: $bright-theme;

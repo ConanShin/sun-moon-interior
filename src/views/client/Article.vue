@@ -1,5 +1,5 @@
 <template>
-    <div class="review" :class="{show: listShow}">
+    <div class="article" :class="{show: listShow}">
         <h3>작성자: {{article.writer}}</h3>
         <h3>제목: {{article.title}}</h3>
         <div class="content" v-html="article.content"></div>
@@ -59,11 +59,8 @@ export default class Article extends Vue {
 @import 'src/assets/style/media-query';
 @import 'src/assets/style/common';
 
-.review {
-    overflow: auto;
-    width: calc(100vw - 20px);
+.article {
     opacity: 0;
-    font-family: "Nanum Gothic";
     &.show {
         opacity: 1;
         transition: opacity 0.5s ease-in;

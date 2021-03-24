@@ -18,12 +18,23 @@
             <label>비밀번호</label>
             <input v-model="password"/>
         </div>
-        <div class="check flex row">
-            <input type="checkbox" v-model="checked"/>
-            <span>개인정보처리방침 동의</span>
-            <span class="underline" @click="showAgreement = !showAgreement">내용보기</span>
-        </div>
-        <agreement :class="{show: showAgreement}"/>
+        <template v-if="isDesktop">
+            <div class="flex">
+                <agreement :class="{show: showAgreement}"/>
+                <div class="flex">
+                    <input type="checkbox" v-model="checked"/>
+                    <span>개인정보처리방침 동의</span>
+                </div>
+            </div>
+        </template>
+        <template v-else>
+            <div class="check flex row">
+                <input type="checkbox" v-model="checked"/>
+                <span>개인정보처리방침 동의</span>
+                <span class="underline" @click="showAgreement = !showAgreement">내용보기</span>
+            </div>
+            <agreement :class="{show: showAgreement}"/>
+        </template>
         <div class="row flex">
             <div class="button" @click="save">등록</div>
             <div class="button" @click="$router.back()">취소</div>
@@ -68,7 +79,6 @@ export default class WriteArticle extends Vue {
         }
     }
 
-
     beforeMount() {
         if (this.editContent) {
             this.articleNo = this.editContent.article_no
@@ -76,6 +86,10 @@ export default class WriteArticle extends Vue {
             this.writer = this.editContent.writer
             this.content = this.editContent.content
         }
+    }
+
+    get isDesktop() {
+        return window.innerWidth > 400
     }
 
     get fromTitle () {
@@ -129,7 +143,7 @@ export default class WriteArticle extends Vue {
 </script>
 <style scoped lang="scss">
 @import 'src/assets/style/common';
-
+@import 'src/assets/style/media-query';
 .row {
     width: 90%;
     margin: auto;
@@ -167,12 +181,17 @@ export default class WriteArticle extends Vue {
 }
 
 .agreement {
-    position: fixed;
-    right: -400px;
-    top: 30%;
-    transition: right 0.3s ease-in;
-    &.show {
-        right: 0;
+    @include mobile {
+        position: fixed;
+        right: -400px;
+        top: 30%;
+        transition: right 0.3s ease-in;
+        &.show {
+            right: 0;
+        }
+    }
+    @include desktop {
+        width: 700px;
     }
 }
 

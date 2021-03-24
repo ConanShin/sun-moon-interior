@@ -32,7 +32,7 @@ const routes: Array<RouteConfig> = [
             {
                 path: 'review',
                 name: 'review',
-                component: require('../views/client/Reviews_Table.vue').default,
+                component: require('../views/client/Review.vue').default,
                 props: (route) => ({ page: route.query.page || 1 })
             },
             {
