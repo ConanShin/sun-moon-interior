@@ -22,7 +22,7 @@ export default class Review extends Vue {
     pageLength = 0
 
     get isDesktop () {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 
     async searchPage(pageNumber) {

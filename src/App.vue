@@ -22,6 +22,13 @@ export default class App extends Vue {
     font-style: normal;
 }
 
+.logo-icon {
+    background-image: url("~@/assets/logo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+}
+
 body {
     font-family: 'MapoFlowerIsland';
     font-size: 12px;
@@ -39,16 +46,17 @@ input {
     border: none;
     padding: 0 5px;
 }
+
 input:focus {
     background: transparent;
     border: 0;
     outline: none;
 }
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active
-{
+input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px $bright-theme inset !important;
 }
 

@@ -1,7 +1,6 @@
 <template>
     <div v-if="isDesktop" class="contact flex" :class="{show: show}">
         <div class="flex-2">
-            <div class="logo">LOGO</div>
         </div>
         <div class="flex-8">
             <div class="bold">Contact</div>
@@ -15,7 +14,7 @@
             <div class="bold gap">Process</div>
             <div>- 상담은 공사 예정일 2-3개월전 부터 진행</div>
             <div>- 공사는 범위에 따라 15일~30일 정도 소요</div>
-            <div class="flex">
+            <div class="boxes flex">
                 <div class="box center">
                     <span>STEP1</span>
                     <span>상담 의뢰</span>
@@ -105,7 +104,7 @@ export default class Contact extends Vue {
     show = true
 
     get isDesktop() {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 }
 </script>
@@ -144,10 +143,6 @@ export default class Contact extends Vue {
     }
 }
 
-.gap {
-    margin-top: 30px;
-}
-
 .center {
     text-align: center;
     margin-top: 10px;
@@ -159,6 +154,11 @@ export default class Contact extends Vue {
         margin: 30px 0;
     }
 }
+
+.gap {
+    margin-top: 50px;
+}
+
 
 .line-height {
     line-height: 20px;
@@ -183,6 +183,12 @@ export default class Contact extends Vue {
     border-top: 17px solid transparent;
     border-bottom: 17px solid transparent;
     border-left: 20px solid $dark-theme;
+}
+
+.boxes {
+    @include desktop {
+        margin-top: 50px;
+    }
 }
 
 .box {

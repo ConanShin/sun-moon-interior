@@ -40,7 +40,7 @@ export default class Portfolio extends Vue {
     }
 
     get isDesktop () {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 
     async findProduct (product_no) {
@@ -88,7 +88,7 @@ export default class Portfolio extends Vue {
         width: 100%;
     }
     @include desktop {
-        width: 400px;
+        width: 460px;
         margin-right: 20px;
     }
     &.show {

@@ -1,7 +1,6 @@
 <template>
     <div v-if="isDesktop" class="about flex" :class="{show: show}">
         <div class="flex-2">
-            <div class="logo">LOGO</div>
         </div>
         <div class="flex-4">
             <div class="bold">Philosophy</div>
@@ -41,7 +40,7 @@
             <div class="bold">Location</div>
             <div class="center">
                 <div>경기도 김포시 풍무로 96번길 107</div>
-                <img src="@/assets/map.png"/>
+                <img src="@/assets/map-daum.png"/>
                 <div class="small">TEL 031 997 0512 FAX 031 997 0513</div>
                 <div class="small">EMAIL sun-mooninterior@naver.com</div>
             </div>
@@ -57,7 +56,7 @@ import {categories} from "@/cafe24info";
 export default class About extends Vue {
     show = false
     get isDesktop() {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 
     get products () {
@@ -138,6 +137,9 @@ export default class About extends Vue {
 
 img {
     width: 100%;
+    @include desktop {
+        width: 75%;
+    }
 }
 
 .small {

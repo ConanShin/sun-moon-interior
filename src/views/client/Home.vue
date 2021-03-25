@@ -24,25 +24,25 @@ export default class Home extends Vue {
         this.listShow = true
     }
 
-    mounted () {
-        if (this.isDesktop) return document.body.addEventListener('scroll', this.colorDot)
+    mounted() {
         window.addEventListener('scroll', this.colorDot)
     }
+
     destroy() {
-        if (this.isDesktop) return document.body.removeEventListener('scroll', this.colorDot)
         window.removeEventListener('scroll', this.colorDot)
     }
 
     get isDesktop() {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 
     get products() {
         return this.$store.getters.products
     }
 
-    async redirect (product) {
-        this.$router.push({name: 'portfolio', query: {product_no: product.product_no}}).then().catch(() => {})
+    async redirect(product) {
+        this.$router.push({name: 'portfolio', query: {product_no: product.product_no}}).then().catch(() => {
+        })
     }
 
     colorDot() {
@@ -55,10 +55,9 @@ export default class Home extends Vue {
     }
 
     indexByScrollPosition() {
-        const pivotHeight = this.isDesktop ? document.body.scrollHeight : window.innerHeight
-        const scrollHeight = this.isDesktop ? document.body.scrollTop : window.scrollY
-        const avgHeight = pivotHeight / this.$el.querySelectorAll('img').length
-        return Math.ceil(scrollHeight / avgHeight)
+        const imageCount = this.$el.querySelectorAll('img').length
+        const avgHeight = 100 / imageCount
+        return Math.min(Math.floor(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100 / avgHeight), imageCount - 1)
     }
 }
 </script>
@@ -76,6 +75,7 @@ img {
 .scroll {
     overflow: auto;
     opacity: 0;
+
     &.show {
         opacity: 1;
         transition: opacity 0.5s ease-in;
@@ -83,10 +83,10 @@ img {
 }
 
 .slider-navigation {
-    top: 95px;
+    top: 156px;
     left: 10%;
     @include mobile {
-        top: 57px;
+        top: 64px;
         left: 0;
     }
 

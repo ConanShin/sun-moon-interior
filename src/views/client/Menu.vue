@@ -1,9 +1,18 @@
 <template>
     <div class="nav">
-        <div @click="redirect('home')" class="logo">해와달인테리어</div>
+        <div @click="redirect('home')" class="logo">
+             <div class="logo-icon"></div>
+            <span v-if="isDesktop">
+                <div>해와달</div>
+                <div>INTERIOR</div>
+            </span>
+            <span v-else>해와달인테리어</span>
+        </div>
         <template v-if="isDesktop">
             <div class="menu">
-                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{menu.name}}</div>
+                <div class="item" v-for="menu in menus" @click="redirect(menu.path)"
+                     :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}
+                </div>
             </div>
         </template>
         <template v-else>
@@ -16,7 +25,9 @@
                         <span></span>
                     </div>
                 </div>
-                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{menu.name}}</div>
+                <div class="item" v-for="menu in menus" @click="redirect(menu.path)"
+                     :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}
+                </div>
             </div>
         </template>
     </div>
@@ -40,22 +51,24 @@ export default class Menu extends Vue {
     `
     showMenu = false
     menus = [
-        {name: '소개',     path: 'about'},
+        {name: '소개', path: 'about'},
         {name: '포트폴리오', path: 'portfolio'},
-        {name: '견적의뢰',  path: 'contact' },
-        {name: '시공후기',  path: 'review'},
-        {name: '문의하기',  path: 'qna'},
+        {name: '견적의뢰', path: 'contact'},
+        {name: '시공후기', path: 'review'},
+        {name: '문의하기', path: 'qna'},
     ]
+
     async redirect(name) {
         this.showMenu = false
-        await this.$router.push({name}).catch(() => {})
+        await this.$router.push({name}).catch(() => {
+        })
     }
 
     get isDesktop() {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 
-    clickOutside () {
+    clickOutside() {
         this.showMenu = false
     }
 }
@@ -64,6 +77,7 @@ export default class Menu extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 @import 'src/assets/style/common';
+
 .nav {
     width: 80%;
     padding: 10px 10% 10px 10%;
@@ -78,18 +92,29 @@ export default class Menu extends Vue {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
     font-size: 18px;
-    padding: 6px 0;
+    cursor: pointer;
     @include mobile {
         width: fit-content;
-        margin: auto;
+        margin: 6px auto;
     }
     @include desktop {
         font-size: 30px;
         padding: 18px 0;
     }
-    text-align: center;
-    cursor: pointer;
+
+    .logo-icon {
+        width: 31px;
+        height: 31px;
+        margin-right: 5px;
+        @include desktop {
+            width: 100px;
+            height: 100px;
+            margin-right: 15px;
+        }
+    }
 }
 
 .menu {
@@ -114,8 +139,8 @@ export default class Menu extends Vue {
         width: 15px;
         top: 0;
         left: 0;
-        padding: 18px;
-        -webkit-tap-highlight-color: rgba(0,0,0,0)
+        padding: 24px 18px;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
     }
 
     .bold {

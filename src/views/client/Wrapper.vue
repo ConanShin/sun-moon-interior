@@ -26,7 +26,7 @@ export default class Wrapper extends Vue {
     }
 
     get isDesktop () {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 
     async beforeMount () {
@@ -60,20 +60,18 @@ export default class Wrapper extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 
-$nav-height: 93px;
-
+$nav-height: 155px;
 .view {
-    min-height: calc(100vh - #{$nav-height});
+    min-height: calc(100vh - #{$nav-height +91});
     margin: auto;
     position: relative;
     @include desktop {
         width: 80%;
-        min-height: calc(100vh - 184px);
         padding-top: $nav-height;
     }
     @include mobile {
         width: 100%;
-        padding-top: 54px;
+        padding-top: 63px;
     }
 }
 </style>

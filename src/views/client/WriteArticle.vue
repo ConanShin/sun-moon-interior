@@ -76,10 +76,30 @@ export default class WriteArticle extends Vue {
                 maxHeight: 1000,
                 tagName: '.editor'
             }
-        }
+        },
+        placeholder: ''
     }
 
     beforeMount() {
+        if (this.$route.fullPath.includes('qna')) {
+            this.content = `<p>성함:</p>
+                            <br>
+                            <p>휴대폰번호:</p>
+                            <br>
+                            <p>공사할곳:</p>
+                            <br>
+                            <p>주소:</p>
+                            <br>
+                            <p>평수:</p>
+                            <br>
+                            <p>부분공사&전체공사(한가지선택):</p>
+                            <br>
+                            <p>예산금액:</p>
+                            <br>
+                            <p>공사희망일:</p>
+                            <br>
+                            <p>기타문의사항:</p>`
+        }
         if (this.editContent) {
             this.articleNo = this.editContent.article_no
             this.title = this.editContent.title
@@ -89,7 +109,7 @@ export default class WriteArticle extends Vue {
     }
 
     get isDesktop() {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 
     get fromTitle () {
@@ -183,7 +203,7 @@ export default class WriteArticle extends Vue {
 .agreement {
     @include mobile {
         position: fixed;
-        right: -400px;
+        right: -460px;
         top: 30%;
         transition: right 0.3s ease-in;
         &.show {

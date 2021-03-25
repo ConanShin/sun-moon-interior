@@ -15,7 +15,7 @@ import {Vue, Component} from 'vue-property-decorator'
 export default class Footer extends Vue {
 
     get isDesktop() {
-        return window.innerWidth > 400
+        return window.innerWidth > 460
     }
 }
 </script>
