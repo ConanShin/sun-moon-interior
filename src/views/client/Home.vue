@@ -56,7 +56,7 @@ export default class Home extends Vue {
 
     indexByScrollPosition() {
         const pivotHeight = this.isDesktop ? document.body.scrollHeight : window.innerHeight
-        const scrollHeight = this.isDesktop ? document.body.scrollTop : window.scrollY + 30
+        const scrollHeight = this.isDesktop ? document.body.scrollTop : window.scrollY
         const avgHeight = pivotHeight / this.$el.querySelectorAll('img').length
         return Math.ceil(scrollHeight / avgHeight)
     }

@@ -6,7 +6,7 @@
             <transition name="fade" mode="out-in">
                 <router-view class="view"/>
             </transition>
-            <Footer class="footer"/>
+            <FooterFixed class="footer"/>
         </template>
     </div>
 </template>
@@ -16,8 +16,9 @@ import {Vue, Component} from 'vue-property-decorator'
 import Menu from "@/views/client/Menu";
 import Cover from "@/views/Cover";
 import Footer from "@/views/client/Footer";
+import FooterFixed from "@/views/client/FooterFixed";
 @Component({
-    components: {Menu, Cover, Footer}
+    components: {FooterFixed, Menu, Cover, Footer}
 })
 export default class Wrapper extends Vue {
     get products() {
@@ -67,7 +68,7 @@ $nav-height: 93px;
     position: relative;
     @include desktop {
         width: 80%;
-        height: 90vh;
+        min-height: calc(100vh - 184px);
         padding-top: $nav-height;
     }
     @include mobile {
