@@ -62,14 +62,15 @@ export default class Wrapper extends Vue {
 
 $nav-height: 155px;
 .view {
-    min-height: calc(100vh - #{$nav-height +91});
     margin: auto;
     position: relative;
     @include desktop {
+        min-height: calc(100vh - #{$nav-height +91});
         width: 80%;
         padding-top: $nav-height;
     }
     @include mobile {
+        min-height: calc(100vh - #{$nav-height});
         width: 100%;
         padding-top: 63px;
     }
