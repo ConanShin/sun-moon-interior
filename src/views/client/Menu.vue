@@ -1,10 +1,10 @@
 <template>
     <div class="nav">
         <div @click="redirect('home')" class="logo">
-             <div class="logo-icon"></div>
+            <div class="logo-icon"></div>
             <span v-if="isDesktop">
-                <div>해와달</div>
-                <div>INTERIOR</div>
+                <div class="big">해와달</div>
+                <div class="small">INTERIOR</div>
             </span>
             <span v-else>해와달인테리어</span>
         </div>
@@ -114,6 +114,14 @@ export default class Menu extends Vue {
             height: 100px;
             margin-right: 15px;
         }
+    }
+    .big {
+        font-size: 40px;
+        letter-spacing: 18px;
+    }
+    .small {
+        font-size: 25px;
+        letter-spacing: 5px;
     }
 }
 

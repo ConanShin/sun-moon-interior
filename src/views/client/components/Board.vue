@@ -50,10 +50,11 @@ export default class Board extends Vue {
     }
     border-bottom: 1px solid $transparent-dark-theme;
     padding: 18px 27px;
+    font-size: 15px;
     @include mobile {
+        font-size: 13px;
         padding: 18px 15px;
     }
-    font-size: 13px;
     display: flex;
     justify-content: space-between;
 }
@@ -70,7 +71,9 @@ export default class Board extends Vue {
     }
 }
 .writer {
-    font-size: 8px;
+    @include mobile {
+        font-size: 8px;
+    }
 }
 .paging {
     display: flex;

@@ -6,9 +6,9 @@
         <div class="gallery">
             <img @click="clickedIndex = index" v-for="(url, index) in images" :src="url"/>
         </div>
-        <div class="control margin-bottom">
-            <div @click="back" class="box">목록</div>
-            <div @click="edit" class="box">수정</div>
+        <div class="margin-bottom">
+            <div @click="back" class="button">목록</div>
+            <div @click="edit" class="button">수정</div>
         </div>
 
         <div v-if="clickedIndex !== ''" class="gray">
@@ -85,10 +85,18 @@ export default class Article extends Vue {
         width: 10vh;
     }
 }
-.box {
-    border: 1px solid $dark-theme;
-    width: 35px;
-    text-align: center;
+.button {
+    font-size: 17px;
+    @include mobile {
+        font-size: 10px;
+    }
+    color: #FFF;
+    border: 1px solid #655e5e;
+    background-color: #655e5e;
+    float: right;
+    padding: 11px;
+    margin: 3px;
+    cursor: pointer;
 }
 .control {
     display: flex;
