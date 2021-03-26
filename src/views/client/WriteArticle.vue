@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <label>작성자</label>
-            <input v-model="writer"/>
+            <input v-model="writer" :disabled="writerDisable"/>
         </div>
         <div class="row">
             <label>이메일</label>
@@ -63,6 +63,7 @@ export default class WriteArticle extends Vue {
     articleNo = null
     title = ''
     writer = ''
+    writerDisable = ''
     email = ''
     content = ''
     password = ''
@@ -101,6 +102,7 @@ export default class WriteArticle extends Vue {
                             <p>기타문의사항:</p>`
         }
         if (this.editContent) {
+            this.writerDisable = 'disabled'
             this.articleNo = this.editContent.article_no
             this.title = this.editContent.title
             this.writer = this.editContent.writer

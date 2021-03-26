@@ -45,6 +45,12 @@ input {
     background: none;
     border: none;
     padding: 0 5px;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+input:disabled {
+    background: $bright-theme-100;
 }
 
 input:focus {
@@ -61,16 +67,16 @@ input:-webkit-autofill:active {
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-//::-webkit-scrollbar {
-//    display: none;
-//    -ms-overflow-style: none;  /* IE and Edge */
-//    scrollbar-width: none;  /* Firefox */
-//}
-//
-//::-webkit-scrollbar {
-//    width: 0;  /* Remove scrollbar space */
-//    background: transparent;  /* Optional: just make scrollbar invisible */
-//}
+::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
 
 @include mobile {
     .menu-name {
