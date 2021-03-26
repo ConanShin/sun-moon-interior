@@ -78,7 +78,7 @@ export default class Board extends Vue {
 .paging {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin: 20px;
     span {
         padding: 5px;
         margin: 5px;

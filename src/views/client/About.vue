@@ -1,8 +1,8 @@
 <template>
     <div v-if="isDesktop" class="about flex" :class="{show: show}">
-        <div class="flex-2">
+        <div class="flex-1">
         </div>
-        <div class="flex-4">
+        <div class="flex-5">
             <div class="bold">Philosophy</div>
             <div>
                 <div>해와달 인테리어는</div>
@@ -14,13 +14,13 @@
             <div class="bold gap">Location</div>
             <div class="margin">사전 예약을 통한 방문상담만 가능합니다.</div>
             <div>
-                <div>경기도 김포시 풍무로 96번길 107</div>
-                <div>TEL 031 997 0512 FAX 031 997 0513</div>
-                <div>EMAIL sun-mooninterior@naver.com</div>
+                <div>A. 경기도 김포시 풍무로 96번길 107</div>
+                <div>T. 031 997 0512</div>
+                <div>F. 031 997 0513</div>
+                <div>E. sun-mooninterior@naver.com</div>
             </div>
         </div>
         <div class="flex-4">
-            <img v-if="products[0]" :src="products[0].list_image"/>
             <img src="@/assets/map.png"/>
         </div>
     </div>
@@ -97,8 +97,11 @@ export default class About extends Vue {
 .flex {
     display: flex;
 
-    .flex-2 {
-        flex: 2;
+    .flex-1 {
+        flex: 1;
+    }
+    .flex-5 {
+        flex: 5;
     }
     .flex-4 {
         flex: 4;

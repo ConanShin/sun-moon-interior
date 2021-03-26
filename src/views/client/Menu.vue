@@ -1,10 +1,9 @@
 <template>
     <div class="nav">
         <div @click="redirect('home')" class="logo">
-            <div class="logo-icon"></div>
             <span v-if="isDesktop">
-                <div class="big">해와달</div>
-                <div class="small">INTERIOR</div>
+                <div class="big">해와달인테리어</div>
+                <div class="small">Convenient, Consistent and Cozy</div>
             </span>
             <span v-else>해와달인테리어</span>
         </div>
@@ -89,6 +88,7 @@ export default class Menu extends Vue {
         display: flex;
         justify-content: space-between;
     }
+    border-bottom: 1px solid #655e5e14;
 }
 
 .logo {
@@ -110,8 +110,8 @@ export default class Menu extends Vue {
         height: 31px;
         margin-right: 5px;
         @include desktop {
-            width: 100px;
-            height: 100px;
+            width: 85px;
+            height: 85px;
             margin-right: 15px;
         }
     }
@@ -120,8 +120,8 @@ export default class Menu extends Vue {
         letter-spacing: 18px;
     }
     .small {
-        font-size: 25px;
-        letter-spacing: 5px;
+        font-size: 18px;
+        letter-spacing: 2px;
     }
 }
 

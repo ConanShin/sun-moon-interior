@@ -7,8 +7,9 @@
             <div>
                 <div>해와달 인테리어의 모든 상담은 사전예약을 통해 이루어지고 있습니다.</div>
                 <div>Q&A 게시판에 견적의로 글과 연락처를 남겨 주시면 상담 예약 전화를 드립니다.</div>
-                <div class="gap">TEL 031 997 0512 FAX 031 997 0513</div>
-                <div>EMAIL sun-mooninterior@naver.com</div>
+                <div class="gap">T. 031 997 0512</div>
+                <div>F. 031 997 0513</div>
+                <div>E. sun-mooninterior@naver.com</div>
             </div>
             <div class="button" @click="$router.push({name: 'writeArticle', query: { from: 'qna'}})">견적 의뢰 하기</div>
             <div class="bold gap">Process</div>
@@ -63,7 +64,7 @@
         <div class="padding line-height">
             <div class="bold">Process</div>
             <div class="center">- 상담은 공사 예정일 2-3개월전 부터 진행</div>
-            <div class="center">- 공사는 범위에 따라 15일~30일 정도 소요</div>
+            <div class="center no-margin">- 공사는 범위에 따라 15일~30일 정도 소요</div>
             <div class="box center">
                 <span>STEP1</span>
                 <span>상담 의뢰</span>
@@ -153,12 +154,18 @@ export default class Contact extends Vue {
     @include desktop {
         margin: 30px 0;
     }
+    @include mobile {
+        text-align: center;
+    }
 }
 
 .gap {
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
+.no-margin {
+    margin-top: 0;
+}
 
 .line-height {
     line-height: 20px;
@@ -169,7 +176,7 @@ export default class Contact extends Vue {
     display: inline-block;
     color: $bright-theme;
     padding: 5px 10px;
-    margin-top: 7px;
+    margin: 8px 0 20px;
     cursor: pointer;
 }
 
@@ -186,16 +193,15 @@ export default class Contact extends Vue {
 }
 
 .boxes {
-    @include desktop {
-        margin-top: 50px;
-    }
+    margin-top: 5px;
+    margin-bottom: 100px;
 }
 
 .box {
     margin: 12px 0;
 
     span:first-child {
-        padding: 4px 15px;
+        padding: 9px 15px;
         background-color: $dark-theme;
         color: $bright-theme;
         @include desktop {
@@ -205,11 +211,13 @@ export default class Contact extends Vue {
     }
 
     span:nth-child(2) {
+        padding: 5px 0;
         border: 1px solid $dark-theme;
         display: inline-block;
         width: 160px;
         text-align: center;
         @include desktop {
+            padding: 0;
             display: inline-flex;
             width: 118px;
             height: 100px;

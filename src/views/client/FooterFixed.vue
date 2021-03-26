@@ -1,9 +1,20 @@
 <template>
     <div>
-        <div class="large">해외달인테리어</div>
-        <div class="medium">경기도 김포시 풍무로 96번길 107</div>
-        <div class="medium">TEL 031 997 0512 FAX 031 997 0513</div>
-        <div class="small">EMAIL sun-mooninterior@naver.com</div>
+        <div class="links">
+            <img src="@/assets/blog.png"/>
+            <img src="@/assets/instagram.png"/>
+        </div>
+        <template v-if="isDesktop">
+            <div class="large">A. 경기도 김포시 풍무로 96번길 107 | T. 031 997 0512 | F. 031 997 0513 | E. sun-mooninterior@naver.com</div>
+            <div class="large">사업자등록번호 492-18-01066</div>
+        </template>
+        <template v-else>
+            <div class="medium">A. 경기도 김포시 풍무로 96번길 107</div>
+            <div class="medium">T. 031 997 0512 F. 031 997 0513</div>
+            <div class="small">E. sun-mooninterior@naver.com</div>
+            <div class="small">사업자등록번호 492-18-01066</div>
+            <div>sun-mooninterior@naver.com</div>
+        </template>
         <div class="small">Copyright © 해와달인테리어 All rights reserved</div>
     </div>
 </template>
@@ -25,18 +36,27 @@ export default class Footer extends Vue {
 @import 'src/assets/style/common';
 
 .footer {
+    background-color: $bright-theme-100;
     position: relative;
     text-align: center;
     border-top: 1px solid #655e5e14;
     overflow: hidden;
     width: 100%;
-    background-color: $bright-theme;
-    height: 70px;
+    height: fit-content;
     padding: 10px 0;
+    line-height: 16px;
+}
+
+.links {
+    img {
+        height: 30px;
+        margin: 0 7px 4px;
+    }
 }
 
 .large {
-    font-size: 12px;
+    font-size: 15px;
+    line-height: 25px;
 }
 
 .medium {
@@ -45,5 +65,8 @@ export default class Footer extends Vue {
 
 .small {
     font-size: 10px;
+    @include desktop {
+        margin-top: 10px;
+    }
 }
 </style>
