@@ -70,7 +70,7 @@ export default class Wrapper extends Vue {
         padding-top: $nav-height-desktop;
     }
     @include mobile {
-        min-height: calc(100vh - #{$nav-height-mobile});
+        min-height: calc(100vh - #{$nav-height-mobile + 130});
         width: 100%;
         padding-top: $nav-height-mobile;
     }
