@@ -45,8 +45,20 @@ input {
     background: none;
     border: none;
     padding: 0 5px;
-    -webkit-appearance: none;
     border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+input[type='text'], input[type='checkbox'] {
+    appearance: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+}
+
+input[type='checkbox']:checked {
+    appearance: checkbox;
+    -webkit-appearance: checkbox;
 }
 
 input:disabled {

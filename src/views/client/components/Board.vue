@@ -70,11 +70,7 @@ export default class Board extends Vue {
         padding-left: 10px;
     }
 }
-.writer {
-    @include mobile {
-        font-size: 8px;
-    }
-}
+
 .paging {
     display: flex;
     justify-content: center;
