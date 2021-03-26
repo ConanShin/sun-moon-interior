@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="links">
-            <img src="@/assets/blog.png"/>
-            <img src="@/assets/instagram.png"/>
+            <div class="blog link" @click="open('https://blog.naver.com/d-jhj')"/>
+            <div class="instagram link" @click="open('https://instagram.com/tk_bbabba?igshid=5ohzmlkgb4lo')"/>
         </div>
         <template v-if="isDesktop">
             <div class="large">A. 경기도 김포시 풍무로 96번길 107 | T. 031 997 0512 | F. 031 997 0513 | E. sun-mooninterior@naver.com</div>
@@ -28,6 +28,10 @@ export default class Footer extends Vue {
     get isDesktop() {
         return window.innerWidth > 460
     }
+
+    open (link) {
+        window.open(link, '_blank')
+    }
 }
 </script>
 
@@ -48,10 +52,17 @@ export default class Footer extends Vue {
 }
 
 .links {
-    img {
-        height: 30px;
+    text-align: center;
+    .link {
         margin: 0 7px 4px;
+        display: inline-block;
         cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        &.blog {background-image: url("~@/assets/blog.png")}
+        &.instagram {background-image: url("~@/assets/instagram.png")}
     }
 }
 
