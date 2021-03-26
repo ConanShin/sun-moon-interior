@@ -63,7 +63,7 @@ export default class WriteArticle extends Vue {
     articleNo = null
     title = ''
     writer = ''
-    writerDisable = ''
+    writerDisable = false
     email = ''
     content = ''
     password = ''

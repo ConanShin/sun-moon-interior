@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="links">
-            <div class="blog link" @click="open('https://blog.naver.com/d-jhj')"/>
+            <div class="blog link" @click="open('https://m.blog.naver.com/PostList.nhn?blogId=modern_k_')"/>
             <div class="instagram link" @click="open('https://instagram.com/tk_bbabba?igshid=5ohzmlkgb4lo')"/>
         </div>
         <template v-if="isDesktop">
