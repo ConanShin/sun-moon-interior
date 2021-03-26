@@ -122,6 +122,9 @@ export default class About extends Vue {
     @include desktop {
         margin: 30px 0;
     }
+    @include mobile {
+        text-align: center;
+    }
     &.gap {
         margin-top: 100px;
     }
