@@ -37,17 +37,6 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Menu extends Vue {
-    emailBody = `
-성함:%0d%0a%0d%0a
-휴대폰번호:%0d%0a%0d%0a
-공사할곳 주소:%0d%0a%0d%0a
-평수:%0d%0a%0d%0a
-부분공사or전체공사(한가지선택):%0d%0a%0d%0a
-예산금액:%0d%0a%0d%0a
-공사희망일:%0d%0a%0d%0a
-이메일:%0d%0a%0d%0a
-기타문의사항:
-    `
     showMenu = false
     menus = [
         {name: '소개', path: 'about'},
@@ -79,6 +68,7 @@ export default class Menu extends Vue {
 
 .nav {
     width: 80%;
+    min-height: 42px;
     padding: 10px 10% 10px 10%;
     position: fixed;
     z-index: 1;
@@ -98,22 +88,11 @@ export default class Menu extends Vue {
     cursor: pointer;
     @include mobile {
         width: fit-content;
-        margin: 6px auto;
+        margin: 10px auto;
     }
     @include desktop {
         font-size: 30px;
         padding: 18px 0;
-    }
-
-    .logo-icon {
-        width: 31px;
-        height: 31px;
-        margin-right: 5px;
-        @include desktop {
-            width: 85px;
-            height: 85px;
-            margin-right: 15px;
-        }
     }
     .big {
         font-size: 40px;
