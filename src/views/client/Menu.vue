@@ -68,12 +68,13 @@ export default class Menu extends Vue {
 
 .nav {
     width: 80%;
-    min-height: 42px;
-    padding: 10px 10% 10px 10%;
+    min-height: $nav-height-mobile;
+    padding: 0 10%;
     position: fixed;
     z-index: 1;
     background-color: $bright-theme;
     @include desktop {
+        min-height: $nav-height-desktop;
         opacity: 0.7;
         display: flex;
         justify-content: space-between;
@@ -88,7 +89,7 @@ export default class Menu extends Vue {
     cursor: pointer;
     @include mobile {
         width: fit-content;
-        margin: 10px auto;
+        margin: 20px auto;
     }
     @include desktop {
         font-size: 30px;

@@ -59,20 +59,20 @@ export default class Wrapper extends Vue {
 </style>
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
+@import 'src/assets/style/common';
 
-$nav-height: 155px;
 .view {
     margin: auto;
     position: relative;
     @include desktop {
-        min-height: calc(100vh - #{$nav-height +91});
+        min-height: calc(100vh - #{$nav-height-desktop});
         width: 80%;
-        padding-top: $nav-height;
+        padding-top: $nav-height-desktop;
     }
     @include mobile {
-        min-height: calc(100vh - #{$nav-height});
+        min-height: calc(100vh - #{$nav-height-mobile});
         width: 100%;
-        padding-top: 63px;
+        padding-top: $nav-height-mobile;
     }
 }
 </style>

@@ -51,6 +51,7 @@ export default class Footer extends Vue {
     img {
         height: 30px;
         margin: 0 7px 4px;
+        cursor: pointer;
     }
 }
 

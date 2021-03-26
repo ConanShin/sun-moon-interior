@@ -55,6 +55,7 @@ export default class Review extends Vue {
 
     .menu-name {
         width: 100px !important;
+        margin-top: 0;
     }
 
     .even {

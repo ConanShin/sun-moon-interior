@@ -78,6 +78,7 @@ input:-webkit-autofill:active {
         width: 100%;
         text-align: center;
         font-size: 15px;
+        margin-top: 20px;
     }
 }
 

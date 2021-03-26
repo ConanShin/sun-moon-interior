@@ -47,6 +47,7 @@ export default class QNA extends Vue {
 
     .menu-name {
         width: 100px !important;
+        margin-top: 0;
     }
 
     .even {
