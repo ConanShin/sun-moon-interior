@@ -18,7 +18,6 @@ const api = axios.create({
 Vue.use(Vuex)
 
 const account = process.env.VUE_APP_ACCOUNT
-const domain = process.env.VUE_APP_DOMAIN
 export default new Vuex.Store({
     state: {
         coverHidden: false,
@@ -38,7 +37,8 @@ export default new Vuex.Store({
     },
     actions: {
         findArticles: async (injectee, {board, page}) => {
-            return api.get(`cafe-twentyfour/article/list?domain=${domain}&boardNo=${board}&pageNo=${page}`)
+            return api.get(`cafe-twentyfour/article/listArticles?account=${account}&boardNo=${board}&pageNo=${page}`)
+            // return api.get(`cafe-twentyfour/article/list?domain=${domain}&boardNo=${board}&pageNo=${page}`)
         },
         checkPassword: (injectee, payload) => {
             return api.get(`cafe-twentyfour/article/check?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}`)

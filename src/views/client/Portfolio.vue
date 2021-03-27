@@ -141,6 +141,7 @@ export default class Portfolio extends Vue {
     @include mobile {
         justify-content: space-evenly;
         padding-top: 25px;
+        font-size: 12px;
     }
 }
 </style>

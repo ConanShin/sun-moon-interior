@@ -3,7 +3,11 @@
         <div class="list">
             <div class="item" v-for="item in list" @click="toArticle(item)">
                 <span class="title reply" v-if="item.is_reply">re: {{ item.title }}</span>
-                <span class="title" v-else>{{ item.title }}</span>
+                <span class="title" v-else>
+                    <span class="replied" v-if="item.is_replied">yes</span>
+                    <span class="not-replied" v-else>no</span>
+                    {{ item.title }}
+                </span>
                 <span class="writer">{{ item.writer }}</span>
             </div>
         </div>
@@ -77,6 +81,18 @@ export default class Board extends Vue {
 
     @include mobile {
         width: 200px;
+    }
+    .replied {
+        background-color: $dark-theme;
+        color: $bright-theme;
+        padding: 2px;
+        margin-right: 2px;
+    }
+    .not-replied {
+        background-color: $transparent-dark-theme;
+        color: $bright-theme;
+        padding: 2px;
+        margin-right: 2px;
     }
     &.reply {
         padding-left: 10px;
