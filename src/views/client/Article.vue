@@ -34,7 +34,7 @@
                 <div v-if="!comment.editable" class="button" @click="selectComment(comment, 'delete')">삭제</div>
                 <textarea v-if="comment.editable" v-model="comment.content"/>
                 <div v-if="comment.editable" class="button" @click="editComment(comment)">저장</div>
-                <div v-if="comment.editable" class="button" @click="$router.go()">취소</div>
+                <div v-if="comment.editable" class="button" @click="findArticle">취소</div>
             </div>
             <div class="new line">
                 <input v-model="newComment.writer" placeholder="작성자"/>
