@@ -1,7 +1,5 @@
 <template>
     <div v-if="isDesktop" class="contact flex" :class="{show: show}">
-        <div class="flex-2">
-        </div>
         <div class="flex-8">
             <div class="bold">Contact</div>
             <div>
@@ -12,41 +10,41 @@
                 <div>E. sun-mooninterior@naver.com</div>
             </div>
             <div class="button" @click="$router.push({name: 'writeArticle', query: { from: 'qna'}})">견적 의뢰 하기</div>
-            <div class="bold gap">Process</div>
-            <div>- 상담은 공사 예정일 2-3개월전 부터 진행</div>
-            <div>- 공사는 범위에 따라 15일~30일 정도 소요</div>
+            <div class="bold">Process</div>
+            <div>상담은 공사 예정일 2-3개월전 부터 진행</div>
+            <div>공사는 범위에 따라 15일~30일 정도 소요</div>
             <div class="boxes flex">
-                <div class="box center">
+                <div class="box">
                     <span>STEP1</span>
                     <span>상담 의뢰</span>
                 </div>
                 <div class="triangle"></div>
-                <div class="box center">
+                <div class="box">
                     <span>STEP2</span>
                     <span>오프라인<br>미팅</span>
                 </div>
                 <div class="triangle"></div>
-                <div class="box center">
+                <div class="box">
                     <span>STEP3</span>
                     <span>실측 진행</span>
                 </div>
                 <div class="triangle"></div>
-                <div class="box center">
+                <div class="box">
                     <span>STEP4</span>
                     <span>계약 진행</span>
                 </div>
                 <div class="triangle"></div>
-                <div class="box center">
+                <div class="box">
                     <span>STEP5</span>
                     <span>디자인 작업</span>
                 </div>
                 <div class="triangle"></div>
-                <div class="box center">
+                <div class="box">
                     <span>STEP6</span>
                     <span>공사 진행</span>
                 </div>
                 <div class="triangle"></div>
-                <div class="box center">
+                <div class="box">
                     <span>STEP7</span>
                     <span>사후 A/S</span>
                 </div>
@@ -134,10 +132,6 @@ export default class Contact extends Vue {
 .flex {
     display: flex;
 
-    .flex-2 {
-        flex: 2;
-    }
-
     .flex-8 {
         flex: 8;
         margin-left: 20px;
@@ -176,8 +170,10 @@ export default class Contact extends Vue {
     display: inline-block;
     color: $bright-theme;
     padding: 5px 10px;
-    margin: 8px 0 20px;
-    cursor: pointer;
+    margin: 10px;
+    @include desktop {
+        margin: 20px 0;
+    }
 }
 
 .padding {
@@ -186,7 +182,7 @@ export default class Contact extends Vue {
 
 .triangle {
     display: inline-table;
-    margin: 68px 10px 0 10px;
+    margin: 68px 18px;
     border-top: 17px solid transparent;
     border-bottom: 17px solid transparent;
     border-left: 20px solid $dark-theme;

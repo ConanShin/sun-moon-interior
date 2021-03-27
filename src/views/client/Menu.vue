@@ -1,10 +1,10 @@
 <template>
     <div class="nav">
         <div @click="redirect('home')" class="logo">
-            <span v-if="isDesktop">
-                <div class="big">해와달인테리어</div>
-                <div class="small">Convenient, Consistent and Cozy</div>
-            </span>
+                <span v-if="isDesktop">
+                    <div class="big">해와달인테리어</div>
+                    <div class="small">Convenient, Consistent and Cozy</div>
+                </span>
             <span v-else>해와달인테리어</span>
         </div>
         <template v-if="isDesktop">
@@ -69,17 +69,21 @@ export default class Menu extends Vue {
 .nav {
     width: 80%;
     min-height: $nav-height-mobile;
-    padding: 0 10%;
     position: fixed;
     z-index: 1;
     background-color: $bright-theme;
+    border-bottom: 1px solid #655e5e14;
     @include desktop {
+        padding: 0 calc((100vw - min(80vw, #{$view-max-width})) / 2);
+        max-width: $view-max-width;
         min-height: $nav-height-desktop;
         opacity: 0.7;
         display: flex;
         justify-content: space-between;
     }
-    border-bottom: 1px solid #655e5e14;
+    @include mobile {
+        padding: 0 10%;
+    }
 }
 
 .logo {
@@ -95,10 +99,12 @@ export default class Menu extends Vue {
         font-size: 30px;
         padding: 18px 0;
     }
+
     .big {
         font-size: 40px;
         letter-spacing: 18px;
     }
+
     .small {
         font-size: 18px;
         letter-spacing: 2px;

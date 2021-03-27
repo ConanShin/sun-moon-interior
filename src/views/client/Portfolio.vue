@@ -124,6 +124,9 @@ export default class Portfolio extends Vue {
 .submenu {
     display: flex;
     padding-bottom: 3px;
+    font-size: 20px;
+    justify-content: space-evenly;
+    margin: 10px 0;
 
     div {
         margin-right: 10px;

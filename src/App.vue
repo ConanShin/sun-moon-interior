@@ -41,6 +41,11 @@ html, body {
     overflow-x: hidden;
 }
 
+input, textarea, input::placeholder {
+    font-family: 'MapoFlowerIsland';
+    font-size: 12px;
+}
+
 input {
     background: none;
     border: none;
@@ -49,16 +54,22 @@ input {
     -webkit-border-radius: 0;
 }
 
-input[type='text'], input[type='checkbox'] {
+input[type='text'] {
     appearance: none;
     border-radius: 0;
     -webkit-appearance: none;
     -webkit-border-radius: 0;
 }
 
+input[type='checkbox'] {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    border: 1px solid $dark-theme;
+    width: 20px;
+    height: 20px;
+}
+
 input[type='checkbox']:checked {
-    appearance: checkbox;
-    -webkit-appearance: checkbox;
 }
 
 input:disabled {
@@ -104,5 +115,9 @@ input:-webkit-autofill:active {
     .menu-name {
         display: none !important;
     }
+}
+
+.button {
+    cursor: pointer;
 }
 </style>

@@ -62,10 +62,11 @@ export default class Wrapper extends Vue {
 @import 'src/assets/style/common';
 
 .view {
+    max-width: $view-max-width;
     margin: auto;
     position: relative;
     @include desktop {
-        min-height: calc(100vh - #{$nav-height-desktop});
+        min-height: calc(100vh - #{$nav-height-desktop + 139});
         width: 80%;
         padding-top: $nav-height-desktop;
     }

@@ -61,7 +61,6 @@ export default class QNA extends Vue {
 
 .write.button {
     position: relative;
-    cursor: pointer;
     @include desktop {
         margin-left: auto;
         text-align: right;

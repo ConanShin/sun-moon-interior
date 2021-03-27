@@ -84,7 +84,7 @@ img {
 
 .slider-navigation {
     top: 156px;
-    left: 10%;
+    left: calc((100vw - min(80vw, #{$view-max-width})) / 2);
     @include mobile {
         top: 64px;
         left: 0;

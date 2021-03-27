@@ -38,16 +38,31 @@ export default new Vuex.Store({
     },
     actions: {
         findArticles: async (injectee, {board, page}) => {
-            return api.get(`cafe-twentyfour/article?domain=${domain}&boardNo=${board}&pageNo=${page}`)
+            return api.get(`cafe-twentyfour/article/list?domain=${domain}&boardNo=${board}&pageNo=${page}`)
+        },
+        checkPassword: (injectee, payload) => {
+            return api.get(`cafe-twentyfour/article/check?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}`)
         },
         findArticle: (injectee, payload) => {
-            return api.post(`cafe-twentyfour/article/link`, {url: payload.link})
+            return api.get(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&password=${payload.password}`)
         },
         saveArticle: async (injectee, payload) => {
             return api.post(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
         },
         editArticle: async (injectee, payload) => {
             return api.put(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
+        },
+        deleteArticle: async (injectee, payload) => {
+            return api.delete(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&password=${payload.password}`)
+        },
+        saveComment: async (injectee, payload) => {
+            return api.post(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}`, payload.comment)
+        },
+        editComment: async(injectee, payload) => {
+            return api.put(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}`, payload.comment)
+        },
+        deleteComment: async (injectee, payload) => {
+            return api.delete(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}`)
         },
         findPortfolioList: async (injectee, category: string) => {
             const response = await api.get(`/cafe-twentyfour/product/list?account=${account}&category=${category}`)

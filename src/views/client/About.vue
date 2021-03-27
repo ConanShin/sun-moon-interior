@@ -143,9 +143,6 @@ export default class About extends Vue {
 
 img {
     width: 100%;
-    @include desktop {
-        width: 75%;
-    }
 }
 
 .small {

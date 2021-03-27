@@ -45,7 +45,13 @@ const routes: Array<RouteConfig> = [
                 path: 'article',
                 name: 'article',
                 component: require('../views/client/Article.vue').default,
-                props: (route) => ({ link: route.query.link, from: route.query.from })
+                props: (route) => ({
+                    link: route.query.link,
+                    boardNo: route.query.boardNo,
+                    articleNo: route.query.articleNo,
+                    from: route.query.from,
+                    password: route.query.password
+                })
             },
             {
                 path: 'writeArticle',

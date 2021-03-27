@@ -13,17 +13,23 @@
                   @click="searchPage(index)">{{ index }}</span>
             <span @click="searchPage(Number(page) + 1)">></span>
         </div>
+        <password-form v-if="showPasswordForm" @confirm="toSecretArticle" @cancel="showPasswordForm = false"/>
     </div>
 </template>
 
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
-
-@Component
+import {freeBoards} from '@/cafe24info'
+import PasswordForm from "@/views/client/components/PasswordForm";
+@Component({
+    components: {PasswordForm}
+})
 export default class Board extends Vue {
     @Prop() list
     @Prop() pageLength
     @Prop() page
+    selectedArticle = null
+    showPasswordForm = false
 
     async searchPage(pageNumber) {
         if (pageNumber === 0) return
@@ -33,10 +39,16 @@ export default class Board extends Vue {
     }
 
     toArticle (item) {
-        let from = 'qna'
-        if(this.$route.path.includes('review')) from = 'review'
+        this.selectedArticle = item
+        if (this.$route.path.includes('review')) {
+            this.$router.push({name: 'article', query: {boardNo: freeBoards['review'], articleNo: this.selectedArticle.article_no, from: 'review'}})
+        } else {
+            this.showPasswordForm = true
+        }
+    }
 
-        this.$router.push({name: 'article', query: {link: encodeURIComponent(item.link), from}}).catch(() => {})
+    toSecretArticle (password) {
+        this.$router.push({name: 'article', query: {boardNo: freeBoards['qna'], articleNo: this.selectedArticle.article_no, from: 'qna', password}})
     }
 }
 </script>

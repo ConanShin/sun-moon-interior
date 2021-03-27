@@ -9,10 +9,6 @@
             <label>작성자</label>
             <input v-model="writer" :disabled="writerDisable"/>
         </div>
-        <div class="row">
-            <label>이메일</label>
-            <input v-model="email"/>
-        </div>
         <quill-editor v-model="content" :options="options" class="row editor"/>
         <div class="row">
             <label>비밀번호</label>
@@ -35,7 +31,7 @@
             </div>
             <agreement :class="{show: showAgreement}"/>
         </template>
-        <div class="row flex">
+        <div class="last row flex">
             <div class="button" @click="save">등록</div>
             <div class="button" @click="$router.back()">취소</div>
         </div>
@@ -64,7 +60,6 @@ export default class WriteArticle extends Vue {
     title = ''
     writer = ''
     writerDisable = false
-    email = ''
     content = ''
     password = ''
     checked = false
@@ -84,6 +79,8 @@ export default class WriteArticle extends Vue {
     beforeMount() {
         if (this.$route.fullPath.includes('qna')) {
             this.content = `<p>성함:</p>
+                            <br>
+                            <p>이메일:</p>
                             <br>
                             <p>휴대폰번호:</p>
                             <br>
@@ -124,6 +121,7 @@ export default class WriteArticle extends Vue {
         if (!this.checked) return alert('개인정보방침에 동의해 주세요.')
 
         if (this.articleNo) {
+            // EDIT
             try {
                 const response = await this.$store.dispatch('editArticle', {
                     boardNo: freeBoards[this.from],
@@ -131,27 +129,25 @@ export default class WriteArticle extends Vue {
                         id: this.articleNo,
                         title: this.title,
                         writer: this.writer,
-                        email: this.email,
                         password: this.password,
                         content: this.content
                     }
                 })
-                if (response.data === 'Not Authorized') return alert('비밀번호가 틀렸습니다.')
                 this.$router.back()
             } catch (error) {
-                console.log(error)
-                alert('문서를 저장 중 오류가 발생했습니다.')
+                alert('비밀번호가 틀렸습니다.')
             }
         } else {
+            // SAVE
             try {
                 await this.$store.dispatch('saveArticle', {
                     boardNo: freeBoards[this.from],
                     article: {
                         title: this.title,
                         writer: this.writer,
-                        email: this.email,
                         password: this.password,
-                        content: this.content
+                        content: this.content,
+                        isSecret: this.from === 'qna'
                     }
                 })
                 this.$router.back()
@@ -183,6 +179,10 @@ export default class WriteArticle extends Vue {
         border: 1px solid $transparent-dark-theme;
         height: 22px;
         width: calc(100% - 77px);
+    }
+
+    &.last {
+        margin: 20px auto;
     }
 }
 

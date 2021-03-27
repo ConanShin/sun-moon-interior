@@ -69,7 +69,6 @@ export default class Review extends Vue {
 
 .write.button {
     position: relative;
-    cursor: pointer;
     @include desktop {
         margin-left: auto;
         text-align: right;
