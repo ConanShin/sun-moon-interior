@@ -68,7 +68,11 @@ export default class Article extends Vue {
     showPasswordForm = false
     showPasswordEditComment = false
     showPasswordDeleteComment = false
-    newComment = {}
+    newComment = {
+        writer: '',
+        password: '',
+        content: ''
+    }
     selectedComment = null
     article = {}
     clickedIndex = ''
@@ -111,12 +115,18 @@ export default class Article extends Vue {
         else this.showPasswordDeleteComment = true
     }
 
+    invalidComment(comment) {
+        return comment.writer.trim() === '' || comment.content.trim() === '' || comment.password.trim() === ''
+    }
+
     async saveComment () {
+        if (this.invalidComment(this.newComment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('saveComment', {articleNo: this.article.article_no, comment: this.newComment})
         await this.findArticle()
     }
 
     async editComment (comment) {
+        if (this.invalidComment(comment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('editComment', {articleNo: this.article.article_no, comment})
         await this.findArticle()
     }
@@ -136,7 +146,11 @@ export default class Article extends Vue {
             this.showPasswordForm = false
             this.showPasswordEditComment = false
             this.showPasswordDeleteComment = false
-            this.newComment = {}
+            this.newComment = {
+                writer: '',
+                password: '',
+                content: ''
+            }
             this.selectedComment = null
             this.article = {}
             this.clickedIndex = ''
@@ -198,9 +212,9 @@ export default class Article extends Vue {
     @include mobile {
         font-size: 10px;
     }
-    color: #FFF;
-    border: 1px solid #655e5e;
-    background-color: #655e5e;
+    color: $bright-theme;
+    border: 1px solid $dark-theme;
+    background-color: $dark-theme;
     float: right;
     padding: 5px 11px;
     margin: 3px;
@@ -240,6 +254,7 @@ export default class Article extends Vue {
         border: 1px solid $transparent-dark-theme;
         background-color: $bright-theme;
         color: $dark-theme;
+        margin-left: 0;
     }
 
     .comment {
