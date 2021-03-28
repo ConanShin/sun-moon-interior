@@ -9,7 +9,7 @@
                 <div>F. 031 997 0513</div>
                 <div>E. sun-mooninterior@naver.com</div>
             </div>
-            <div class="button" @click="$router.push({name: 'writeArticle', query: { from: 'qna'}})">견적 의뢰 하기</div>
+            <div class="button" @click="$router.push({name: 'writeArticle', query: { from: 'qna'}}).catch(() => {})">견적 의뢰 하기</div>
             <div class="bold">Process</div>
             <div>상담은 공사 예정일 2-3개월전 부터 진행</div>
             <div>공사는 범위에 따라 15일~30일 정도 소요</div>
@@ -57,7 +57,7 @@
             <div>모든 상담은 사전예약을 통해 이루어지고 있습니다.</div>
             <div>견적의뢰 게시판에 글을 남겨주시면</div>
             <div>상담 예약 전화를 드립니다.</div>
-            <div class="button" @click="$router.push({name: 'writeArticle', query: { from: 'qna'}})">견적 의뢰 하기</div>
+            <div class="button" @click="$router.push({name: 'writeArticle', query: { from: 'qna'}}).catch(() => {})">견적 의뢰 하기</div>
         </div>
         <div class="padding line-height">
             <div class="bold">Process</div>

@@ -41,8 +41,7 @@ export default class Home extends Vue {
     }
 
     async redirect(product) {
-        this.$router.push({name: 'portfolio', query: {product_no: product.product_no}}).then().catch(() => {
-        })
+        this.$router.push({name: 'portfolio', query: {product_no: product.product_no}}).then().catch(() => {})
     }
 
     colorDot() {

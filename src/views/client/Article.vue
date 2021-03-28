@@ -82,7 +82,7 @@ export default class Article extends Vue {
     }
 
     back() {
-        this.$router.push({name: this.from})
+        this.$router.push({name: this.from}).catch(() => {})
     }
 
     async confirmPassword (password) {
@@ -97,7 +97,7 @@ export default class Article extends Vue {
     }
 
     edit() {
-        this.$router.push({name: 'writeArticle', query: {from: this.from}, params: {editContent: this.article}})
+        this.$router.push({name: 'writeArticle', query: {from: this.from}, params: {editContent: this.article}}).catch(() => {})
     }
 
     async deleteArticle(password) {
@@ -122,19 +122,19 @@ export default class Article extends Vue {
     async saveComment () {
         if (this.invalidComment(this.newComment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('saveComment', {articleNo: this.article.article_no, comment: this.newComment})
-        await this.findArticle()
+        this.$router.go()
     }
 
     async editComment (comment) {
         if (this.invalidComment(comment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('editComment', {articleNo: this.article.article_no, comment})
-        await this.findArticle()
+        this.$router.go()
     }
 
     async deleteComment(password) {
         try {
             await this.$store.dispatch('deleteComment', {articleNo: this.article.article_no, commentNo: this.selectedComment.id, password})
-            await this.findArticle()
+            this.$router.go()
         } catch (error) {
             alert('비밀번호가 틀렸습니다.')
         }
@@ -159,6 +159,7 @@ export default class Article extends Vue {
                 articleNo: this.articleNo,
                 password: this.password
             })).data
+            this.$forceUpdate()
             this.listShow = true
         } catch (error) {
             alert('비밀번호가 틀렸습니다.')

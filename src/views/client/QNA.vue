@@ -3,7 +3,7 @@
         <div class="header">
             <div class="even"></div>
             <div class="even menu-name">문의하기</div>
-            <div class="even write button" @click="$router.push({name: 'writeArticle', query: {from: 'qna'}})">작성하기</div>
+            <div class="even write button" @click="$router.push({name: 'writeArticle', query: {from: 'qna'}}).catch(() => {})">작성하기</div>
         </div>
         <board :list="articles" :page="page" :page-length="pageLength" @search="searchPage"></board>
     </div>

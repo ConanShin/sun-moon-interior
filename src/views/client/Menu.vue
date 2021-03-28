@@ -48,8 +48,7 @@ export default class Menu extends Vue {
 
     async redirect(name) {
         this.showMenu = false
-        await this.$router.push({name}).catch(() => {
-        })
+        await this.$router.push({name}).catch(() => {})
     }
 
     get isDesktop() {

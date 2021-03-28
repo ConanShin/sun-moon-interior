@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import {productToPy} from '@/components/common'
+import {makeHash} from "@/components/common";
 
 interface Review {
     article_no: number
@@ -37,39 +38,39 @@ export default new Vuex.Store({
     },
     actions: {
         findArticles: async (injectee, {board, page}) => {
-            return api.get(`cafe-twentyfour/article/listArticles?account=${account}&boardNo=${board}&pageNo=${page}`)
+            return api.get(`cafe-twentyfour/article/listArticles?account=${account}&boardNo=${board}&pageNo=${page}&hash=${makeHash(5)}`)
             // return api.get(`cafe-twentyfour/article/list?domain=${domain}&boardNo=${board}&pageNo=${page}`)
         },
         checkPassword: (injectee, payload) => {
-            return api.get(`cafe-twentyfour/article/check?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}`)
+            return api.get(`cafe-twentyfour/article/check?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}&hash=${makeHash(5)}`)
         },
         findArticle: (injectee, payload) => {
-            return api.get(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&password=${payload.password}`)
+            return api.get(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&password=${payload.password}&hash=${makeHash(5)}`)
         },
         saveArticle: async (injectee, payload) => {
-            return api.post(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
+            return api.post(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&hash=${makeHash(5)}`, payload.article)
         },
         editArticle: async (injectee, payload) => {
-            return api.put(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}`, payload.article)
+            return api.put(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&hash=${makeHash(5)}`, payload.article)
         },
         deleteArticle: async (injectee, payload) => {
-            return api.delete(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&password=${payload.password}`)
+            return api.delete(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&password=${payload.password}&hash=${makeHash(5)}`)
         },
         saveComment: async (injectee, payload) => {
-            return api.post(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}`, payload.comment)
+            return api.post(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&hash=${makeHash(5)}`, payload.comment)
         },
         editComment: async(injectee, payload) => {
-            return api.put(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}`, payload.comment)
+            return api.put(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&hash=${makeHash(5)}`, payload.comment)
         },
         deleteComment: async (injectee, payload) => {
-            return api.delete(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}`)
+            return api.delete(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}&hash=${makeHash(5)}`)
         },
         findPortfolioList: async (injectee, category: string) => {
-            const response = await api.get(`/cafe-twentyfour/product/list?account=${account}&category=${category}`)
+            const response = await api.get(`/cafe-twentyfour/product/list?account=${account}&category=${category}&hash=${makeHash(5)}`)
             injectee.commit('products', response.data.products)
         },
         findPortfolio: async (injectee, product_no) => {
-            const response = await api.get(`/cafe-twentyfour/product?account=${account}&productNo=${product_no}`)
+            const response = await api.get(`/cafe-twentyfour/product?account=${account}&productNo=${product_no}&hash=${makeHash(5)}`)
 
             const py = productToPy(response.data.product)
             injectee.commit('py', py)

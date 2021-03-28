@@ -131,7 +131,7 @@ export default class WriteArticle extends Vue {
         if (this.articleNo) {
             // EDIT
             try {
-                const response = await this.$store.dispatch('editArticle', {
+                await this.$store.dispatch('editArticle', {
                     boardNo: freeBoards[this.from],
                     article: {
                         id: this.articleNo,
@@ -142,7 +142,7 @@ export default class WriteArticle extends Vue {
                         isSecret: this.from === 'qna'
                     }
                 })
-                await this.$router.push({name: 'article', query: {boardNo: freeBoards[this.from], articleNo: this.articleNo, from: this.from, password: this.password}})
+                await this.$router.push({name: 'article', query: {boardNo: freeBoards[this.from], articleNo: this.articleNo, from: this.from, password: this.password}}).catch(() => {})
             } catch (error) {
                 alert('비밀번호가 틀렸습니다.')
             }
@@ -159,7 +159,7 @@ export default class WriteArticle extends Vue {
                         isSecret: this.from === 'qna'
                     }
                 })
-                await this.$router.push({name: this.from})
+                await this.$router.push({name: this.from}).catch(() => {})
             } catch (error) {
                 console.log(error)
                 alert('문서를 저장 중 오류가 발생했습니다.')

@@ -56,14 +56,14 @@ export default class Board extends Vue {
     toArticle (item) {
         this.selectedArticle = item
         if (this.$route.path.includes('review')) {
-            this.$router.push({name: 'article', query: {boardNo: freeBoards['review'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name}})
+            this.$router.push({name: 'article', query: {boardNo: freeBoards['review'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name}}).catch(() => {})
         } else {
             this.showPasswordForm = true
         }
     }
 
     toSecretArticle (password) {
-        this.$router.push({name: 'article', query: {boardNo: freeBoards['qna'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name, password}})
+        this.$router.push({name: 'article', query: {boardNo: freeBoards['qna'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name, password}}).catch(() => {})
     }
 
     beforeMount () {
@@ -100,9 +100,10 @@ export default class Board extends Vue {
     width: 30px;
     height: 16px;
     min-width: 30px;
-    padding: 2px;
-    display: inline-block;
-    text-align: center;
+    padding: 2px 2px 4px 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .writer {
