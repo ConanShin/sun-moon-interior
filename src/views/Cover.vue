@@ -1,17 +1,26 @@
 <template>
-    <div class="background" :class="{show: listShow}">
+    <div class="background" :class="{show: listShow}" :style="{'background-image': products[0] && 'url(' + products[0].list_image + ')'}">
         <div class="logo" @click="$store.commit('coverHidden', true)">해와달인테리어</div>
     </div>
 </template>
 
 <script>
 import {Vue, Component} from 'vue-property-decorator'
+import {categories} from "@/cafe24info";
 
 @Component
 export default class Launcher extends Vue {
     listShow = false
     mounted() {
         setTimeout(() => this.listShow = true, 100)
+    }
+
+    get products () {
+        return this.$store.getters.products
+    }
+
+    async beforeMount() {
+        await this.$store.dispatch('findPortfolioList', categories['cover'])
     }
 }
 </script>
@@ -33,7 +42,7 @@ export default class Launcher extends Vue {
     background-position: center;
     background-size: 100% 1500px;
     //background-image: url("~@/assets/front-door.jpg");
-    background-image: $bright-theme;
+    background-color: $bright-theme;
     @include mobile {
         background-size: 1000px 100%;
         overflow: hidden;

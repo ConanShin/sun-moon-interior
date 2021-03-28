@@ -4,6 +4,7 @@ const freeBoards = {
 }
 
 const categories = {
+    'cover': 47,
     'about': 46,
     'home': 23,
     'portfolio': {

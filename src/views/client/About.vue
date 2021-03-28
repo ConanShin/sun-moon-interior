@@ -4,7 +4,7 @@
         </div>
         <div class="flex-5">
             <div class="bold">Philosophy</div>
-            <div>
+            <div class="line-height">
                 <div>해와달 인테리어는</div>
                 <div>가족을 편안하게 보듬어 줄 수 있는 따뜻한 공간,</div>
                 <div>그리고 실용적인 공간을 제안합니다.</div>
@@ -13,7 +13,7 @@
             </div>
             <div class="bold gap">Location</div>
             <div class="margin">사전 예약을 통한 방문상담만 가능합니다.</div>
-            <div>
+            <div class="line-height">
                 <div>A. 경기도 김포시 풍무로 96번길 107</div>
                 <div>T. 031 997 0512</div>
                 <div>F. 031 997 0513</div>
@@ -21,6 +21,7 @@
             </div>
         </div>
         <div class="flex-4">
+            <img v-if="products[0]" :src="products[0].list_image"/>
             <img src="@/assets/map.png"/>
         </div>
     </div>
@@ -89,35 +90,23 @@ export default class About extends Vue {
         justify-content: center;
         color: $bright-theme;
     }
-    @include desktop {
-        font-size: 20px;
-    }
+    @include desktop {font-size: 20px;}
 }
 
 .flex {
     display: flex;
 
-    .flex-1 {
-        flex: 1;
-    }
-    .flex-5 {
-        flex: 5;
-    }
+    .flex-1 {flex: 1;}
+    .flex-5 {flex: 5;}
     .flex-4 {
         flex: 4;
         margin: 20px;
-        img {
-            margin-bottom: 10px;
-        }
+        img {margin-bottom: 10px;}
     }
 }
-.padding {
-    padding: 20px;
-}
+.padding {padding: 20px;}
 
-.margin {
-    margin: 20px 0;
-}
+.margin {margin: 20px 0;}
 
 .bold {
     font-weight: bolder;
@@ -126,27 +115,19 @@ export default class About extends Vue {
         font-size: 30px;
         margin: 30px 0;
     }
-    @include mobile {
-        text-align: center;
-    }
-    &.gap {
-        margin-top: 100px;
-    }
+    @include mobile {text-align: center;}
+    &.gap {margin-top: 100px;}
 }
 
 .center {
     text-align: center;
 
-    div {
-        margin: 2px 0;
-    }
+    div {margin: 2px 0;}
 }
 
-img {
-    width: 100%;
-}
+img {width: 90%;}
 
-.small {
-    font-size: 10px;
-}
+.small {font-size: 10px;}
+
+.line-height {line-height: 33px;}
 </style>
