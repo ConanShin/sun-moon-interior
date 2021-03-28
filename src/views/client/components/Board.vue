@@ -85,6 +85,8 @@ export default class Board extends Vue {
 
 .reply {
     width: 30px;
+    height: 16px;
+    min-width: 30px;
     padding: 2px;
     display: inline-block;
     text-align: center;
@@ -102,17 +104,15 @@ export default class Board extends Vue {
 
 .title {
     cursor: pointer;
-    width: calc(100% - 300px);
     line-height: 20px;
-
-    @include mobile {
-        width: 200px;
-    }
 }
 
 .writer {
-    width: 100px;
+    min-width: 70px;
+    width: 70px;
     line-height: 20px;
+    margin-left: 5px;
+    text-align: right;
 }
 
 .paging {
