@@ -74,7 +74,8 @@ export default class Menu extends Vue {
     background-color: $bright-theme;
     border-bottom: 1px solid #655e5e14;
     @include desktop {
-        padding: 0 calc((100vw - min(80vw, #{$view-max-width})) / 2);
+        //padding: 0 calc((100vw - min(80vw, #{$view-max-width})) / 2); IE min지원 안함
+        padding: 0 calc((100vw - #{$view-max-width}) / 2);
         max-width: $view-max-width;
         min-height: $nav-height-desktop;
         opacity: 0.7;

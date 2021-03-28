@@ -2,15 +2,22 @@
     <div class="board">
         <div class="list">
             <div class="header item">
-                <span class="reply">답변</span>
                 <span class="title">제목</span>
-                <span class="writer">작성자</span>
+                <div>
+                    <span class="writer">작성자</span>
+                    <span class="reply">답변</span>
+                </div>
             </div>
             <div class="item" v-for="item in list" @click="toArticle(item)">
-                <span class="reply replied" v-if="item.is_replied">yes</span>
-                <span class="reply not-replied" v-else>no</span>
-                <span class="title">{{ item.title }}</span>
-                <span class="writer">{{ item.writer }}</span>
+                <span class="title">
+                    {{ item.title }}
+                    <lock-icon class="private" v-if="isSecretBoard"/>
+                </span>
+                <div class="flex">
+                    <span class="writer">{{ item.writer }}</span>
+                    <span class="reply replied" v-if="item.is_replied">yes</span>
+                    <span class="reply not-replied" v-else>no</span>
+                </div>
             </div>
         </div>
         <div class="paging">
@@ -27,8 +34,9 @@
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import {freeBoards} from '@/cafe24info'
 import PasswordForm from "@/views/client/components/PasswordForm";
+import LockIcon from '@/views/client/icons/Lock'
 @Component({
-    components: {PasswordForm}
+    components: {PasswordForm, LockIcon}
 })
 export default class Board extends Vue {
     @Prop() list
@@ -36,6 +44,7 @@ export default class Board extends Vue {
     @Prop() page
     selectedArticle = null
     showPasswordForm = false
+    isSecretBoard = false
 
     async searchPage(pageNumber) {
         if (pageNumber === 0) return
@@ -47,14 +56,18 @@ export default class Board extends Vue {
     toArticle (item) {
         this.selectedArticle = item
         if (this.$route.path.includes('review')) {
-            this.$router.push({name: 'article', query: {boardNo: freeBoards['review'], articleNo: this.selectedArticle.article_no, from: 'review'}})
+            this.$router.push({name: 'article', query: {boardNo: freeBoards['review'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name}})
         } else {
             this.showPasswordForm = true
         }
     }
 
     toSecretArticle (password) {
-        this.$router.push({name: 'article', query: {boardNo: freeBoards['qna'], articleNo: this.selectedArticle.article_no, from: 'qna', password}})
+        this.$router.push({name: 'article', query: {boardNo: freeBoards['qna'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name, password}})
+    }
+
+    beforeMount () {
+        if (this.$router.currentRoute.name === 'qna') this.isSecretBoard = true
     }
 }
 </script>
@@ -90,13 +103,25 @@ export default class Board extends Vue {
     padding: 2px;
     display: inline-block;
     text-align: center;
-    margin-right: 5px;
+}
+
+.writer {
+    max-width: 70px;
+    width: 70px;
+    line-height: 20px;
+    margin: 0 20px;
+    text-align: right;
+}
+
+.flex {
+    display: flex;
 }
 
 .replied {
     background-color: #655e5e;
     color: $bright-theme;
 }
+
 .not-replied {
     background-color: $transparent-dark-theme;
     color: $bright-theme;
@@ -105,14 +130,6 @@ export default class Board extends Vue {
 .title {
     cursor: pointer;
     line-height: 20px;
-}
-
-.writer {
-    min-width: 70px;
-    width: 70px;
-    line-height: 20px;
-    margin-left: 5px;
-    text-align: right;
 }
 
 .paging {

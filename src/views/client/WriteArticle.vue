@@ -10,6 +10,14 @@
             <input v-model="writer" :disabled="writerDisable"/>
         </div>
         <quill-editor v-model="content" :options="options" class="row editor"/>
+        <div class="row description" v-if="from === 'qna'">
+            <div>*해당 글은 비밀글로 작성됩니다.</div>
+            <div class="padding-left">수정 및 답변조회를 위해 비밀번호를 설정해주세요.</div>
+        </div>
+        <div class="row description" v-else>
+            <div>*해당 글은 공개글로 작성됩니다.</div>
+            <div class="padding-left">수정을 위해 비밀번호를 설정해주세요.</div>
+        </div>
         <div class="row">
             <label>비밀번호</label>
             <input v-model="password"/>
@@ -130,10 +138,11 @@ export default class WriteArticle extends Vue {
                         title: this.title,
                         writer: this.writer,
                         password: this.password,
-                        content: this.content
+                        content: this.content,
+                        isSecret: this.from === 'qna'
                     }
                 })
-                this.$router.back()
+                await this.$router.push({name: 'article', query: {boardNo: freeBoards[this.from], articleNo: this.articleNo, from: this.from, password: this.password}})
             } catch (error) {
                 alert('비밀번호가 틀렸습니다.')
             }
@@ -150,7 +159,7 @@ export default class WriteArticle extends Vue {
                         isSecret: this.from === 'qna'
                     }
                 })
-                this.$router.back()
+                await this.$router.push({name: this.from})
             } catch (error) {
                 console.log(error)
                 alert('문서를 저장 중 오류가 발생했습니다.')
@@ -159,6 +168,11 @@ export default class WriteArticle extends Vue {
     }
 }
 </script>
+<style lang="scss">
+.editor .ql-container {
+    min-height: inherit;
+}
+</style>
 <style scoped lang="scss">
 @import 'src/assets/style/common';
 @import 'src/assets/style/media-query';
@@ -198,8 +212,16 @@ export default class WriteArticle extends Vue {
 }
 
 .editor {
-    height: 40vh;
+    min-height: 40vh;;
     margin-bottom: 42px;
+}
+
+.description {
+    @include desktop {
+        div {
+            display: inline-block;
+        }
+    }
 }
 
 .agreement {
@@ -220,12 +242,16 @@ export default class WriteArticle extends Vue {
 .flex {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .button {
     padding: 5px 20px;
     background-color: $dark-theme;
     color: $bright-theme;
+}
+
+.padding-left {
+    padding-left: 7px;
 }
 </style>

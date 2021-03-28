@@ -286,6 +286,7 @@ async function downscaleImage(
             max: 30, // max size
         })
     // if (document.querySelector(tagName).innerHTML.length + compressedDataUrl.length > 100000) return alert('컨텐츠 사이즈를 초과했습니다.')
+    console.log('downscaled result', compressedDataUrl.length)
     return compressedDataUrl;
 }
 

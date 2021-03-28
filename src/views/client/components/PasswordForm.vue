@@ -36,6 +36,7 @@ export default class PasswordForm extends Vue {
     width: 100%;
     height: 100%;
     background-color: $transparent-dark-theme;
+    opacity: 0.7;
     z-index: 1;
 
     display: flex;

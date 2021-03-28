@@ -97,6 +97,7 @@ export default class Portfolio extends Vue {
     }
     img {
         width: 100%;
+        height: 300px;
         padding-bottom: 3px;
         cursor: pointer;
     }
@@ -125,7 +126,7 @@ export default class Portfolio extends Vue {
     display: flex;
     padding-bottom: 3px;
     font-size: 20px;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin: 10px 0;
 
     div {
