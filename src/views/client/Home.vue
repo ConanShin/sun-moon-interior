@@ -11,6 +11,7 @@
 <script>
 import {Vue, Component} from 'vue-property-decorator'
 import {productToCategory} from "@/components/common";
+import {categories} from "@/cafe24info";
 
 @Component
 export default class Home extends Vue {
@@ -19,8 +20,7 @@ export default class Home extends Vue {
     viewingIndex = 0
 
     async beforeMount() {
-        const HOME_CATEGORY_ID = 23
-        await this.$store.dispatch('findPortfolioList', HOME_CATEGORY_ID)
+        await this.$store.dispatch('findPortfolioList', categories['home'])
         this.listShow = true
     }
 
