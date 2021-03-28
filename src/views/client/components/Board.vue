@@ -66,6 +66,8 @@ export default class Board extends Vue {
     &:first-of-type {
         font-size: 12px;
         padding: 7px 27px;
+        border-top: 1px solid $transparent-dark-theme;
+        background-color: $transparent-bright-theme;
         @include mobile {
             padding: 7px 15px;
         }
