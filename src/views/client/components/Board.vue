@@ -1,13 +1,15 @@
 <template>
     <div class="board">
         <div class="list">
+            <div class="header item">
+                <span class="reply">답변</span>
+                <span class="title">제목</span>
+                <span class="writer">작성자</span>
+            </div>
             <div class="item" v-for="item in list" @click="toArticle(item)">
-                <span class="title reply" v-if="item.is_reply">re: {{ item.title }}</span>
-                <span class="title" v-else>
-                    <span class="replied" v-if="item.is_replied">yes</span>
-                    <span class="not-replied" v-else>no</span>
-                    {{ item.title }}
-                </span>
+                <span class="reply replied" v-if="item.is_replied">yes</span>
+                <span class="reply not-replied" v-else>no</span>
+                <span class="title">{{ item.title }}</span>
                 <span class="writer">{{ item.writer }}</span>
             </div>
         </div>
@@ -62,7 +64,11 @@ export default class Board extends Vue {
 @import 'src/assets/style/common';
 .item {
     &:first-of-type {
-        border-top: 1px solid $transparent-dark-theme;
+        font-size: 12px;
+        padding: 7px 27px;
+        @include mobile {
+            padding: 7px 15px;
+        }
     }
     border-bottom: 1px solid $transparent-dark-theme;
     padding: 18px 27px;
@@ -75,28 +81,36 @@ export default class Board extends Vue {
     justify-content: space-between;
 }
 
+.reply {
+    width: 30px;
+    padding: 2px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.replied {
+    background-color: #655e5e;
+    color: $bright-theme;
+}
+.not-replied {
+    background-color: $transparent-dark-theme;
+    color: $bright-theme;
+}
+
 .title {
     cursor: pointer;
-    width: 500px;
+    width: calc(100% - 300px);
+    line-height: 20px;
 
     @include mobile {
         width: 200px;
     }
-    .replied {
-        background-color: $dark-theme;
-        color: $bright-theme;
-        padding: 2px;
-        margin-right: 2px;
-    }
-    .not-replied {
-        background-color: $transparent-dark-theme;
-        color: $bright-theme;
-        padding: 2px;
-        margin-right: 2px;
-    }
-    &.reply {
-        padding-left: 10px;
-    }
+}
+
+.writer {
+    width: 100px;
+    line-height: 20px;
 }
 
 .paging {

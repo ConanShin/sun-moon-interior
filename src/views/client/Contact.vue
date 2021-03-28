@@ -147,6 +147,7 @@ export default class Contact extends Vue {
     font-weight: bolder;
     @include desktop {
         margin: 30px 0;
+        font-size: 30px;
     }
     @include mobile {
         text-align: center;

@@ -123,6 +123,7 @@ export default class About extends Vue {
     font-weight: bolder;
     margin-bottom: 10px;
     @include desktop {
+        font-size: 30px;
         margin: 30px 0;
     }
     @include mobile {

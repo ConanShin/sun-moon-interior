@@ -32,7 +32,8 @@ export default class Launcher extends Vue {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 1500px;
-    background-image: url("~@/assets/front-door.jpg");
+    //background-image: url("~@/assets/front-door.jpg");
+    background-image: $bright-theme;
     @include mobile {
         background-size: 1000px 100%;
         overflow: hidden;
