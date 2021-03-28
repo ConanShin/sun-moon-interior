@@ -122,19 +122,19 @@ export default class Article extends Vue {
     async saveComment () {
         if (this.invalidComment(this.newComment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('saveComment', {articleNo: this.article.article_no, comment: this.newComment})
-        this.$router.go()
+        await this.findArticle()
     }
 
     async editComment (comment) {
         if (this.invalidComment(comment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('editComment', {articleNo: this.article.article_no, comment})
-        this.$router.go()
+        await this.findArticle()
     }
 
     async deleteComment(password) {
         try {
             await this.$store.dispatch('deleteComment', {articleNo: this.article.article_no, commentNo: this.selectedComment.id, password})
-            this.$router.go()
+            await this.findArticle()
         } catch (error) {
             alert('비밀번호가 틀렸습니다.')
         }
