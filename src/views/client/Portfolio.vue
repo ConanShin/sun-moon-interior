@@ -5,14 +5,16 @@
             <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
                 <div v-for="(categoryId, categoryName) in portfolioSubmenus" @click="redirectSubmenu(categoryName, categoryId)" :class="{bold: $store.getters.py === categoryName}">{{categoryName}}</div>
             </div>
-            <div v-if="isDesktop || !$route.fullPath.includes('product_no')" class="list" :class="{show: listShow}">
+            <div v-if="!$route.fullPath.includes('product_no')" class="list" :class="{show: listShow}">
                 <template v-for="product in products">
                     <img @click="findProduct(product.product_no)" :src="product.list_image"/>
-                    <div class="product-name">{{product.product_name}}</div>
                 </template>
             </div>
         </div>
-        <div v-if="$route.fullPath.includes('product_no')" class="content" v-html="portfolio && portfolio.description"></div>
+        <template v-if="$route.fullPath.includes('product_no') && portfolio">
+            <div class="product-name">{{portfolio.product_name}}</div>
+            <div class="content" v-html="portfolio.description"></div>
+        </template>
     </div>
 </template>
 
@@ -39,10 +41,6 @@ export default class Portfolio extends Vue {
         return this.$store.getters.portfolio
     }
 
-    get isDesktop () {
-        return window.innerWidth > 460
-    }
-
     async findProduct (product_no) {
         await this.$store.dispatch('findPortfolio', product_no)
         await this.$router.push({name: 'portfolio', query: {product_no}}).then().catch(() => {})
@@ -50,7 +48,7 @@ export default class Portfolio extends Vue {
 
     async redirectSubmenu(categoryName, categoryId) {
         this.listShow = false
-        if (!this.isDesktop) await this.$router.push({name: 'portfolio', query: {}}).then().catch(() => {})
+        await this.$router.push({name: 'portfolio', query: {}}).then().catch(() => {})
         this.$store.commit('py', categoryName)
         await this.$store.dispatch('findPortfolioList', categoryId)
         this.listShow = true
@@ -63,7 +61,6 @@ export default class Portfolio extends Vue {
             await this.$store.dispatch('findPortfolioList', productToCategory(this.portfolio))
         } else {
             await this.$store.dispatch('findPortfolioList', pyToCategory(this.py))
-            if (this.isDesktop && this.products[0]) await this.findProduct(this.products[0].product_no)
         }
         this.listShow = true
     }
@@ -73,39 +70,36 @@ export default class Portfolio extends Vue {
 <style scoped lang="scss">
 @import 'src/assets/style/media-query';
 .portfolio {
-    @include desktop {
-        display: flex;
+    .product-name {
+        text-align: center;
+        font-size: 14px;
+        @include desktop {
+            font-size: 24px;
+        }
+        margin-top: 30px;
     }
 }
 .list {
     overflow-y: auto;
-    display: inline-flex;
-    flex-direction: column;
     height: inherit;
     opacity: 0;
 
-    @include mobile {
-        width: 100%;
-    }
-    @include desktop {
-        width: 460px;
-        margin-right: 20px;
-    }
+    width: 100%;
     &.show {
         opacity: 1;
         transition: opacity 0.5s ease-in;
     }
     img {
         width: 100%;
-        height: 300px;
+        @include desktop {
+            width: 49%;
+            margin-right: 10px;
+        }
         padding-bottom: 3px;
         cursor: pointer;
     }
     .bold {
         font-weight: bold;
-    }
-    .product-name {
-        margin-left: 10px;
     }
 }
 .content {

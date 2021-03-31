@@ -25,7 +25,7 @@ export default new Vuex.Store({
         products: [],
         reviews: [],
         portfolio: null,
-        py: '20평대',
+        py: '전체',
         pageLength: 0
     },
     mutations: {

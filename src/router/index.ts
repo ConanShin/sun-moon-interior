@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
-import {makeHash} from "@/components/common";
 
 Vue.use(VueRouter)
 
@@ -81,18 +80,4 @@ const router = new VueRouter({
     base: process.env.VUE_APP_BASE_URL,
     routes
 })
-
-// let hash: string = makeHash(5)
-// router.beforeEach((to, from, next) => {
-//     // @ts-ignore
-//     if (to.query.hash === hash) {
-//         next()
-//     } else {
-//         hash = makeHash(5)
-//         // @ts-ignore
-//         to.query.hash = hash
-//         // @ts-ignore
-//         next(to)
-//     }
-// })
 export default router

@@ -199,16 +199,16 @@ export default class Contact extends Vue {
 
     span:first-child {
         padding: 9px 15px;
-        background-color: $dark-theme;
-        color: $bright-theme;
+        border: 1px solid $dark-theme;
         @include desktop {
             display: inline-block;
-            width: 90px;
+            width: 88px;
+            font-weight: bolder;
         }
     }
 
     span:nth-child(2) {
-        padding: 5px 0;
+        padding: 6px 0;
         border: 1px solid $dark-theme;
         display: inline-block;
         width: 160px;
