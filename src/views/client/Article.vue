@@ -28,8 +28,8 @@
         <div class="comments">
             <div>Comments</div>
             <div class="line" v-for="comment in article.comments">
-                <div class="writer">{{comment.writer}}</div>
-                <div v-if="!comment.editable" class="comment">{{comment.content}}</div>
+                <div class="writer">{{ comment.writer }}</div>
+                <div v-if="!comment.editable" class="comment">{{ comment.content }}</div>
                 <div v-if="!comment.editable" class="button" @click="selectComment(comment, 'edit')">수정</div>
                 <div v-if="!comment.editable" class="button" @click="selectComment(comment, 'delete')">삭제</div>
                 <textarea v-if="comment.editable" v-model="comment.content"/>
@@ -45,8 +45,14 @@
         </div>
 
         <password-form v-if="showPasswordForm" @confirm="deleteArticle" @cancel="showPasswordForm = false"/>
-        <password-form v-if="showPasswordEditComment" @confirm="confirmPassword" @cancel="showPasswordEditComment = false"><div class="no-margin">Comment 수정</div></password-form>
-        <password-form v-if="showPasswordDeleteComment" @confirm="deleteComment" @cancel="showPasswordDeleteComment = false"><div class="no-margin">Comment 삭제</div></password-form>
+        <password-form v-if="showPasswordEditComment" @confirm="confirmPassword"
+                       @cancel="showPasswordEditComment = false">
+            <div class="no-margin">Comment 수정</div>
+        </password-form>
+        <password-form v-if="showPasswordDeleteComment" @confirm="deleteComment"
+                       @cancel="showPasswordDeleteComment = false">
+            <div class="no-margin">Comment 삭제</div>
+        </password-form>
     </div>
 </template>
 
@@ -74,20 +80,30 @@ export default class Article extends Vue {
         content: ''
     }
     selectedComment = null
-    article = {}
+    article = {
+        attach_file_urls: []
+    }
     clickedIndex = ''
 
     get images() {
-        return this.article.attach_file_urls
+        return this.article.attach_file_urls.map(file => file.url).filter(url => {
+            const urlTokens = url.split('.')
+            return ['jpeg', 'jpg', 'png'].includes(urlTokens[urlTokens.length - 1])
+        })
     }
 
     back() {
-        this.$router.push({name: this.from}).catch(() => {})
+        this.$router.push({name: this.from}).catch(() => {
+        })
     }
 
-    async confirmPassword (password) {
+    async confirmPassword(password) {
         try {
-            await this.$store.dispatch('checkPassword', {articleNo: this.article.article_no, commentNo: this.selectedComment.id, password})
+            await this.$store.dispatch('checkPassword', {
+                articleNo: this.article.article_no,
+                commentNo: this.selectedComment.id,
+                password
+            })
             this.selectedComment.password = password
             this.selectedComment.editable = true
             this.showPasswordEditComment = false
@@ -97,7 +113,12 @@ export default class Article extends Vue {
     }
 
     edit() {
-        this.$router.push({name: 'writeArticle', query: {from: this.from}, params: {editContent: this.article}}).catch(() => {})
+        this.$router.push({
+            name: 'writeArticle',
+            query: {from: this.from},
+            params: {editContent: this.article}
+        }).catch(() => {
+        })
     }
 
     async deleteArticle(password) {
@@ -109,7 +130,7 @@ export default class Article extends Vue {
         }
     }
 
-    selectComment (comment, type) {
+    selectComment(comment, type) {
         this.selectedComment = comment
         if (type === 'edit') this.showPasswordEditComment = true
         else this.showPasswordDeleteComment = true
@@ -119,13 +140,13 @@ export default class Article extends Vue {
         return comment.writer.trim() === '' || comment.content.trim() === '' || comment.password.trim() === ''
     }
 
-    async saveComment () {
+    async saveComment() {
         if (this.invalidComment(this.newComment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('saveComment', {articleNo: this.article.article_no, comment: this.newComment})
         await this.findArticle()
     }
 
-    async editComment (comment) {
+    async editComment(comment) {
         if (this.invalidComment(comment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
         await this.$store.dispatch('editComment', {articleNo: this.article.article_no, comment})
         await this.findArticle()
@@ -133,14 +154,18 @@ export default class Article extends Vue {
 
     async deleteComment(password) {
         try {
-            await this.$store.dispatch('deleteComment', {articleNo: this.article.article_no, commentNo: this.selectedComment.id, password})
+            await this.$store.dispatch('deleteComment', {
+                articleNo: this.article.article_no,
+                commentNo: this.selectedComment.id,
+                password
+            })
             await this.findArticle()
         } catch (error) {
             alert('비밀번호가 틀렸습니다.')
         }
     }
 
-    async findArticle () {
+    async findArticle() {
         try {
             this.listShow = false
             this.showPasswordForm = false
@@ -152,7 +177,9 @@ export default class Article extends Vue {
                 content: ''
             }
             this.selectedComment = null
-            this.article = {}
+            this.article = {
+                attach_file_urls: []
+            }
             this.clickedIndex = ''
             this.article = (await this.$store.dispatch('findArticle', {
                 boardNo: this.boardNo,
@@ -237,6 +264,7 @@ export default class Article extends Vue {
     & > * {
         padding-left: 10px;
     }
+
     .line {
         margin: 10px 0;
         border-top: 1px solid $transparent-dark-theme;
@@ -291,6 +319,7 @@ export default class Article extends Vue {
 
 .gray {
     position: fixed;
+    z-index: 1;
     top: 0;
     left: 0;
     display: flex;
@@ -323,6 +352,7 @@ export default class Article extends Vue {
 .no-margin {
     margin: 0;
 }
+
 .margin-bottom {
     padding-bottom: 30px;
 }
