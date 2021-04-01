@@ -12,7 +12,18 @@ import {Vue, Component} from 'vue-property-decorator'
 
 @Component
 export default class Wrapper extends Vue {
+    async beforeMount () {
+        const param = this.getParam()
+        if (param.path) {
+            await this.$router.push({name: param.path, query: param}).catch(() => {})
+        }
+    }
 
+    getParam () {
+        const search = location.search.substring(1);
+        if (search.length === 0) return {}
+        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    }
 }
 </script>
 
