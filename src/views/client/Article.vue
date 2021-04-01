@@ -59,6 +59,7 @@
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import PasswordForm from "@/views/client/components/PasswordForm";
+import {freeBoards} from "@/cafe24info";
 
 @Component({
     components: {PasswordForm}
@@ -142,7 +143,7 @@ export default class Article extends Vue {
 
     async saveComment() {
         if (this.invalidComment(this.newComment)) return alert('작성자, 비밀번호, 내용을 입력해주세요.')
-        await this.$store.dispatch('saveComment', {articleNo: this.article.article_no, comment: this.newComment})
+        await this.$store.dispatch('saveComment', {boardNo: freeBoards[this.from], articleNo: this.article.article_no, comment: this.newComment})
         await this.findArticle()
     }
 

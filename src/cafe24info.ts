@@ -1,7 +1,5 @@
 const freeBoards = {
-    // 'review': 5,
     'review': 1002,
-    // 'qna': 6
     'qna': 4
 }
 

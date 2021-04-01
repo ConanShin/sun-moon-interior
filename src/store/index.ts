@@ -57,7 +57,7 @@ export default new Vuex.Store({
             return api.delete(`cafe-twentyfour/article?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&password=${payload.password}&hash=${makeHash(5)}`)
         },
         saveComment: async (injectee, payload) => {
-            return api.post(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&hash=${makeHash(5)}`, payload.comment)
+            return api.post(`cafe-twentyfour/article/comment?account=${account}&boardNo=${payload.boardNo}&articleNo=${payload.articleNo}&hash=${makeHash(5)}`, payload.comment)
         },
         editComment: async(injectee, payload) => {
             return api.put(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&hash=${makeHash(5)}`, payload.comment)
