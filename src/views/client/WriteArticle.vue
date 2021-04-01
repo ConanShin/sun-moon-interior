@@ -49,13 +49,13 @@
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import 'quill/dist/quill.snow.css'
-import '@/assets/javascripts/imageCompressor.js'
+import {ImageDrop} from '@/assets/javascripts/ImageDrop';
 import {quillEditor} from 'vue-quill-editor'
 import {Quill} from 'vue-quill-editor'
 import Agreement from "@/views/client/components/Agreement";
 import {freeBoards} from "@/cafe24info"
 
-Quill.register('modules/imageCompress', imageCompressor)
+Quill.register('modules/imageDrop', ImageDrop)
 
 @Component({
     components: {Agreement, quillEditor}
@@ -75,11 +75,7 @@ export default class WriteArticle extends Vue {
     options = {
         modules: {
             toolbar: [['image']],
-            imageCompress: {
-                maxWidth: 1000,
-                maxHeight: 1000,
-                tagName: '.editor'
-            }
+            imageDrop: true
         },
         placeholder: ''
     }

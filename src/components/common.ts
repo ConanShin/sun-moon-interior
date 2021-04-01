@@ -14,7 +14,9 @@ export const productToPy = (product: any) => {
 }
 
 export const productToCategory = (product: any) => {
-    const category = product.category.find((category: any) => Object.values(pyToCategoryId).includes(category.category_no))
+    const category = product.category
+        .filter((category: any) => Object.values(pyToCategoryId).includes(category.category_no))
+        .find((category: any) => category.category_no !== pyToCategoryId.전체)
     if (category) return category.category_no
     else return null
 }

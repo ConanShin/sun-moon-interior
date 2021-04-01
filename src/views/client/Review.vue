@@ -58,6 +58,10 @@ export default class Review extends Vue {
         display: inline-flex;
         width: 50px;
         height: 25px;
+        @include desktop {
+            width: 80px;
+            height: 30px;
+        }
         align-items: center;
         justify-content: center;
     }
@@ -72,6 +76,7 @@ export default class Review extends Vue {
     @include desktop {
         margin-left: auto;
         text-align: right;
+        font-size: 15px;
     }
     @include mobile {
     }

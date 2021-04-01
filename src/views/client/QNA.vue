@@ -54,6 +54,10 @@ export default class QNA extends Vue {
         display: inline-flex;
         width: 50px;
         height: 25px;
+        @include desktop {
+            width: 80px;
+            height: 30px;
+        }
         align-items: center;
         justify-content: center;
     }
@@ -66,6 +70,7 @@ export default class QNA extends Vue {
     color: $bright-theme;
     font-size: 10px;
     @include desktop {
+        font-size: 15px;
         margin-left: auto;
         text-align: right;
     }

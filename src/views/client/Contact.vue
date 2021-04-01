@@ -200,7 +200,11 @@ export default class Contact extends Vue {
     span:first-child {
         padding: 9px 15px;
         border: 1px solid $dark-theme;
+        @include mobile {
+            border-right: 0;
+        }
         @include desktop {
+            border-bottom: 0;
             display: inline-block;
             width: 88px;
             font-weight: bolder;

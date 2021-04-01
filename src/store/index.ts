@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import {productToPy} from '@/components/common'
+import {productToCategory, productToPy} from '@/components/common'
 import {makeHash} from "@/components/common";
+import {categories} from "@/cafe24info";
 
 interface Review {
     article_no: number
@@ -25,7 +26,7 @@ export default new Vuex.Store({
         products: [],
         reviews: [],
         portfolio: null,
-        py: '전체',
+        py: categories.portfolio['전체'],
         pageLength: 0
     },
     mutations: {
@@ -72,7 +73,7 @@ export default new Vuex.Store({
         findPortfolio: async (injectee, product_no) => {
             const response = await api.get(`/cafe-twentyfour/product?account=${account}&productNo=${product_no}&hash=${makeHash(5)}`)
 
-            const py = productToPy(response.data.product)
+            const py = productToCategory(response.data.product)
             injectee.commit('py', py)
             injectee.commit('portfolio', response.data.product)
         }

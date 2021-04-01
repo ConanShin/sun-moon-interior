@@ -3,7 +3,7 @@
         <div>
             <div class="menu-name">포트폴리오</div>
             <div class="submenu" :class="{show: $route.path.includes('portfolio')}">
-                <div v-for="(categoryId, categoryName) in portfolioSubmenus" @click="redirectSubmenu(categoryName, categoryId)" :class="{bold: $store.getters.py === categoryName}">{{categoryName}}</div>
+                <div v-for="(categoryId, categoryName) in portfolioSubmenus" @click="redirectSubmenu(categoryId)" :class="{bold: py === categoryId}">{{categoryName}}</div>
             </div>
             <div v-if="!$route.fullPath.includes('product_no')" class="list" :class="{show: listShow}">
                 <template v-for="product in products">
@@ -20,7 +20,7 @@
 
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
-import {productToCategory, pyToCategory} from "@/components/common";
+import {productToCategory, productToPy, pyToCategory} from "@/components/common";
 import {categories} from '@/cafe24info'
 
 @Component
@@ -43,13 +43,14 @@ export default class Portfolio extends Vue {
 
     async findProduct (product_no) {
         await this.$store.dispatch('findPortfolio', product_no)
+        await this.$store.commit('py', productToCategory(this.portfolio))
         await this.$router.push({name: 'portfolio', query: {product_no}}).then().catch(() => {})
     }
 
-    async redirectSubmenu(categoryName, categoryId) {
+    async redirectSubmenu(categoryId) {
         this.listShow = false
         await this.$router.push({name: 'portfolio', query: {}}).then().catch(() => {})
-        this.$store.commit('py', categoryName)
+        this.$store.commit('py', categoryId)
         await this.$store.dispatch('findPortfolioList', categoryId)
         this.listShow = true
 
@@ -60,7 +61,7 @@ export default class Portfolio extends Vue {
             await this.$store.dispatch('findPortfolio', this.product_no)
             await this.$store.dispatch('findPortfolioList', productToCategory(this.portfolio))
         } else {
-            await this.$store.dispatch('findPortfolioList', pyToCategory(this.py))
+            await this.$store.dispatch('findPortfolioList', this.py)
         }
         this.listShow = true
     }

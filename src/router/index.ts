@@ -58,6 +58,22 @@ const routes: Array<RouteConfig> = [
                 name: 'writeArticle',
                 component: require('../views/client/WriteArticle.vue').default,
                 props: (route) => ({ from: route.query.from, editContent: route.params.editContent })
+            },
+        ]
+    },
+    {
+        path: '/admin',
+        component: require('../views/admin/Wrapper').default,
+        children: [
+            {
+                path: '',
+                name: 'Login',
+                component: require('../views/admin/Login').default
+            },
+            {
+                path:'adminWriteArticle',
+                name: 'adminWriteArticle',
+                component: require('../views/admin/WriteArticle').default
             }
         ]
     },
