@@ -81,9 +81,8 @@ export default class Launcher extends Vue {
 
 .enter {
     cursor: pointer;
-    color: $dark-theme-100;
-    border: 1px solid $transparent-dark-theme;
-    background-color: $transparent-bright-theme;
+    color: $dark-theme;
+    border: 1px solid $dark-theme;
     padding: 8px;
     margin-top: -40px;
 }
