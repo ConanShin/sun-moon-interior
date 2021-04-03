@@ -1,6 +1,7 @@
 <template>
     <div class="background" :class="{show: listShow}" :style="{'background-image': products[0] && 'url(' + products[0].list_image + ')'}">
-        <div class="logo" @click="$store.commit('coverHidden', true)">해와달인테리어</div>
+        <div class="logo">해와달인테리어</div>
+        <div class="enter" @click="$store.commit('coverHidden', true)">들어가기</div>
     </div>
 </template>
 
@@ -69,7 +70,6 @@ export default class Launcher extends Vue {
 .logo {
     position: relative;
     top: -10%;
-    left: 10px;
     font-size: 30px;
     letter-spacing: -3px;
     cursor: pointer;
@@ -77,6 +77,14 @@ export default class Launcher extends Vue {
     @include mobile {
         font-size: 20px;
     }
+}
 
+.enter {
+    cursor: pointer;
+    color: $dark-theme-100;
+    border: 1px solid $transparent-dark-theme;
+    background-color: $transparent-bright-theme;
+    padding: 8px;
+    margin-top: -40px;
 }
 </style>

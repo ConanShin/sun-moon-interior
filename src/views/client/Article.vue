@@ -208,7 +208,9 @@ export default class Article extends Vue {
 
 .article {
     opacity: 0;
-
+    @include mobile {
+        width: 97%;
+    }
     &.show {
         opacity: 1;
         transition: opacity 0.5s ease-in;
