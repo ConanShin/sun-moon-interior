@@ -190,7 +190,7 @@ export default class Article extends Vue {
             this.$forceUpdate()
             this.listShow = true
         } catch (error) {
-            alert('비밀번호가 틀렸습니다.')
+            alert(error.response.data.message)
             this.back()
         }
     }
