@@ -67,7 +67,7 @@ const routes: Array<RouteConfig> = [
         children: [
             {
                 path: '',
-                name: 'Login',
+                name: 'admin',
                 component: require('../views/admin/Login').default
             },
             {

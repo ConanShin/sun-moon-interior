@@ -29,18 +29,18 @@ export default class Wrapper extends Vue {
         return window.innerWidth > 460
     }
 
-    async beforeMount () {
-        const param = this.getParam()
-        if (param.path) {
-            await this.$router.push({name: param.path, query: param}).catch(() => {})
-        }
-    }
-
-    getParam () {
-        const search = location.search.substring(1);
-        if (search.length === 0) return {}
-        return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
-    }
+    // async beforeMount () {
+    //     const param = this.getParam()
+    //     if (param.path) {
+    //         await this.$router.push({name: param.path, query: param}).catch(() => {})
+    //     }
+    // }
+    //
+    // getParam () {
+    //     const search = location.search.substring(1);
+    //     if (search.length === 0) return {}
+    //     return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    // }
 }
 </script>
 <style lang="scss">

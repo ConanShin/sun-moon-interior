@@ -8,7 +8,12 @@
             <label>Password</label>
             <input v-model="password"/>
         </div>
-        <div class="row button" @click="login">로그인</div>
+        <div class="row">
+            <label>New Password</label>
+            <input v-model="newPassword"/>
+        </div>
+<!--        <div class="row button" @click="login">로그인</div>-->
+        <div class="row button" @click="editPassword">비밀번호 변경</div>
     </div>
 </template>
 
@@ -20,6 +25,7 @@ import axios from 'axios'
 export default class Login extends Vue {
     userId = ''
     password = ''
+    newPassword = ''
 
     async login () {
         try {
@@ -29,6 +35,20 @@ export default class Login extends Vue {
             await this.$router.push({name: 'adminWriteArticle'})
         } catch (error) {
             alert('비밀번호가 틀렸습니다.')
+        }
+    }
+
+    async editPassword () {
+        axios.defaults.headers['auth-key'] = 'conan'
+        try {
+            await axios.put(process.env.VUE_APP_BACKEND + '/cafe-twentyfour/account/password', {
+                id: this.userId,
+                password: this.password,
+                newPassword: this.newPassword
+            })
+            alert('비밀번호가 변경되었습니다.')
+        } catch (error) {
+            alert(error.response.data.message)
         }
     }
 }
