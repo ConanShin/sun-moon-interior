@@ -109,6 +109,10 @@ export default class Board extends Vue {
 .writer {
     max-width: 70px;
     width: 70px;
+    @include desktop {
+        max-width: 90px;
+        width: 90px;
+    }
     line-height: 20px;
     margin: 0 20px;
     text-align: right;

@@ -10,7 +10,9 @@ export default class App extends Vue {
     async beforeMount () {
         const param = this.getParam()
         if (param.path) {
-            await this.$router.push({name: param.path, query: param}).catch(() => {})
+            const path = param.path
+            delete param['path']
+            await this.$router.push({name: path, query: param}).catch(() => {})
         }
     }
 
