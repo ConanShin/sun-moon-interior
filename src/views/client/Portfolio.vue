@@ -7,13 +7,13 @@
             </div>
             <div v-if="!$route.fullPath.includes('product_no')" class="list" :class="{show: listShow}">
                 <template v-for="product in products">
-                    <img @click="findProduct(product.product_no)" :src="product.list_image"/>
+                    <img class="portfolio-image" @click="findProduct(product.product_no)" :src="product.list_image.replace(/sun-mooninterior.com/g,'old.sun-mooninterior.com')"/>
                 </template>
             </div>
         </div>
         <template v-if="$route.fullPath.includes('product_no') && portfolio">
             <div class="product-name">{{portfolio.product_name}}</div>
-            <div class="content" v-html="portfolio.description"></div>
+            <div class="content" v-html="portfolio.description.replace(/sun-mooninterior.com/g,'old.sun-mooninterior.com')"></div>
         </template>
     </div>
 </template>
@@ -92,6 +92,7 @@ export default class Portfolio extends Vue {
     }
     img {
         width: 100%;
+        height: 400px;
         @include desktop {
             width: 49%;
             margin-right: 10px;

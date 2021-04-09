@@ -2,7 +2,7 @@
     <div class="article" :class="{show: listShow}">
         <h3>작성자: {{ article.writer }}</h3>
         <h3>제목: {{ article.title }}</h3>
-        <div class="content" v-html="article.content"></div>
+        <div class="content" v-html="article.content.replace(/sun-mooninterior.com/g,'old.sun-mooninterior.com')"></div>
         <div class="gallery">
             <img @click="clickedIndex = index" v-for="(url, index) in images" :src="url"/>
         </div>
