@@ -123,7 +123,7 @@ export default class Menu extends Vue {
         height: 0;
         transition: height 0.3s ease-in;
         &.show {
-            height: 108px;
+            height: 130px;
         }
     }
 
@@ -145,7 +145,7 @@ export default class Menu extends Vue {
 
 .menu > .item {
     cursor: pointer;
-    margin: 5px 10px 5px 15px;
+    padding: 5px;
     text-align: center;
     @include mobile {
         margin-right: 0;
