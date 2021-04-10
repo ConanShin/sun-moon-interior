@@ -13,7 +13,7 @@
         </div>
         <template v-if="$route.fullPath.includes('product_no') && portfolio">
             <div class="product-name">{{portfolio.product_name}}</div>
-            <div class="content" v-html="portfolio.description.replace(/sun-mooninterior.com/g,'old.sun-mooninterior.com')"></div>
+            <div class="content" v-html="portfolio.description"></div>
         </template>
     </div>
 </template>
@@ -92,9 +92,9 @@ export default class Portfolio extends Vue {
     }
     img {
         width: 100%;
-        height: 400px;
         @include desktop {
             width: 49%;
+            height: 400px;
             margin-right: 10px;
         }
         padding-bottom: 3px;

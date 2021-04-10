@@ -1,6 +1,6 @@
 <template>
     <div :class="{show: listShow}">
-        <img v-for="product in products" :src="product.list_image.replace(/sun-mooninterior.com/g,'old.sun-mooninterior.com')" @click="redirect(product)"/>
+        <img v-for="product in products" :src="product.list_image" @click="redirect(product)"/>
         <div class="slider-navigation">
             <span v-for="(item, index) in products" class="dot" :class="{colored: index === viewingIndex}"
                   :key="index"></span>
