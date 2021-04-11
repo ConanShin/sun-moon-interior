@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import {productToCategory, productToPy} from '@/components/common'
+import {productToCategory} from '@/components/common'
 import {makeHash} from "@/components/common";
 import {categories} from "@/cafe24info";
 
@@ -17,17 +17,19 @@ interface Review {
 const api = axios.create({
     baseURL: process.env.VUE_APP_BACKEND
 })
+
 Vue.use(Vuex)
 
 const account = process.env.VUE_APP_ACCOUNT
-export default new Vuex.Store({
+const store = new Vuex.Store({
     state: {
         coverHidden: false,
         products: [],
         reviews: [],
         portfolio: null,
         py: categories.portfolio['전체'],
-        pageLength: 0
+        pageLength: 0,
+        loading: false
     },
     mutations: {
         coverHidden: (state, payload) => state.coverHidden = payload,
@@ -35,12 +37,12 @@ export default new Vuex.Store({
         reviews: (state, payload) => state.reviews = payload,
         portfolio: (state, payload) => state.portfolio = payload,
         py: (state, payload) => state.py = payload,
-        pageLength: (state, payload) => state.pageLength = payload
+        pageLength: (state, payload) => state.pageLength = payload,
+        loading: (state, payload) => state.loading = payload
     },
     actions: {
         findArticles: async (injectee, {board, page}) => {
             return api.get(`cafe-twentyfour/article/listArticles?account=${account}&boardNo=${board}&pageNo=${page}&hash=${makeHash(5)}`)
-            // return api.get(`cafe-twentyfour/article/list?domain=${domain}&boardNo=${board}&pageNo=${page}`)
         },
         checkPassword: (injectee, payload) => {
             return api.get(`cafe-twentyfour/article/check?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}&hash=${makeHash(5)}`)
@@ -84,7 +86,28 @@ export default new Vuex.Store({
         reviews: state => state.reviews,
         portfolio: state => state.portfolio,
         py: state => state.py,
-        pageLength: state => state.pageLength
+        pageLength: state => state.pageLength,
+        loading: state => state.loading
     },
     modules: {}
 })
+
+api.interceptors.request.use(config => {
+    console.log(config.method)
+    // @ts-ignore
+    if (['post', 'put'].includes(config.method)) store.commit('loading', true)
+    return config
+}, error => {
+    store.commit('loading', false)
+    return Promise.reject(error)
+})
+
+api.interceptors.response.use(config => {
+    store.commit('loading', false)
+    return config
+}, error => {
+    store.commit('loading', false)
+    return Promise.reject(error)
+})
+
+export default store

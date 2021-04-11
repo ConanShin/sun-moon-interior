@@ -8,13 +8,12 @@
 <script>
 import {Vue, Component} from 'vue-property-decorator'
 import 'quill/dist/quill.snow.css'
-import {ImageDrop} from '@/assets/javascripts/ImageDrop';
+import ImageCompress from 'quill-image-compress'
 import {quillEditor} from 'vue-quill-editor'
-import {Quill} from 'vue-quill-editor'
+import Quill from 'quill'
 import axios from "axios";
 
-Quill.register('modules/imageDrop', ImageDrop)
-
+Quill.register('modules/imageCompress', ImageCompress)
 @Component({
     components: {quillEditor}
 })
@@ -23,7 +22,6 @@ export default class WriteArticle extends Vue {
     options = {
         modules: {
             toolbar: [['image']],
-            imageDrop: true
         },
         placeholder: ''
     }
@@ -60,7 +58,6 @@ export default class WriteArticle extends Vue {
 
     async save() {
         const images = this.searchImages()
-        console.log(images)
         const files = images.map((imageURI, index) => this.DataURIToFile(imageURI, 'content_title_' + index))
         if (files.length === 0) return
         const urls = await this.azureUpload(files)

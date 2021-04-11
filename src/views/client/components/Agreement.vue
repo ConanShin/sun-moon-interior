@@ -1,5 +1,6 @@
 <template>
     <div class="agreement">
+        <span class="close" @click="$emit('cancel')">X</span>
         <p>■ 개인정보의 수집·이용 목적</p>
         <p>서비스 제공 및 계약의 이행, 구매 및 대금결제, 물품배송 또는 청구지 발송, 회원관리 등을 위한 목적</p>
         <p>■ 수집하려는 개인정보의 항목</p>
@@ -24,5 +25,10 @@ export default class Agreement extends Vue {
     width: calc(100% - 40px);
     padding: 20px;
     background-color: $bright-theme-100;
+}
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 </style>

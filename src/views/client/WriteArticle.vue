@@ -9,7 +9,7 @@
             <label>작성자</label>
             <input v-model="writer" :disabled="writerDisable"/>
         </div>
-        <quill-editor v-model="content" :options="options" class="row editor"/>
+        <quill-editor v-model="content" :options="options" class="row editor" ref="myQuillEditor"/>
         <div class="row description" v-if="from === 'qna'">
             <div>*해당 글은 비밀글로 작성됩니다.</div>
             <div class="padding-left">수정 및 답변조회를 위해 비밀번호를 설정해주세요.</div>
@@ -35,9 +35,9 @@
             <div class="check flex row">
                 <input type="checkbox" v-model="checked"/>
                 <span>개인정보처리방침 동의</span>
-                <span class="underline" @click="showAgreement = !showAgreement">내용보기</span>
+                <span class="underline" @click.stop.prevent="showAgreement = !showAgreement">내용보기</span>
             </div>
-            <agreement :class="{show: showAgreement}"/>
+            <agreement :class="{show: showAgreement}" @cancel="showAgreement = false"/>
         </template>
         <div class="last row flex">
             <div class="button" @click="save">등록</div>
@@ -49,13 +49,12 @@
 <script>
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import 'quill/dist/quill.snow.css'
-import {ImageDrop} from '@/assets/javascripts/ImageDrop';
 import {quillEditor} from 'vue-quill-editor'
-import {Quill} from 'vue-quill-editor'
+import Quill from 'quill'
+import ImageCompress from 'quill-image-compress'
 import Agreement from "@/views/client/components/Agreement";
 import {freeBoards} from "@/cafe24info"
-
-Quill.register('modules/imageDrop', ImageDrop)
+Quill.register('modules/imageCompress', ImageCompress)
 
 @Component({
     components: {Agreement, quillEditor}
@@ -75,7 +74,13 @@ export default class WriteArticle extends Vue {
     options = {
         modules: {
             toolbar: [['image']],
-            imageDrop: true
+            imageCompress: {
+                quality: 0.7, // default
+                maxWidth: 2000, // default
+                maxHeight: 2000, // default
+                imageType: 'image/jpeg', // default
+                debug: false, // default
+            }
         },
         placeholder: ''
     }

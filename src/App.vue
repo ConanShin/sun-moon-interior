@@ -1,11 +1,16 @@
 <template>
-    <router-view/>
+    <div>
+        <router-view/>
+        <loading/>
+    </div>
 </template>
 
 <script>
 import {Vue, Component} from 'vue-property-decorator'
-
-@Component
+import Loading from "@/views/client/components/Loading";
+@Component({
+  components: {Loading}
+})
 export default class App extends Vue {
     async beforeMount () {
         const param = this.getParam()
