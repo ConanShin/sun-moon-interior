@@ -21,6 +21,10 @@ export default class App extends Vue {
         }
     }
 
+    mounted () {
+        document.addEventListener('contextmenu', event => event.preventDefault())
+    }
+
     getParam () {
         const search = location.search.substring(1);
         if (search.length === 0) return {}
