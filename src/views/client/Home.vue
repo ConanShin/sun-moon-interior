@@ -1,16 +1,16 @@
 <template>
     <div :class="{show: listShow}">
-        <img v-for="product in products" :src="product.list_image" @click="redirect(product)"/>
+        <transition-group name="fade">
+            <img v-for="(product, index) in imageList" :src="product.list_image" @click="redirect(product)" :key="index"/>
+        </transition-group>
         <div class="slider-navigation">
-            <span v-for="(item, index) in products" class="dot" :class="{colored: index === viewingIndex}"
-                  :key="index"></span>
+            <span v-for="(item, index) in products" class="dot" :class="{colored: index === viewingIndex}" :key="index"></span>
         </div>
     </div>
 </template>
 
 <script>
-import {Vue, Component} from 'vue-property-decorator'
-import {productToCategory} from "@/components/common";
+import {Vue, Component, Watch} from 'vue-property-decorator'
 import {categories} from "@/cafe24info";
 
 @Component
@@ -18,6 +18,7 @@ export default class Home extends Vue {
     listShow = false
     throttle = null
     viewingIndex = 0
+    imageList = []
 
     async beforeMount() {
         await this.$store.dispatch('findPortfolioList', categories['home'])
@@ -40,8 +41,17 @@ export default class Home extends Vue {
         return this.$store.getters.products
     }
 
+    @Watch('products')
+    productsChanged(products) {
+        products.forEach((product, index) => {
+            setTimeout(() => {
+                this.imageList.push(product)
+            }, index * 300)
+        })
+    }
+
     async redirect(product) {
-        this.$router.push({name: 'portfolio', query: {product_no: product.product_no}}).then().catch(() => {})
+        // this.$router.push({name: 'portfolio', query: {product_no: product.product_no}}).then().catch(() => {})
     }
 
     colorDot() {
@@ -56,7 +66,7 @@ export default class Home extends Vue {
     indexByScrollPosition() {
         const imageCount = this.$el.querySelectorAll('img').length
         const avgHeight = 100 / imageCount
-        return Math.min(Math.floor(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100 / avgHeight), imageCount - 1)
+        return Math.max(0, Math.min(Math.floor(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100 / avgHeight), imageCount - 1))
     }
 }
 </script>
@@ -66,9 +76,16 @@ export default class Home extends Vue {
 @import 'src/assets/style/common';
 
 img {
-    width: 100%;
-    margin: auto;
+    width: 80%;
+    max-height: 800px;
+    margin: 0 auto 7px auto;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
     display: block;
+    @include mobile {
+        width: 100%;
+    }
 }
 
 .scroll {
@@ -83,7 +100,7 @@ img {
 
 .slider-navigation {
     top: 156px;
-    left: calc((100vw - min(80vw, #{$view-max-width})) / 2);
+    left: calc((100vw - min(64vw, #{$view-max-width * 0.8})) / 2); // 80 * 80% = 64
     @include mobile {
         top: 64px;
         left: 0;

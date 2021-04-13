@@ -4,6 +4,8 @@ import axios from 'axios'
 import {productToCategory} from '@/components/common'
 import {makeHash} from "@/components/common";
 import {categories} from "@/cafe24info";
+import persistStore from "@/store/persistStore";
+import createPersistedState from "vuex-persistedstate";
 
 interface Review {
     article_no: number
@@ -23,7 +25,6 @@ Vue.use(Vuex)
 const account = process.env.VUE_APP_ACCOUNT
 const store = new Vuex.Store({
     state: {
-        coverHidden: false,
         products: [],
         reviews: [],
         portfolio: null,
@@ -32,7 +33,6 @@ const store = new Vuex.Store({
         loading: false
     },
     mutations: {
-        coverHidden: (state, payload) => state.coverHidden = payload,
         products: (state, payload) => state.products = payload,
         reviews: (state, payload) => state.reviews = payload,
         portfolio: (state, payload) => state.portfolio = payload,
@@ -69,6 +69,7 @@ const store = new Vuex.Store({
             return api.delete(`cafe-twentyfour/article/comment?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}&hash=${makeHash(5)}`)
         },
         findPortfolioList: async (injectee, category: string) => {
+            injectee.commit('products', [])
             const response = await api.get(`/cafe-twentyfour/product/list?account=${account}&category=${category}&hash=${makeHash(5)}`)
             injectee.commit('products', response.data.products)
         },
@@ -81,7 +82,6 @@ const store = new Vuex.Store({
         }
     },
     getters: {
-        coverHidden: state => state.coverHidden,
         products: state => state.products,
         reviews: state => state.reviews,
         portfolio: state => state.portfolio,
@@ -89,7 +89,10 @@ const store = new Vuex.Store({
         pageLength: state => state.pageLength,
         loading: state => state.loading
     },
-    modules: {}
+    modules: {persistStore},
+    plugins: [createPersistedState({
+        paths: ['persistStore']
+    })]
 })
 
 api.interceptors.request.use(config => {
