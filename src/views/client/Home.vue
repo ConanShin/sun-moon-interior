@@ -1,7 +1,7 @@
 <template>
     <div :class="{show: listShow}">
         <transition-group name="fade">
-            <img v-for="(product, index) in imageList" :src="product.list_image" @click="redirect(product)" :key="index"/>
+            <img v-for="(product, index) in imageList" :src="product.list_image" @click="redirect(product)" :key="product.product_no"/>
         </transition-group>
         <div class="slider-navigation">
             <span v-for="(item, index) in products" class="dot" :class="{colored: index === viewingIndex}" :key="index"></span>

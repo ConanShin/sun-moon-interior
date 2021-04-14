@@ -23,6 +23,26 @@ const api = axios.create({
 Vue.use(Vuex)
 
 const account = process.env.VUE_APP_ACCOUNT
+const plugins = []
+let canStoreAnything = !!window.sessionStorage;
+if (canStoreAnything) {
+    try {
+        window.sessionStorage.setItem("__test_sessionstorage_test__", "1");
+        window.sessionStorage.removeItem("__test_sessionstorage_test__");
+    } catch (e) {
+        canStoreAnything = false;
+    }
+}
+
+if (canStoreAnything) {
+    const vuexPersist = createPersistedState({
+        paths: ['persistStore'],
+        storage: window.sessionStorage
+    });
+
+    plugins.push(vuexPersist);
+}
+
 const store = new Vuex.Store({
     state: {
         products: [],
@@ -90,10 +110,7 @@ const store = new Vuex.Store({
         loading: state => state.loading
     },
     modules: {persistStore},
-    plugins: [createPersistedState({
-        paths: ['persistStore'],
-        storage: window.sessionStorage,
-    })]
+    plugins
 })
 
 api.interceptors.request.use(config => {
