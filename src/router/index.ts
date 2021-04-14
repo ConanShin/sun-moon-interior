@@ -92,7 +92,7 @@ const router = new VueRouter({
             return { x: 0, y: 0, behavior: 'smooth' }
         }
     },
-    mode: 'history',
+    // mode: 'history',
     base: process.env.VUE_APP_BASE_URL,
     routes
 })
