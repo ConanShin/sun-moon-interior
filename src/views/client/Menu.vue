@@ -9,8 +9,8 @@
         </div>
         <template v-if="isDesktop">
             <div class="menu">
-<!--                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</div>-->
-                <a class="item" v-for="menu in menus" :href="'/' + menu.path" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</a>
+                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</div>
+<!--                <a class="item" v-for="menu in menus" :href="'/' + menu.path" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</a>-->
             </div>
         </template>
         <template v-else>
