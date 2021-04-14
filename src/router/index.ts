@@ -84,6 +84,10 @@ const routes: Array<RouteConfig> = [
     }
 ]
 
+
+// @ts-ignore
+const isIE = /*@cc_on!@*/false || !!document.documentMode;
+
 const router = new VueRouter({
     scrollBehavior (to, from, savedPosition) {
         if (savedPosition) {
@@ -92,7 +96,7 @@ const router = new VueRouter({
             return { x: 0, y: 0, behavior: 'smooth' }
         }
     },
-    // mode: 'history',
+    mode: isIE ? 'hash' : 'history',
     base: process.env.VUE_APP_BASE_URL,
     routes
 })
