@@ -10,7 +10,7 @@
         <template v-if="isDesktop">
             <div class="menu">
                 <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</div>
-<!--                <a class="item" v-for="menu in menus" :href="'/' + menu.path" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</a>-->
+                <a class="item invisible" v-for="menu in menus" :href="'/' + menu.path" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</a>
             </div>
         </template>
         <template v-else>
@@ -154,5 +154,10 @@ export default class Menu extends Vue {
     }
     text-decoration: none;
     color: inherit;
+    &.invisible {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
 }
 </style>
