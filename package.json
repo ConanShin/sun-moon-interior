@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build --mode production",
+    "start": "vue-cli-service build --mode production",
     "prebuild": "rm -rf docs",
     "postbuild": "mv dist docs"
   },
