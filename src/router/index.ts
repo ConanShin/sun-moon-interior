@@ -96,8 +96,7 @@ const router = new VueRouter({
             return { x: 0, y: 0, behavior: 'smooth' }
         }
     },
-    // mode: isIE ? 'hash' : 'history',
-    mode: 'history',
+    mode: isIE ? 'hash' : 'history',
     base: process.env.VUE_APP_BASE_URL,
     routes
 })
