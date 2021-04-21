@@ -8,22 +8,22 @@
 
 
     <url>
-        <loc>https://sun-mooninterior.com/</loc>
+        <loc>https://sun-mooninterior.herokuapp.com/</loc>
     </url>
     <url>
-        <loc>https://sun-mooninterior.com/about</loc>
+        <loc>https://sun-mooninterior.herokuapp.com/about</loc>
     </url>
     <url>
-        <loc>https://sun-mooninterior.com/portfolio</loc>
+        <loc>https://sun-mooninterior.herokuapp.com/portfolio</loc>
     </url>
     <url>
-        <loc>https://sun-mooninterior.com/contact</loc>
+        <loc>https://sun-mooninterior.herokuapp.com/contact</loc>
     </url>
     <url>
-        <loc>https://sun-mooninterior.com/review</loc>
+        <loc>https://sun-mooninterior.herokuapp.com/review</loc>
     </url>
     <url>
-        <loc>https://sun-mooninterior.com/qna</loc>
+        <loc>https://sun-mooninterior.herokuapp.com/qna</loc>
     </url>
 
 </urlset>
