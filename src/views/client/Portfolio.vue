@@ -7,7 +7,7 @@
             </div>
             <div v-if="!$route.fullPath.includes('product_no')" class="list" :class="{show: listShow}">
                 <template v-for="product in products">
-                    <img class="portfolio-image" @click="findProduct(product.product_no)" :src="product.list_image.replace(/sun-mooninterior.com/g,'old.sun-mooninterior.com')"/>
+                    <img class="portfolio-image" @click="findProduct(product.product_no)" :src="product.list_image.replace(/sun-mooninterior.com/g,'old.sun-mooninterior.com')" :alt="product.product_name"/>
                 </template>
             </div>
         </div>
