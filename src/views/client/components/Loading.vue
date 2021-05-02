@@ -25,6 +25,7 @@ export default class Loading extends Vue {
     width: 0;
     height: 0;
     opacity: 0;
+    overflow: hidden;
     background-color: rgba($transparent-dark-theme, 0.8);
     z-index: 1;
 
