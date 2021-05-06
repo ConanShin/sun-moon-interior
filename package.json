@@ -8,7 +8,7 @@
     "build": "vue-cli-service build --mode production",
     "start": "node server.js",
     "prebuild": "rm -rf docs",
-    "postbuild": "mv dist docs & rm -f docs/404.html & cp docs/index.html docs/404.html"
+    "postbuild": "mv dist docs & rm -f ./docs/404.html & cp ./docs/index.html ./docs/404.html"
   },
   "dependencies": {
     "connect-history-api-fallback": "^1.6.0",

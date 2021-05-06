@@ -62,10 +62,7 @@ const store = new Vuex.Store({
     },
     actions: {
         findArticles: async (injectee, {board, page}) => {
-            store.commit('loading', true)
-            const response = await api.get(`cafe-twentyfour/article/listArticles?account=${account}&boardNo=${board}&pageNo=${page}&hash=${makeHash(5)}`)
-            store.commit('loading', false)
-            return response
+            return api.get(`cafe-twentyfour/article/listArticles?account=${account}&boardNo=${board}&pageNo=${page}&hash=${makeHash(5)}`)
         },
         checkPassword: (injectee, payload) => {
             return api.get(`cafe-twentyfour/article/check?account=${account}&articleNo=${payload.articleNo}&commentNo=${payload.commentNo}&password=${payload.password}&hash=${makeHash(5)}`)
