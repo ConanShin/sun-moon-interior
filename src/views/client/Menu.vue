@@ -9,8 +9,8 @@
         </div>
         <template v-if="isDesktop">
             <div class="menu">
-                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</div>
-                <a class="item invisible" v-for="menu in menus" :href="'/' + menu.path" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</a>
+<!--                <div class="item" v-for="menu in menus" @click="redirect(menu.path)" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</div>-->
+                <a class="item" v-for="menu in menus" :href="'/' + menu.path" :class="{bold: $route.path.includes(menu.path)}">{{ menu.name }}</a>
             </div>
         </template>
         <template v-else>
@@ -40,8 +40,8 @@ export default class Menu extends Vue {
         {name: '소개', path: 'about'},
         {name: '포트폴리오', path: 'portfolio'},
         {name: '견적의뢰', path: 'contact'},
-        {name: '시공후기', path: 'review'},
-        {name: '문의하기', path: 'qna'},
+        {name: '시공후기', path: 'review?page=1'},
+        {name: '문의하기', path: 'qna?page=1'},
     ]
 
     async redirect(name) {
