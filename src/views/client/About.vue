@@ -6,10 +6,8 @@
             <div class="bold">Philosophy</div>
             <div class="line-height">
                 <div>해와달 인테리어는</div>
-                <div>가족을 편안하게 보듬어 줄 수 있는 따뜻한 공간,</div>
+                <div>낮과밤 우리가족이 편하게 쉴수있는 공간</div>
                 <div>그리고 실용적인 공간을 제안합니다.</div>
-                <div>시간이 지나도 질리지 않고 고유한 아름다움을 간직한</div>
-                <div>특별한 공간을 선물합니다.</div>
             </div>
             <div class="bold gap">Location</div>
             <div class="margin">사전 예약을 통한 방문상담만 가능합니다.</div>
