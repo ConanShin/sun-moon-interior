@@ -13,7 +13,7 @@
         </div>
         <template v-if="$route.fullPath.includes('product_no') && portfolio">
             <div class="product-name">{{portfolio.product_name}}</div>
-            <div class="content" v-html="portfolio.description"></div>
+            <div class="content" v-html='portfolio.description.replace(/src="\/web/g, `src="http://sunmooninterior1.cafe24.com/web`)'></div>
         </template>
     </div>
 </template>

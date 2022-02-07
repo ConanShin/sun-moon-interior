@@ -21,6 +21,7 @@ export default class Agreement extends Vue {
 
 <style scoped lang="scss">
 @import 'src/assets/style/common';
+@import 'src/assets/style/media-query';
 .agreement {
     width: calc(100% - 40px);
     padding: 20px;
@@ -30,5 +31,11 @@ export default class Agreement extends Vue {
   position: absolute;
   right: 20px;
   top: 20px;
+}
+
+@include desktop {
+    .close {
+        display: none;
+    }
 }
 </style>
