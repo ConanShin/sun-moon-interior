@@ -143,4 +143,8 @@ input:-webkit-autofill:active {
 .button {
     cursor: pointer;
 }
+.disable-save {
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+}
 </style>
