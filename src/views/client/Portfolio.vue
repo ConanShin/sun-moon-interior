@@ -120,6 +120,7 @@ export default class Portfolio extends Vue {
     ::v-deep img {
         width: 100%;
         max-width: 1999px;
+        min-height: 0 !important;
     }
 }
 
