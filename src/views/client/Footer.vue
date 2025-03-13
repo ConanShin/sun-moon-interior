@@ -1,6 +1,6 @@
 <template>
     <div :class="{show: !footerHidden}">
-        <div class="medium">경기도 김포시 풍무로 96번길 107</div>
+        <div class="medium">경기도 김포시 풍무로128 웰라움퍼펙트시티 2F 207호</div>
         <div class="medium">TEL 031 997 0512 FAX 031 997 0513</div>
         <div class="small">EMAIL sun-mooninterior@naver.com</div>
         <div class="small">Copyright © 해와달인테리어 All rights reserved</div>

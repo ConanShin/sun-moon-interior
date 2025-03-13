@@ -12,7 +12,7 @@
             <div class="bold gap">Location</div>
             <div class="margin">사전 예약을 통한 방문상담만 가능합니다.</div>
             <div class="line-height">
-                <div>A. 경기도 김포시 풍무로 96번길 107</div>
+                <div>A. 경기도 김포시 풍무로128 웰라움퍼펙트시티 2F 207호</div>
                 <div>T. 031 997 0512</div>
                 <div>F. 031 997 0513</div>
                 <div>E. sun-mooninterior@naver.com</div>
@@ -38,7 +38,7 @@
         <div class="padding">
             <div class="bold">Location</div>
             <div class="center">
-                <div>경기도 김포시 풍무로 96번길 107</div>
+                <div>경기도 김포시 풍무로128 웰라움퍼펙트시티 2F 207호</div>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3160.911291432864!2d126.72555341603122!3d37.60424672972388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c83af94f7c97d%3A0xc8972452b885ca26!2z7ZW07JmA64us7J247YWM66as7Ja0!5e0!3m2!1sko!2skr!4v1618021299075!5m2!1sko!2skr" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 <div class="small">TEL 031 997 0512 FAX 031 997 0513</div>
                 <div class="small">EMAIL sun-mooninterior@naver.com</div>

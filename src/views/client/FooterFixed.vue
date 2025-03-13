@@ -5,13 +5,13 @@
             <div class="instagram link" @click="open('https://instagram.com/tk_bbabba?igshid=5ohzmlkgb4lo')"/>
         </div>
         <template v-if="isDesktop">
-            <div class="large">A. 경기도 김포시 풍무로 96번길 107 | T. 031 997 0512 | F. 031 997 0513 | E.
+            <div class="large">A. 경기도 김포시 풍무로128 웰라움퍼펙트시티 2F 207호 | T. 031 997 0512 | F. 031 997 0513 | E.
                 sun-mooninterior@naver.com
             </div>
             <div class="large">사업자등록번호 492-18-01066</div>
         </template>
         <template v-else>
-            <div class="medium">A. 경기도 김포시 풍무로 96번길 107</div>
+            <div class="medium">A. 경기도 김포시 풍무로128 웰라움퍼펙트시티 2F 207호</div>
             <div class="medium">T. 031 997 0512 F. 031 997 0513</div>
             <div class="small">E. sun-mooninterior@naver.com</div>
             <div class="small">사업자등록번호 492-18-01066</div>
