@@ -189,7 +189,9 @@ export default class Article extends Vue {
             })).data
             this.$forceUpdate()
             this.listShow = true
+            this.$store.commit('loading', false)
         } catch (error) {
+            this.$store.commit('loading', false)
             alert(error.response.data.message)
             this.back()
         }

@@ -56,14 +56,20 @@ export default class Board extends Vue {
     toArticle (item) {
         this.selectedArticle = item
         if (this.$route.path.includes('review')) {
-            this.$router.push({name: 'article', query: {boardNo: freeBoards['review'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name}}).catch(() => {})
+            this.$store.commit('loading', true)
+            this.$router.push({name: 'article', query: {boardNo: freeBoards['review'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name}}).catch(() => {
+                this.$store.commit('loading', false)
+            })
         } else {
             this.showPasswordForm = true
         }
     }
 
     toSecretArticle (password) {
-        this.$router.push({name: 'article', query: {boardNo: freeBoards['qna'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name, password}}).catch(() => {})
+        this.$store.commit('loading', true)
+        this.$router.push({name: 'article', query: {boardNo: freeBoards['qna'], articleNo: this.selectedArticle.article_no, from: this.$router.currentRoute.name, password}}).catch(() => {
+            this.$store.commit('loading', false)
+        })
     }
 
     beforeMount () {
